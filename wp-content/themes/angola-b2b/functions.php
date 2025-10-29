@@ -17,14 +17,23 @@ define('ANGOLA_B2B_THEME_DIR', get_template_directory());
 define('ANGOLA_B2B_THEME_URI', get_template_directory_uri());
 
 // Include required files
-require_once ANGOLA_B2B_THEME_DIR . '/inc/theme-setup.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/enqueue-scripts.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/custom-post-types.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/custom-taxonomies.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/acf-fields.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/admin-customization.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/multilingual.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/ajax-handlers.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/inquiry-system.php';
-require_once ANGOLA_B2B_THEME_DIR . '/inc/helpers.php';
+$includes = array(
+    '/inc/theme-setup.php',
+    '/inc/enqueue-scripts.php',
+    '/inc/custom-post-types.php',
+    '/inc/custom-taxonomies.php',
+    '/inc/acf-fields.php',
+    '/inc/admin-customization.php',
+    '/inc/multilingual.php',
+    '/inc/ajax-handlers.php',
+    '/inc/inquiry-system.php',
+    '/inc/helpers.php',
+);
+
+foreach ($includes as $file) {
+    $filepath = ANGOLA_B2B_THEME_DIR . $file;
+    if (file_exists($filepath)) {
+        require_once $filepath;
+    }
+}
 

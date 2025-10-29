@@ -14,7 +14,10 @@ get_header();
             <h1 class="page-title"><?php esc_html_e('Products', 'angola-b2b'); ?></h1>
             <?php
             if (is_tax('product_category')) {
-                echo '<p class="archive-description">' . term_description() . '</p>';
+                $term_desc = term_description();
+                if ($term_desc) {
+                    echo '<p class="archive-description">' . wp_kses_post($term_desc) . '</p>';
+                }
             }
             ?>
         </header>
@@ -34,8 +37,10 @@ get_header();
                         'taxonomy' => 'product_category',
                         'hide_empty' => true,
                     ));
-                    foreach ($categories as $category) {
-                        echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                    if (!is_wp_error($categories) && !empty($categories)) {
+                        foreach ($categories as $category) {
+                            echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+                        }
                     }
                     ?>
                 </select>

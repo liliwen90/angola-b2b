@@ -23,9 +23,10 @@ get_header();
                     <source src="<?php echo esc_url($hero_video); ?>" type="video/mp4">
                 </video>
                 <?php
-            elseif ($hero_image) :
+            elseif ($hero_image && is_array($hero_image)) :
+                $hero_alt = !empty($hero_image['alt']) ? $hero_image['alt'] : get_bloginfo('name');
                 ?>
-                <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr($hero_image['alt']); ?>" class="hero-image">
+                <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr($hero_alt); ?>" class="hero-image">
                 <?php
             endif;
             ?>
@@ -56,9 +57,11 @@ get_header();
                         $description = get_sub_field('advantage_description');
                         ?>
                         <div class="advantage-card">
-                            <?php if ($icon) : ?>
+                            <?php if ($icon && is_array($icon)) : 
+                                $icon_alt = !empty($icon['alt']) ? $icon['alt'] : $title;
+                            ?>
                                 <div class="advantage-icon">
-                                    <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt']); ?>">
+                                    <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon_alt); ?>">
                                 </div>
                             <?php endif; ?>
                             <h3 class="advantage-title"><?php echo esc_html($title); ?></h3>
@@ -112,7 +115,11 @@ get_header();
             <div class="cta-content">
                 <h2 class="cta-title"><?php echo esc_html(get_field('cta_title', 'option')); ?></h2>
                 <p class="cta-text"><?php echo esc_html(get_field('cta_text', 'option')); ?></p>
-                <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="btn btn-light">
+                <?php
+                $contact_page = get_page_by_path('contact');
+                $contact_url = $contact_page ? get_permalink($contact_page) : home_url('/contact/');
+                ?>
+                <a href="<?php echo esc_url($contact_url); ?>" class="btn btn-light">
                     <?php esc_html_e('Contact Us Now', 'angola-b2b'); ?>
                 </a>
             </div>

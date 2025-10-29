@@ -54,9 +54,9 @@
                 if (function_exists('icl_get_languages')) {
                     $languages = icl_get_languages('skip_missing=0&orderby=code');
                     if (!empty($languages)) {
-                        echo '<select id="language-select" onchange="window.location.href=this.value">';
+                        echo '<select id="language-select" class="language-select-dropdown" aria-label="' . esc_attr__('Select Language', 'angola-b2b') . '">';
                         foreach ($languages as $lang) {
-                            $selected = $lang['active'] ? 'selected' : '';
+                            $selected = $lang['active'] ? 'selected="selected"' : '';
                             echo '<option value="' . esc_url($lang['url']) . '" ' . $selected . '>' . esc_html($lang['native_name']) . '</option>';
                         }
                         echo '</select>';
@@ -67,14 +67,19 @@
             
             <!-- CTA Button -->
             <div class="header-cta">
-                <a href="<?php echo esc_url(get_permalink(get_page_by_path('contact'))); ?>" class="cta-button">
+                <?php
+                $contact_page = get_page_by_path('contact');
+                $contact_url = $contact_page ? get_permalink($contact_page) : home_url('/contact/');
+                ?>
+                <a href="<?php echo esc_url($contact_url); ?>" class="cta-button">
                     <?php esc_html_e('Request Quote', 'angola-b2b'); ?>
                 </a>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+            <button class="mobile-menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation menu', 'angola-b2b'); ?>">
                 <span class="menu-toggle-icon"></span>
+                <span class="screen-reader-text"><?php esc_html_e('Menu', 'angola-b2b'); ?></span>
             </button>
         </div>
     </header>

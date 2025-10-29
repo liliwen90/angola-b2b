@@ -16,8 +16,8 @@
                         dynamic_sidebar('footer-1');
                     } else {
                         ?>
-                        <h3><?php bloginfo('name'); ?></h3>
-                        <p><?php bloginfo('description'); ?></p>
+                        <h3><?php echo esc_html(get_bloginfo('name')); ?></h3>
+                        <p><?php echo esc_html(get_bloginfo('description')); ?></p>
                         <?php
                     }
                     ?>
@@ -61,21 +61,45 @@
 
             <!-- Social Media Links -->
             <div class="footer-social">
-                <a href="#" class="social-link" aria-label="Facebook"><i class="dashicons dashicons-facebook"></i></a>
-                <a href="#" class="social-link" aria-label="Twitter"><i class="dashicons dashicons-twitter"></i></a>
-                <a href="#" class="social-link" aria-label="LinkedIn"><i class="dashicons dashicons-linkedin"></i></a>
-                <a href="#" class="social-link whatsapp-link" aria-label="WhatsApp"><i class="dashicons dashicons-whatsapp"></i></a>
+                <?php
+                $social_links = array(
+                    'facebook' => get_field('facebook_url', 'option'),
+                    'twitter' => get_field('twitter_url', 'option'),
+                    'linkedin' => get_field('linkedin_url', 'option'),
+                    'whatsapp' => get_field('whatsapp_url', 'option'),
+                );
+                
+                $social_icons = array(
+                    'facebook' => 'dashicons-facebook-alt',
+                    'twitter' => 'dashicons-twitter',
+                    'linkedin' => 'dashicons-linkedin',
+                    'whatsapp' => 'dashicons-whatsapp',
+                );
+                
+                foreach ($social_links as $network => $url) {
+                    if (!empty($url)) {
+                        printf(
+                            '<a href="%1$s" class="social-link social-link-%2$s" target="_blank" rel="noopener noreferrer" aria-label="%3$s"><span class="dashicons %4$s"></span></a>',
+                            esc_url($url),
+                            esc_attr($network),
+                            esc_attr(ucfirst($network)),
+                            esc_attr($social_icons[$network])
+                        );
+                    }
+                }
+                ?>
             </div>
 
             <!-- Copyright -->
             <div class="footer-copyright">
-                <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. <?php esc_html_e('All rights reserved.', 'angola-b2b'); ?></p>
+                <p>&copy; <?php echo esc_html(date_i18n('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php esc_html_e('All rights reserved.', 'angola-b2b'); ?></p>
             </div>
         </div>
 
         <!-- Back to Top Button -->
-        <button class="back-to-top" aria-label="<?php esc_attr_e('Back to top', 'angola-b2b'); ?>">
-            <span class="dashicons dashicons-arrow-up-alt"></span>
+        <button class="back-to-top" aria-label="<?php esc_attr_e('Back to top', 'angola-b2b'); ?>" style="display: none;">
+            <span class="dashicons dashicons-arrow-up-alt" aria-hidden="true"></span>
+            <span class="screen-reader-text"><?php esc_html_e('Back to top', 'angola-b2b'); ?></span>
         </button>
     </footer>
 

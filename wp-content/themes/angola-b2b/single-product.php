@@ -69,7 +69,7 @@ while (have_posts()) :
                                         ?>
                                         <tr class="spec-row">
                                             <td>
-                                                <?php if ($spec_icon) : ?>
+                                                <?php if ($spec_icon && is_array($spec_icon) && !empty($spec_icon['url'])) : ?>
                                                     <img src="<?php echo esc_url($spec_icon['url']); ?>" alt="" class="spec-icon">
                                                 <?php endif; ?>
                                                 <?php echo esc_html($spec_name); ?>
@@ -132,11 +132,16 @@ while (have_posts()) :
                         if ($certifications) :
                             ?>
                             <div class="certifications-grid">
-                                <?php foreach ($certifications as $cert) : ?>
+                                <?php foreach ($certifications as $cert) : 
+                                    if (is_array($cert) && !empty($cert['url'])) :
+                                        $cert_alt = !empty($cert['alt']) ? $cert['alt'] : __('Certification Badge', 'angola-b2b');
+                                ?>
                                     <div class="certification-item">
-                                        <img src="<?php echo esc_url($cert['url']); ?>" alt="<?php echo esc_attr($cert['alt']); ?>">
+                                        <img src="<?php echo esc_url($cert['url']); ?>" alt="<?php echo esc_attr($cert_alt); ?>">
                                     </div>
-                                <?php endforeach; ?>
+                                <?php 
+                                    endif;
+                                endforeach; ?>
                             </div>
                             <?php
                         endif;
@@ -171,9 +176,11 @@ while (have_posts()) :
                                     $customer_logo = get_sub_field('customer_logo');
                                     ?>
                                     <div class="customer-case-item">
-                                        <?php if ($case_image) : ?>
+                                        <?php if ($case_image && is_array($case_image) && !empty($case_image['url'])) : 
+                                            $case_image_alt = !empty($case_image['alt']) ? $case_image['alt'] : $case_title;
+                                        ?>
                                             <div class="case-image">
-                                                <img src="<?php echo esc_url($case_image['url']); ?>" alt="<?php echo esc_attr($case_image['alt']); ?>">
+                                                <img src="<?php echo esc_url($case_image['url']); ?>" alt="<?php echo esc_attr($case_image_alt); ?>">
                                             </div>
                                         <?php endif; ?>
                                         
@@ -181,9 +188,11 @@ while (have_posts()) :
                                             <h3><?php echo esc_html($case_title); ?></h3>
                                             <p><?php echo esc_html($case_description); ?></p>
                                             
-                                            <?php if ($customer_logo) : ?>
+                                            <?php if ($customer_logo && is_array($customer_logo) && !empty($customer_logo['url'])) : 
+                                                $customer_logo_alt = !empty($customer_logo['alt']) ? $customer_logo['alt'] : __('Customer Logo', 'angola-b2b');
+                                            ?>
                                                 <div class="customer-logo">
-                                                    <img src="<?php echo esc_url($customer_logo['url']); ?>" alt="<?php echo esc_attr($customer_logo['alt']); ?>">
+                                                    <img src="<?php echo esc_url($customer_logo['url']); ?>" alt="<?php echo esc_attr($customer_logo_alt); ?>">
                                                 </div>
                                             <?php endif; ?>
 
