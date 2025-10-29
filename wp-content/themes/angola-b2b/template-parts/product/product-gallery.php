@@ -1,143 +1,226 @@
 <?php
 /**
- * Product Gallery Template Part
- * Includes: Regular gallery, 360° rotation, image hotspots, comparison slider
+ * Template part for displaying product gallery
+ * Features: Image lightbox, 360° rotation, comparison slider, hot spots
  *
  * @package Angola_B2B
  */
 
 $product_id = get_the_ID();
-$gallery = get_field('product_gallery', $product_id);
-$images_360 = get_field('product_360_images', $product_id);
-$comparison = get_field('comparison_slider', $product_id);
-$hotspots = get_field('hotspot_annotations', $product_id);
+$featured_image = get_the_post_thumbnail_url($product_id, 'product-large');
+$gallery_images = angola_b2b_get_gallery_images($product_id);
+$images_360 = angola_b2b_get_360_images($product_id);
+$product_video = get_field('product_video', $product_id);
+$hotspot_annotations = get_field('hotspot_annotations', $product_id);
+$comparison_slider = get_field('comparison_slider', $product_id);
+
+// Combine featured image with gallery
+$all_images = array();
+
+if ($featured_image) {
+    $all_images[] = array(
+        'url' => $featured_image,
+        'alt' => get_the_title(),
+    );
+}
+
+if (!empty($gallery_images) && is_array($gallery_images)) {
+    foreach ($gallery_images as $image) {
+        if (is_array($image) && !empty($image['url'])) {
+            $all_images[] = $image;
+        }
+    }
+}
 ?>
 
 <div class="product-gallery">
     
-    <!-- Main Image Display -->
-    <div class="gallery-main-image">
-        <div class="main-image-container">
-            <?php
-            if ($gallery && !empty($gallery)) :
+    <!-- Main Display Area -->
+    <div class="product-gallery-main">
+        
+        <!-- Regular Gallery -->
+        <?php if (!empty($all_images)) : ?>
+            <div class="product-gallery-viewer" id="product-gallery-main">
+                <?php foreach ($all_images as $index => $image) : 
+                    $active_class = ($index === 0) ? 'active' : '';
+                    $img_alt = !empty($image['alt']) ? $image['alt'] : get_the_title();
                 ?>
-                <img src="<?php echo esc_url($gallery[0]['sizes']['product-large']); ?>" 
-                     alt="<?php echo esc_attr(get_the_title()); ?>" 
-                     class="main-image" 
-                     id="main-product-image"
-                     data-zoom="<?php echo esc_url($gallery[0]['url']); ?>">
-                <?php
-            elseif (has_post_thumbnail()) :
-                ?>
-                <img src="<?php echo esc_url(get_the_post_thumbnail_url($product_id, 'product-large')); ?>" 
-                     alt="<?php echo esc_attr(get_the_title()); ?>" 
-                     class="main-image" 
-                     id="main-product-image">
-                <?php
-            endif;
-            ?>
-            
-            <!-- Image Hotspots -->
-            <?php if ($hotspots) : ?>
-                <div class="image-hotspots">
-                    <?php foreach ($hotspots as $index => $hotspot) : ?>
-                        <button class="hotspot-marker" 
-                                style="left: <?php echo esc_attr($hotspot['hotspot_x']); ?>%; top: <?php echo esc_attr($hotspot['hotspot_y']); ?>%;" 
-                                data-hotspot-index="<?php echo esc_attr($index); ?>">
-                            <span class="hotspot-pulse"></span>
-                            <span class="hotspot-number"><?php echo ($index + 1); ?></span>
-                        </button>
+                    <div class="gallery-image <?php echo esc_attr($active_class); ?>" 
+                         data-index="<?php echo esc_attr($index); ?>">
+                        <img src="<?php echo esc_url($image['url']); ?>" 
+                             alt="<?php echo esc_attr($img_alt); ?>"
+                             data-pswp-width="1200"
+                             data-pswp-height="1200">
                         
-                        <div class="hotspot-tooltip" id="hotspot-tooltip-<?php echo esc_attr($index); ?>" style="display: none;">
-                            <h4><?php echo esc_html($hotspot['hotspot_title']); ?></h4>
-                            <p><?php echo esc_html($hotspot['hotspot_content']); ?></p>
+                        <!-- Image Hot Spots -->
+                        <?php if ($hotspot_annotations && is_array($hotspot_annotations)) : ?>
+                            <?php foreach ($hotspot_annotations as $hotspot) : 
+                                if (isset($hotspot['hotspot_image']) && $hotspot['hotspot_image'] === $image['url']) :
+                            ?>
+                                <button class="image-hotspot" 
+                                        style="left: <?php echo esc_attr($hotspot['position_x']); ?>%; top: <?php echo esc_attr($hotspot['position_y']); ?>%;"
+                                        data-title="<?php echo esc_attr($hotspot['title']); ?>"
+                                        data-description="<?php echo esc_attr($hotspot['description']); ?>"
+                                        aria-label="<?php echo esc_attr($hotspot['title']); ?>">
+                                    <span class="hotspot-marker">+</span>
+                                </button>
+                            <?php 
+                                endif;
+                            endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        
+        <!-- 360° View -->
+        <?php if (!empty($images_360) && is_array($images_360)) : ?>
+            <div class="product-360-viewer" id="product-360-viewer" style="display: none;">
+                <div class="viewer-360-container" data-total-frames="<?php echo esc_attr(count($images_360)); ?>">
+                    <?php foreach ($images_360 as $index => $image_360) : 
+                        if (is_array($image_360) && !empty($image_360['url'])) :
+                            $active_class = ($index === 0) ? 'active' : '';
+                            $img_360_alt = !empty($image_360['alt']) ? $image_360['alt'] : sprintf(__('%s - 360° View Frame %d', 'angola-b2b'), get_the_title(), $index + 1);
+                    ?>
+                        <img src="<?php echo esc_url($image_360['url']); ?>" 
+                             alt="<?php echo esc_attr($img_360_alt); ?>"
+                             class="frame-360 <?php echo esc_attr($active_class); ?>"
+                             data-frame="<?php echo esc_attr($index); ?>"
+                             loading="lazy">
+                    <?php 
+                        endif;
+                    endforeach; ?>
+                </div>
+                <div class="viewer-360-controls">
+                    <span class="control-hint"><?php esc_html_e('拖动旋转', 'angola-b2b'); ?></span>
+                </div>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Video -->
+        <?php if ($product_video) : ?>
+            <div class="product-video-viewer" id="product-video-viewer" style="display: none;">
+                <video controls preload="metadata" 
+                       aria-label="<?php echo esc_attr(sprintf(__('%s Product Video', 'angola-b2b'), get_the_title())); ?>">
+                    <source src="<?php echo esc_url($product_video); ?>" type="video/mp4">
+                    <?php esc_html_e('您的浏览器不支持视频播放。', 'angola-b2b'); ?>
+                </video>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Comparison Slider (Before/After) -->
+        <?php if ($comparison_slider && !empty($comparison_slider['before_image']) && !empty($comparison_slider['after_image'])) : ?>
+            <div class="product-comparison-viewer" id="product-comparison-viewer" style="display: none;">
+                <div class="comparison-slider-container">
+                    <div class="comparison-image comparison-before">
+                        <?php if (is_array($comparison_slider['before_image']) && !empty($comparison_slider['before_image']['url'])) : 
+                            $before_alt = !empty($comparison_slider['before_image']['alt']) ? $comparison_slider['before_image']['alt'] : __('Before', 'angola-b2b');
+                        ?>
+                            <img src="<?php echo esc_url($comparison_slider['before_image']['url']); ?>" 
+                                 alt="<?php echo esc_attr($before_alt); ?>">
+                            <span class="comparison-label"><?php esc_html_e('改进前', 'angola-b2b'); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="comparison-image comparison-after">
+                        <?php if (is_array($comparison_slider['after_image']) && !empty($comparison_slider['after_image']['url'])) : 
+                            $after_alt = !empty($comparison_slider['after_image']['alt']) ? $comparison_slider['after_image']['alt'] : __('After', 'angola-b2b');
+                        ?>
+                            <img src="<?php echo esc_url($comparison_slider['after_image']['url']); ?>" 
+                                 alt="<?php echo esc_attr($after_alt); ?>">
+                            <span class="comparison-label"><?php esc_html_e('改进后', 'angola-b2b'); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" 
+                           class="comparison-slider" 
+                           id="comparison-slider"
+                           aria-label="<?php esc_attr_e('Comparison slider', 'angola-b2b'); ?>">
+                    <div class="comparison-divider" style="left: 50%;"></div>
+                </div>
+            </div>
+        <?php endif; ?>
+        
+        <!-- Gallery Controls -->
+        <div class="gallery-controls">
+            <button class="gallery-control gallery-zoom" 
+                    aria-label="<?php esc_attr_e('Zoom image', 'angola-b2b'); ?>">
+                <span class="dashicons dashicons-search"></span>
+            </button>
+            <button class="gallery-control gallery-fullscreen" 
+                    aria-label="<?php esc_attr_e('Fullscreen', 'angola-b2b'); ?>">
+                <span class="dashicons dashicons-fullscreen-alt"></span>
+            </button>
+        </div>
+        
+    </div>
+    
+    <!-- Thumbnails & View Switcher -->
+    <div class="product-gallery-nav">
+        
+        <!-- View Type Switcher -->
+        <div class="view-type-switcher">
+            <button class="view-type-btn active" data-view="gallery" 
+                    aria-label="<?php esc_attr_e('Gallery view', 'angola-b2b'); ?>">
+                <span class="dashicons dashicons-images-alt2"></span>
+                <?php esc_html_e('图片', 'angola-b2b'); ?>
+            </button>
+            
+            <?php if (!empty($images_360)) : ?>
+                <button class="view-type-btn" data-view="360" 
+                        aria-label="<?php esc_attr_e('360° view', 'angola-b2b'); ?>">
+                    <span class="dashicons dashicons-update"></span>
+                    <?php esc_html_e('360°', 'angola-b2b'); ?>
+                </button>
+            <?php endif; ?>
+            
+            <?php if ($product_video) : ?>
+                <button class="view-type-btn" data-view="video" 
+                        aria-label="<?php esc_attr_e('Video view', 'angola-b2b'); ?>">
+                    <span class="dashicons dashicons-video-alt3"></span>
+                    <?php esc_html_e('视频', 'angola-b2b'); ?>
+                </button>
+            <?php endif; ?>
+            
+            <?php if ($comparison_slider) : ?>
+                <button class="view-type-btn" data-view="comparison" 
+                        aria-label="<?php esc_attr_e('Comparison view', 'angola-b2b'); ?>">
+                    <span class="dashicons dashicons-leftright"></span>
+                    <?php esc_html_e('对比', 'angola-b2b'); ?>
+                </button>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Thumbnail Slider -->
+        <?php if (!empty($all_images) && count($all_images) > 1) : ?>
+            <div class="gallery-thumbnails swiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($all_images as $index => $image) : 
+                        $active_class = ($index === 0) ? 'active' : '';
+                        $thumb_alt = !empty($image['alt']) ? $image['alt'] : sprintf(__('Thumbnail %d', 'angola-b2b'), $index + 1);
+                    ?>
+                        <div class="swiper-slide">
+                            <button class="gallery-thumbnail <?php echo esc_attr($active_class); ?>" 
+                                    data-index="<?php echo esc_attr($index); ?>"
+                                    aria-label="<?php echo esc_attr($thumb_alt); ?>">
+                                <img src="<?php echo esc_url($image['url']); ?>" 
+                                     alt="<?php echo esc_attr($thumb_alt); ?>"
+                                     loading="lazy">
+                            </button>
                         </div>
                     <?php endforeach; ?>
                 </div>
-            <?php endif; ?>
-            
-            <!-- Zoom Icon -->
-            <button class="zoom-button" aria-label="<?php esc_attr_e('Zoom image', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-search"></span>
-            </button>
-        </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        <?php endif; ?>
+        
     </div>
-
-    <!-- Thumbnail Gallery -->
-    <?php if ($gallery && count($gallery) > 1) : ?>
-        <div class="gallery-thumbnails">
-            <div class="thumbnails-container">
-                <?php foreach ($gallery as $index => $image) : ?>
-                    <button class="thumbnail-item <?php echo $index === 0 ? 'active' : ''; ?>" 
-                            data-image-index="<?php echo esc_attr($index); ?>"
-                            data-full-url="<?php echo esc_url($image['sizes']['product-large']); ?>"
-                            data-zoom-url="<?php echo esc_url($image['url']); ?>">
-                        <img src="<?php echo esc_url($image['sizes']['thumbnail']); ?>" 
-                             alt="<?php echo esc_attr($image['alt']); ?>" 
-                             loading="lazy">
-                    </button>
-                <?php endforeach; ?>
-                
-                <!-- 360° Button -->
-                <?php if ($images_360 && count($images_360) > 10) : ?>
-                    <button class="thumbnail-item thumbnail-360" data-action="show-360">
-                        <span class="icon-360">360°</span>
-                        <span class="thumbnail-label"><?php esc_html_e('Rotate View', 'angola-b2b'); ?></span>
-                    </button>
-                <?php endif; ?>
-                
-                <!-- Comparison Button -->
-                <?php if ($comparison && $comparison['enable_comparison']) : ?>
-                    <button class="thumbnail-item thumbnail-comparison" data-action="show-comparison">
-                        <span class="dashicons dashicons-image-flip-horizontal"></span>
-                        <span class="thumbnail-label"><?php esc_html_e('Compare', 'angola-b2b'); ?></span>
-                    </button>
-                <?php endif; ?>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <!-- 360° Rotation Container (Hidden by default) -->
-    <?php if ($images_360 && count($images_360) > 10) : ?>
-        <div class="rotation-360-container" style="display: none;">
-            <div class="rotation-360-canvas" data-frame-count="<?php echo count($images_360); ?>">
-                <?php foreach ($images_360 as $index => $image) : ?>
-                    <img src="<?php echo esc_url($image['sizes']['product-360']); ?>" 
-                         alt="360° view frame <?php echo ($index + 1); ?>" 
-                         class="rotation-frame <?php echo $index === 0 ? 'active' : ''; ?>"
-                         data-frame="<?php echo esc_attr($index); ?>"
-                         loading="lazy">
-                <?php endforeach; ?>
-            </div>
-            <div class="rotation-controls">
-                <p class="rotation-hint"><?php esc_html_e('Drag to rotate', 'angola-b2b'); ?></p>
-                <button class="rotation-close"><?php esc_html_e('Close', 'angola-b2b'); ?></button>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <!-- Comparison Slider Container (Hidden by default) -->
-    <?php if ($comparison && $comparison['enable_comparison']) : ?>
-        <div class="comparison-slider-container" style="display: none;">
-            <div class="comparison-slider">
-                <div class="comparison-before">
-                    <img src="<?php echo esc_url($comparison['before_image']['url']); ?>" 
-                         alt="<?php echo esc_attr($comparison['comparison_label_before']); ?>">
-                    <span class="comparison-label label-before"><?php echo esc_html($comparison['comparison_label_before']); ?></span>
-                </div>
-                <div class="comparison-after">
-                    <img src="<?php echo esc_url($comparison['after_image']['url']); ?>" 
-                         alt="<?php echo esc_attr($comparison['comparison_label_after']); ?>">
-                    <span class="comparison-label label-after"><?php echo esc_html($comparison['comparison_label_after']); ?></span>
-                </div>
-                <div class="comparison-handle">
-                    <span class="handle-arrow handle-arrow-left"></span>
-                    <span class="handle-arrow handle-arrow-right"></span>
-                </div>
-            </div>
-            <button class="comparison-close"><?php esc_html_e('Close', 'angola-b2b'); ?></button>
-        </div>
-    <?php endif; ?>
-
+    
 </div>
 
+<!-- Hotspot Tooltip Template -->
+<div id="hotspot-tooltip-template" style="display: none;">
+    <div class="hotspot-tooltip">
+        <h4 class="hotspot-title"></h4>
+        <p class="hotspot-description"></p>
+    </div>
+</div>

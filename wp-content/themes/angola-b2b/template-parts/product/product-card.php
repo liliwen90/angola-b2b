@@ -1,46 +1,92 @@
 <?php
 /**
- * Product Card Template Part
+ * Template part for displaying product cards
  *
  * @package Angola_B2B
  */
 
 $product_id = get_the_ID();
-$featured = get_field('product_featured', $product_id);
+$thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+$is_featured = angola_b2b_is_featured_product($product_id);
+$categories = get_the_terms($product_id, 'product_category');
+$short_description = get_the_excerpt();
 ?>
 
-<div class="product-card <?php echo $featured ? 'is-featured' : ''; ?>" data-product-id="<?php echo esc_attr($product_id); ?>">
-    <div class="product-card-image">
-        <a href="<?php the_permalink(); ?>">
-            <?php
-            if (has_post_thumbnail()) {
-                the_post_thumbnail('product-thumbnail', array('loading' => 'lazy'));
-            } else {
-                echo '<img src="' . esc_url(ANGOLA_B2B_THEME_URI . '/assets/images/placeholders/product-placeholder.png') . '" alt="' . esc_attr(get_the_title()) . '">';
-            }
-            ?>
-            
-            <?php if ($featured) : ?>
-                <span class="featured-badge"><?php esc_html_e('Featured', 'angola-b2b'); ?></span>
-            <?php endif; ?>
-        </a>
-    </div>
-    
-    <div class="product-card-content">
-        <h3 class="product-card-title">
-            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-        </h3>
+<article id="product-<?php the_ID(); ?>" <?php post_class('product-card'); ?>>
+    <div class="product-card-inner">
         
-        <div class="product-card-excerpt">
-            <?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?>
-        </div>
-        
-        <div class="product-card-footer">
-            <a href="<?php the_permalink(); ?>" class="btn-view-product">
-                <?php esc_html_e('View Details', 'angola-b2b'); ?>
-                <span class="dashicons dashicons-arrow-right-alt2"></span>
+        <!-- Product Image -->
+        <div class="product-card-image">
+            <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(sprintf(__('View %s', 'angola-b2b'), get_the_title())); ?>">
+                <?php if ($thumbnail) : ?>
+                    <img src="<?php echo esc_url($thumbnail); ?>" 
+                         alt="<?php echo esc_attr(get_the_title()); ?>"
+                         loading="lazy">
+                <?php else : ?>
+                    <img src="<?php echo esc_url(ANGOLA_B2B_THEME_URI . '/assets/images/placeholder-product.jpg'); ?>" 
+                         alt="<?php echo esc_attr(get_the_title()); ?>"
+                         loading="lazy">
+                <?php endif; ?>
+                
+                <?php if ($is_featured) : ?>
+                    <span class="featured-badge"><?php esc_html_e('推荐', 'angola-b2b'); ?></span>
+                <?php endif; ?>
             </a>
         </div>
+        
+        <!-- Product Info -->
+        <div class="product-card-content">
+            
+            <!-- Categories -->
+            <?php if ($categories && !is_wp_error($categories)) : ?>
+                <div class="product-categories">
+                    <?php
+                    $category_links = array();
+                    foreach ($categories as $category) {
+                        $term_link = get_term_link($category);
+                        if (!is_wp_error($term_link)) {
+                            $category_links[] = sprintf(
+                                '<a href="%s" class="product-category-link">%s</a>',
+                                esc_url($term_link),
+                                esc_html($category->name)
+                            );
+                        }
+                    }
+                    if (!empty($category_links)) {
+                        echo implode(' ', $category_links);
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
+            
+            <!-- Title -->
+            <h3 class="product-card-title">
+                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+            </h3>
+            
+            <!-- Excerpt -->
+            <?php if ($short_description) : ?>
+                <div class="product-card-excerpt">
+                    <?php echo esc_html(wp_trim_words($short_description, 20, '...')); ?>
+                </div>
+            <?php endif; ?>
+            
+            <!-- Action Buttons -->
+            <div class="product-card-actions">
+                <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
+                    <?php esc_html_e('查看详情', 'angola-b2b'); ?>
+                </a>
+                
+                <?php
+                // Quick inquiry button
+                $inquiry_btn = angola_b2b_quick_inquiry_button($product_id);
+                if ($inquiry_btn) {
+                    echo '<div class="quick-inquiry-wrapper">' . $inquiry_btn . '</div>';
+                }
+                ?>
+            </div>
+            
+        </div>
+        
     </div>
-</div>
-
+</article>
