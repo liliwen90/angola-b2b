@@ -1,0 +1,385 @@
+/**
+ * Admin Styles
+ * WordPress admin panel customization
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Admin Editor Styles
+   ============================================ */
+
+.editor-styles-wrapper {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #111827;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    font-family: 'Poppins', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+/* ============================================
+   Product Admin Columns
+   ============================================ */
+
+.column-product_thumbnail {
+    width: 60px;
+}
+
+.column-product_category {
+    width: 150px;
+}
+
+.column-product_featured {
+    width: 80px;
+    text-align: center;
+}
+
+.manage-column.column-product_thumbnail,
+.manage-column.column-product_featured {
+    text-align: center;
+}
+
+/* Product thumbnail styling */
+.column-product_thumbnail img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Featured icon styling */
+.featured-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   Custom Admin Notices
+   ============================================ */
+
+.angola-b2b-notice {
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-left: 4px solid #1a56db;
+    background-color: #e1effe;
+}
+
+.angola-b2b-notice.notice-success {
+    border-left-color: #10b981;
+    background-color: #d1fae5;
+}
+
+.angola-b2b-notice.notice-warning {
+    border-left-color: #f59e0b;
+    background-color: #fef3c7;
+}
+
+.angola-b2b-notice.notice-error {
+    border-left-color: #ef4444;
+    background-color: #fee2e2;
+}
+
+/* ============================================
+   ACF Field Styling
+   ============================================ */
+
+/* ACF Group headings */
+.acf-field-group-style-default > .acf-label {
+    background-color: #f3f4f6;
+    padding: 12px 16px;
+    margin: -12px -12px 12px;
+    border-left: 4px solid #1a56db;
+    font-weight: 600;
+}
+
+/* ACF Required fields */
+.acf-required {
+    color: #ef4444;
+}
+
+/* ACF Image preview */
+.acf-image-uploader .image-wrap img {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ACF Gallery */
+.acf-gallery .acf-gallery-attachment {
+    border-radius: 4px;
+}
+
+/* ACF Repeater */
+.acf-repeater .acf-row-handle {
+    background-color: #f9fafb;
+    border-left: 3px solid #1a56db;
+}
+
+.acf-repeater .acf-row-handle:hover {
+    background-color: #f3f4f6;
+}
+
+/* ============================================
+   Product Edit Screen
+   ============================================ */
+
+#post-body.metabox-holder.columns-2 {
+    margin-right: 300px;
+}
+
+/* Product featured image */
+#postimagediv .inside {
+    padding: 12px;
+}
+
+#set-post-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Product categories */
+#product_categorychecklist {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ============================================
+   Dashboard Widget
+   ============================================ */
+
+#angola_b2b_dashboard_widget {
+    padding: 0;
+}
+
+#angola_b2b_dashboard_widget .inside {
+    margin: 0;
+    padding: 16px;
+}
+
+.angola-b2b-dashboard-widget h3 {
+    margin: 24px 0 12px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 8px;
+}
+
+.angola-b2b-dashboard-widget h3:first-child {
+    margin-top: 0;
+}
+
+.angola-b2b-dashboard-widget ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.angola-b2b-dashboard-widget ul li {
+    margin: 8px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.angola-b2b-dashboard-widget ul li:last-child {
+    border-bottom: none;
+}
+
+.angola-b2b-dashboard-widget a {
+    color: #1a56db;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+}
+
+.angola-b2b-dashboard-widget a:hover {
+    color: #1e429f;
+    text-decoration: underline;
+}
+
+.angola-b2b-dashboard-widget strong {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ============================================
+   Media Library
+   ============================================ */
+
+/* Better image preview in media library */
+.attachment-preview {
+    border-radius: 4px;
+}
+
+/* ============================================
+   Theme Options Page
+   ============================================ */
+
+.acf-admin-page {
+    background-color: #ffffff;
+}
+
+.acf-admin-page h1 {
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.acf-admin-page .acf-fields > .acf-field {
+    border-color: #e5e7eb;
+}
+
+.acf-admin-page .acf-label label {
+    font-weight: 600;
+    color: #374151;
+}
+
+/* ============================================
+   Color Scheme Integration
+   ============================================ */
+
+/* Admin menu customization */
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head,
+#adminmenu .wp-menu-arrow,
+#adminmenu .wp-menu-arrow div,
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+    background-color: #1a56db;
+}
+
+/* Update button styling */
+.button-primary,
+.button-primary:active,
+.button-primary:focus,
+.button-primary:hover {
+    background-color: #1a56db !important;
+    border-color: #1e429f !important;
+}
+
+/* ============================================
+   Responsive Admin
+   ============================================ */
+
+@media screen and (max-width: 782px) {
+    .column-product_thumbnail {
+        display: none;
+    }
+    
+    .column-product_category,
+    .column-product_featured {
+        width: auto;
+    }
+}
+
+/* ============================================
+   Product Quick Edit
+   ============================================ */
+
+.inline-edit-col-right .inline-edit-group {
+    clear: both;
+}
+
+.inline-edit-col-right label.alignleft {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* ============================================
+   Help & Tooltips
+   ============================================ */
+
+.angola-b2b-help-tip {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #6b7280;
+    border-radius: 50%;
+    cursor: help;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.angola-b2b-help-tip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background-color: #1f2937;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: nowrap;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-bottom: 8px;
+}
+
+/* ============================================
+   Loading States
+   ============================================ */
+
+.angola-b2b-loading {
+    position: relative;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.angola-b2b-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #1a56db;
+    border-radius: 50%;
+    animation: angola-b2b-spin 0.8s linear infinite;
+}
+
+@keyframes angola-b2b-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Chinese Language Optimization
+   ============================================ */
+
+body.locale-zh-cn,
+body.locale-zh-tw {
+    font-family: 'Noto Sans SC', 'Noto Sans TC', 'Microsoft YaHei', sans-serif;
+}
+
+body.locale-zh-cn h1,
+body.locale-zh-cn h2,
+body.locale-zh-cn h3,
+body.locale-zh-tw h1,
+body.locale-zh-tw h2,
+body.locale-zh-tw h3 {
+    font-family: 'Noto Sans SC', 'Noto Sans TC', 'Microsoft YaHei', sans-serif;
+}
+

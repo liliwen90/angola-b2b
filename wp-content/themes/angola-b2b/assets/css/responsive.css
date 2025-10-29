@@ -1,0 +1,474 @@
+/**
+ * Responsive Styles
+ * Mobile-first responsive design utilities
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Mobile Optimizations (< 640px)
+   ============================================ */
+
+@media (max-width: 639px) {
+    /* Typography */
+    body {
+        font-size: var(--font-size-sm);
+    }
+    
+    h1 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    h2 {
+        font-size: var(--font-size-xl);
+    }
+    
+    h3 {
+        font-size: var(--font-size-lg);
+    }
+    
+    /* Mobile Menu */
+    .main-navigation {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        z-index: var(--z-index-modal);
+        display: flex;
+        flex-direction: column;
+        padding: var(--space-20) var(--space-6);
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-2xl);
+        transition: left var(--duration-300) var(--ease-out);
+        overflow-y: auto;
+    }
+    
+    .main-navigation.active {
+        left: 0;
+    }
+    
+    .main-navigation ul {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+    
+    .main-navigation li {
+        width: 100%;
+        border-bottom: 1px solid var(--color-border-primary);
+    }
+    
+    .main-navigation a {
+        display: block;
+        padding: var(--space-4);
+        font-size: var(--font-size-lg);
+    }
+    
+    .main-navigation ul ul {
+        position: static;
+        display: none;
+        width: 100%;
+        padding-left: var(--space-4);
+        background-color: var(--color-bg-secondary);
+        box-shadow: none;
+        border: none;
+    }
+    
+    .main-navigation li.menu-item-has-children > a::after {
+        content: '+';
+        float: right;
+        font-weight: var(--font-weight-bold);
+    }
+    
+    .main-navigation li.menu-item-has-children.active > a::after {
+        content: '−';
+    }
+    
+    .main-navigation li.menu-item-has-children.active > ul {
+        display: flex;
+    }
+    
+    /* Container */
+    .container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+    
+    /* Cards & Grids */
+    .products-grid,
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    /* Product Card */
+    .product-card-actions {
+        flex-direction: column;
+    }
+    
+    /* Hero Section */
+    .hero-banner {
+        min-height: 50vh;
+    }
+    
+    .hero-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-base);
+    }
+    
+    /* Footer */
+    .footer-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+    
+    /* Modals */
+    .modal {
+        max-width: 95vw;
+        padding: var(--space-4);
+    }
+    
+    /* Tables */
+    table {
+        font-size: var(--font-size-sm);
+    }
+    
+    th, td {
+        padding: var(--space-2) var(--space-3);
+    }
+    
+    /* Buttons */
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   Tablet (640px - 1023px)
+   ============================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+    /* Container */
+    .container {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+    }
+    
+    /* Grid */
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Footer */
+    .footer-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================
+   Desktop (>= 1024px)
+   ============================================ */
+
+@media (min-width: 1024px) {
+    /* Container */
+    .container {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
+    
+    /* Grid */
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .advantages-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Footer */
+    .footer-row {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Navigation hover effects */
+    .main-navigation li {
+        position: relative;
+    }
+    
+    .main-navigation li::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-primary);
+        transition: width var(--duration-300) var(--ease-out),
+                    left var(--duration-300) var(--ease-out);
+    }
+    
+    .main-navigation li:hover::after,
+    .main-navigation .current-menu-item::after {
+        width: 100%;
+        left: 0;
+    }
+}
+
+/* ============================================
+   Large Desktop (>= 1280px)
+   ============================================ */
+
+@media (min-width: 1280px) {
+    /* Grid */
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============================================
+   Extra Large Desktop (>= 1536px)
+   ============================================ */
+
+@media (min-width: 1536px) {
+    /* Typography */
+    html {
+        font-size: 18px;
+    }
+    
+    /* Hero */
+    .hero-title {
+        font-size: var(--font-size-6xl);
+    }
+}
+
+/* ============================================
+   Touch Device Optimizations
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    button,
+    .btn,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Remove hover effects on touch */
+    .hover-lift:hover,
+    .hover-grow:hover,
+    .hover-shrink:hover {
+        transform: none;
+    }
+    
+    /* Simplify interactions */
+    .main-navigation ul ul {
+        position: static;
+    }
+    
+    /* Remove complex hover states */
+    *:hover {
+        transition-duration: 0ms;
+    }
+}
+
+/* ============================================
+   Landscape Orientation
+   ============================================ */
+
+@media (max-width: 1023px) and (orientation: landscape) {
+    /* Reduce vertical spacing in landscape */
+    .hero-banner {
+        min-height: 70vh;
+    }
+    
+    .site-main {
+        padding: var(--space-6) 0;
+    }
+    
+    section {
+        padding: var(--space-8) 0;
+    }
+    
+    /* Adjust modal height */
+    .modal {
+        max-height: 80vh;
+    }
+}
+
+/* ============================================
+   High Resolution Displays
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    /* Render crisper text */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* ============================================
+   Print Optimization
+   ============================================ */
+
+@media print {
+    /* Hide non-essential elements */
+    .site-header,
+    .site-footer,
+    .mobile-menu-toggle,
+    .back-to-top,
+    .cta-button,
+    .btn,
+    button,
+    .product-card-actions,
+    .search-form,
+    .language-switcher,
+    .social-share-buttons {
+        display: none !important;
+    }
+    
+    /* Optimize for print */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    h1 {
+        font-size: 24pt;
+    }
+    
+    h2 {
+        font-size: 18pt;
+    }
+    
+    h3 {
+        font-size: 14pt;
+    }
+    
+    /* Remove backgrounds and shadows */
+    * {
+        background: white !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    /* Ensure links are visible */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+        color: #333;
+    }
+    
+    /* Page breaks */
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    img, table {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   Utility Classes - Hide/Show
+   ============================================ */
+
+/* Hide on mobile */
+.hide-mobile {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .hide-mobile {
+        display: block;
+    }
+}
+
+/* Show on mobile only */
+.show-mobile {
+    display: block;
+}
+
+@media (min-width: 640px) {
+    .show-mobile {
+        display: none;
+    }
+}
+
+/* Hide on tablet */
+@media (min-width: 640px) and (max-width: 1023px) {
+    .hide-tablet {
+        display: none;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none;
+    }
+}
+
+/* Show on desktop only */
+.show-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .show-desktop {
+        display: block;
+    }
+}
+
+/* ============================================
+   Responsive Spacing Utilities
+   ============================================ */
+
+@media (max-width: 639px) {
+    .mobile-stack > * + * {
+        margin-top: var(--space-4);
+    }
+}
+
+/* ============================================
+   Responsive Text Alignment
+   ============================================ */
+
+@media (max-width: 639px) {
+    .text-mobile-center {
+        text-align: center;
+    }
+    
+    .text-mobile-left {
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .text-desktop-left {
+        text-align: left;
+    }
+    
+    .text-desktop-center {
+        text-align: center;
+    }
+    
+    .text-desktop-right {
+        text-align: right;
+    }
+}
+
