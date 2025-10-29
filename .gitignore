@@ -1,0 +1,36 @@
+# WordPress core files
+/wp-admin/
+/wp-includes/
+*.log
+wp-config.php
+.htaccess
+
+# Theme development
+node_modules/
+*.map
+.DS_Store
+.vscode/
+.idea/
+
+# Uploads and cache
+/wp-content/uploads/
+/wp-content/cache/
+/wp-content/upgrade/
+
+# Backups
+*.sql
+*.tar.gz
+*.zip
+
+# OS files
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Build tools and dependencies (非WordPress项目文件)
+.gradle/
+gradle/
+build/
+bin/
+out/
+
