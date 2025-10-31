@@ -164,8 +164,7 @@ function angola_b2b_enqueue_scripts() {
         true
     );
 
-    // Temporarily disabled product-gallery.js to debug
-    /*
+    // Product gallery with PhotoSwipe lightbox and Swiper carousel
     wp_enqueue_script(
         'angola-b2b-product-gallery',
         ANGOLA_B2B_THEME_URI . '/assets/js/product-gallery.js',
@@ -173,9 +172,8 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION,
         true
     );
-    */
 
-    // product-360.js removed - 360-degree rotation feature simplified out
+    // Note: product-360.js removed - 360-degree rotation feature not implemented (lack of multi-angle product images)
 
     wp_enqueue_script(
         'angola-b2b-ajax-filters',
