@@ -210,3 +210,45 @@ function angola_b2b_polylang_admin_language_filter($lang) {
 }
 add_filter('pll_preferred_language', 'angola_b2b_polylang_admin_language_filter', 999);
 
+/**
+ * Register strings for Polylang translation
+ * 为Polylang注册需要翻译的字符串
+ */
+function angola_b2b_register_polylang_strings() {
+    if (!function_exists('pll_register_string')) {
+        return;
+    }
+    
+    // Product card strings
+    pll_register_string('angola-b2b', '立即询价', 'Product Card');
+    pll_register_string('angola-b2b', '查看详情', 'Product Card');
+    pll_register_string('angola-b2b', '库存：%d 件', 'Product Card');
+    pll_register_string('angola-b2b', '现货', 'Product Card');
+    pll_register_string('angola-b2b', '推荐', 'Product Card');
+    
+    // Homepage sections
+    pll_register_string('angola-b2b', '现货供应 - 即刻发货', 'Homepage');
+    pll_register_string('angola-b2b', '本地库存，即刻发货', 'Homepage');
+    pll_register_string('angola-b2b', 'Featured Products', 'Homepage');
+    pll_register_string('angola-b2b', 'View All Products', 'Homepage');
+    pll_register_string('angola-b2b', 'No featured products at the moment.', 'Homepage');
+    pll_register_string('angola-b2b', 'Why Choose Us', 'Homepage');
+    pll_register_string('angola-b2b', 'Contact Us Now', 'Homepage');
+    
+    // Header/Footer
+    pll_register_string('angola-b2b', 'Request Quote', 'Header');
+    pll_register_string('angola-b2b', 'Select Language', 'Header');
+    
+    // Product single page
+    pll_register_string('angola-b2b', 'Description', 'Product Single');
+    pll_register_string('angola-b2b', 'Specifications', 'Product Single');
+    pll_register_string('angola-b2b', 'Inquiry', 'Product Single');
+    pll_register_string('angola-b2b', 'Specification', 'Product Single');
+    pll_register_string('angola-b2b', 'Value', 'Product Single');
+    pll_register_string('angola-b2b', 'No specifications available for this product.', 'Product Single');
+    pll_register_string('angola-b2b', 'Related Products', 'Product Single');
+    pll_register_string('angola-b2b', 'Add to Inquiry', 'Product Single');
+    pll_register_string('angola-b2b', 'Contact Us', 'Product Single');
+}
+add_action('init', 'angola_b2b_register_polylang_strings');
+

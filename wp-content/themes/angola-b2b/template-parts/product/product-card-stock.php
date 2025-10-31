@@ -75,10 +75,17 @@ $product_id = get_the_ID();
                 <span class="stock-icon" aria-hidden="true">📦</span>
                 <span class="stock-quantity">
                     <?php 
-                    printf(
-                        esc_html__('库存：%d 件', 'angola-b2b'), 
-                        intval($stock_quantity)
-                    ); 
+                    if (function_exists('pll__')) {
+                        printf(
+                            esc_html(pll__('库存：%d 件')), 
+                            intval($stock_quantity)
+                        );
+                    } else {
+                        printf(
+                            esc_html__('库存：%d 件', 'angola-b2b'), 
+                            intval($stock_quantity)
+                        );
+                    }
                     ?>
                 </span>
             </div>
@@ -87,7 +94,13 @@ $product_id = get_the_ID();
         <!-- 操作按钮 -->
         <div class="product-actions">
             <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
-                <?php esc_html_e('立即询价', 'angola-b2b'); ?>
+                <?php 
+                if (function_exists('pll__')) {
+                    echo esc_html(pll__('立即询价'));
+                } else {
+                    esc_html_e('立即询价', 'angola-b2b');
+                }
+                ?>
             </a>
         </div>
     </div>

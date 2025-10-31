@@ -12,19 +12,16 @@ get_header();
 <main id="primary" class="site-main homepage">
     
     <?php
-    // 1. Hero Banner区域（保留，双按钮版本）
-    get_template_part('template-parts/homepage/hero-dual-cta');
-    
-    // 2. 热门库存产品区域（本地现货，可通过后台关闭）
+    // 1. 热门库存产品区域（本地现货，首屏展示）
     get_template_part('template-parts/homepage/stock-products');
     
-    // 3. 精选产品区域（公司成熟商品）
+    // 2. 精选产品区域（公司成熟商品）
     get_template_part('template-parts/homepage/featured-products');
     
-    // 4. 核心优势区域（保留）
+    // 3. 核心优势区域（建立信任）
     get_template_part('template-parts/homepage/advantages');
     
-    // 5. CTA联系我们区域（保留）
+    // 4. CTA联系我们区域（行动号召）
     get_template_part('template-parts/homepage/cta-section');
     ?>
 

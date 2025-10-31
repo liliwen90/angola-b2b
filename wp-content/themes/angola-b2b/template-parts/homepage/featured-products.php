@@ -14,7 +14,15 @@ if (!defined('ABSPATH')) {
 
 <section class="featured-products">
     <div class="container">
-        <h2 class="section-title"><?php esc_html_e('Featured Products', 'angola-b2b'); ?></h2>
+        <h2 class="section-title">
+            <?php 
+            if (function_exists('pll__')) {
+                echo esc_html(pll__('Featured Products'));
+            } else {
+                esc_html_e('Featured Products', 'angola-b2b');
+            }
+            ?>
+        </h2>
         <div class="products-grid">
             <?php
             $featured_products = new WP_Query(array(
@@ -37,7 +45,13 @@ if (!defined('ABSPATH')) {
             else :
                 ?>
                 <p class="no-products-message">
-                    <?php esc_html_e('No featured products at the moment.', 'angola-b2b'); ?>
+                    <?php 
+                    if (function_exists('pll__')) {
+                        echo esc_html(pll__('No featured products at the moment.'));
+                    } else {
+                        esc_html_e('No featured products at the moment.', 'angola-b2b');
+                    }
+                    ?>
                 </p>
                 <?php
             endif;
@@ -45,7 +59,13 @@ if (!defined('ABSPATH')) {
         </div>
         <div class="section-cta">
             <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" class="btn btn-primary">
-                <?php esc_html_e('View All Products', 'angola-b2b'); ?>
+                <?php 
+                if (function_exists('pll__')) {
+                    echo esc_html(pll__('View All Products'));
+                } else {
+                    esc_html_e('View All Products', 'angola-b2b');
+                }
+                ?>
             </a>
         </div>
     </div>

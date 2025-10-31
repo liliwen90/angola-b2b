@@ -77,42 +77,6 @@ function angola_b2b_register_homepage_settings_fields() {
         'title' => '首页设置',
         'fields' => array(
             
-            // Tab: Hero区域设置
-            array(
-                'key' => 'field_tab_hero_cta',
-                'label' => 'Hero按钮',
-                'type' => 'tab',
-                'placement' => 'left',
-            ),
-            array(
-                'key' => 'field_hero_cta_primary_text',
-                'label' => '主按钮文字',
-                'name' => 'hero_cta_primary_text',
-                'type' => 'text',
-                'default_value' => '查看库存产品',
-            ),
-            array(
-                'key' => 'field_hero_cta_primary_link',
-                'label' => '主按钮链接',
-                'name' => 'hero_cta_primary_link',
-                'type' => 'text',
-                'default_value' => '#stock-products',
-            ),
-            array(
-                'key' => 'field_hero_cta_secondary_text',
-                'label' => '次按钮文字',
-                'name' => 'hero_cta_secondary_text',
-                'type' => 'text',
-                'default_value' => '查看所有产品',
-            ),
-            array(
-                'key' => 'field_hero_cta_secondary_link',
-                'label' => '次按钮链接',
-                'name' => 'hero_cta_secondary_link',
-                'type' => 'url',
-                'default_value' => '/products/',
-            ),
-            
             // Tab: 库存产品模块
             array(
                 'key' => 'field_tab_stock_products',

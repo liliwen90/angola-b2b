@@ -45,13 +45,25 @@ if (!$stock_products->have_posts()) {
             <h2 class="section-title">
                 <?php 
                 $stock_title = get_field('stock_products_title', 45);
-                echo esc_html($stock_title ? $stock_title : __('现货供应 - 即刻发货', 'angola-b2b')); 
+                if ($stock_title) {
+                    echo esc_html($stock_title);
+                } elseif (function_exists('pll__')) {
+                    echo esc_html(pll__('现货供应 - 即刻发货'));
+                } else {
+                    esc_html_e('现货供应 - 即刻发货', 'angola-b2b');
+                }
                 ?>
             </h2>
             <p class="section-subtitle">
                 <?php 
                 $stock_subtitle = get_field('stock_products_subtitle', 45);
-                echo esc_html($stock_subtitle ? $stock_subtitle : __('本地库存，即刻发货', 'angola-b2b')); 
+                if ($stock_subtitle) {
+                    echo esc_html($stock_subtitle);
+                } elseif (function_exists('pll__')) {
+                    echo esc_html(pll__('本地库存，即刻发货'));
+                } else {
+                    esc_html_e('本地库存，即刻发货', 'angola-b2b');
+                }
                 ?>
             </p>
         </div>
