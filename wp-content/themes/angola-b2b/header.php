@@ -16,7 +16,19 @@
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
+<?php 
+// Debug output (only visible when WP_DEBUG is true)
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    echo '<!-- ========== HEADER.PHP LOADED ========== -->';
+    echo '<!-- Current Post Type: ' . esc_html(get_post_type()) . ' -->';
+    echo '<!-- Current Template: ' . esc_html(basename(get_page_template())) . ' -->';
+    echo '<!-- Is Singular: ' . (is_singular() ? 'YES' : 'NO') . ' -->';
+    echo '<!-- Is Single Product: ' . (is_singular('product') ? 'YES' : 'NO') . ' -->';
+    echo '<!-- ======================================== -->';
+}
+
+wp_body_open(); 
+?>
 
 <div id="page" class="site">
     <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'angola-b2b'); ?></a>
@@ -50,14 +62,14 @@
             <!-- Language Switcher -->
             <div class="language-switcher">
                 <?php
-                // WPML language switcher will be added here
-                if (function_exists('icl_get_languages')) {
-                    $languages = icl_get_languages('skip_missing=0&orderby=code');
-                    if (!empty($languages)) {
+                // Polylang language switcher
+                if (function_exists('pll_the_languages')) {
+                    $languages = pll_the_languages(array('raw' => 1));
+                    if (!empty($languages) && is_array($languages)) {
                         echo '<select id="language-select" class="language-select-dropdown" aria-label="' . esc_attr__('Select Language', 'angola-b2b') . '">';
                         foreach ($languages as $lang) {
-                            $selected = $lang['active'] ? 'selected="selected"' : '';
-                            echo '<option value="' . esc_url($lang['url']) . '" ' . $selected . '>' . esc_html($lang['native_name']) . '</option>';
+                            $selected = ($lang['current_lang']) ? 'selected="selected"' : '';
+                            echo '<option value="' . esc_url($lang['url']) . '" ' . $selected . '>' . esc_html($lang['name']) . '</option>';
                         }
                         echo '</select>';
                     }
@@ -68,8 +80,17 @@
             <!-- CTA Button -->
             <div class="header-cta">
                 <?php
-                $contact_page = get_page_by_path('contact');
-                $contact_url = $contact_page ? get_permalink($contact_page) : home_url('/contact/');
+                // Get contact page URL from ACF option or fallback to /contact/
+                $contact_url = get_field('contact_page_url', 'option');
+                if (empty($contact_url)) {
+                    // Try to find contact page by slug (WordPress 5.9+ compatible)
+                    $contact_page = get_posts(array(
+                        'post_type'   => 'page',
+                        'name'        => 'contact',
+                        'numberposts' => 1,
+                    ));
+                    $contact_url = !empty($contact_page) ? get_permalink($contact_page[0]->ID) : home_url('/contact/');
+                }
                 ?>
                 <a href="<?php echo esc_url($contact_url); ?>" class="cta-button">
                     <?php esc_html_e('Request Quote', 'angola-b2b'); ?>

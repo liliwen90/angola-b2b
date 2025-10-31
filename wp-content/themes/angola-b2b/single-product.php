@@ -1,10 +1,15 @@
 <?php
 /**
  * The template for displaying single product pages
- * Features: 360° rotation, hot spots, comparison slider, dynamic animations
+ * Features: Product gallery, specifications, certifications, customer cases
  *
  * @package Angola_B2B
  */
+
+// Debug output (only visible when WP_DEBUG is true)
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    echo '<!-- SINGLE-PRODUCT.PHP IS RUNNING -->';
+}
 
 get_header();
 
@@ -19,7 +24,19 @@ while (have_posts()) :
                 
                 <!-- Product Gallery Section -->
                 <div class="product-gallery-wrapper">
-                    <?php get_template_part('template-parts/product/product-gallery'); ?>
+                    <?php 
+                    if (defined('WP_DEBUG') && WP_DEBUG) {
+                        echo '<!-- BEFORE get_template_part for product-gallery -->';
+                        echo '<!-- Template path: ' . esc_html(get_template_directory()) . '/template-parts/product/product-gallery.php -->';
+                        echo '<!-- File exists: ' . (file_exists(get_template_directory() . '/template-parts/product/product-gallery.php') ? 'YES' : 'NO') . ' -->';
+                    }
+                    
+                    get_template_part('template-parts/product/product-gallery'); 
+                    
+                    if (defined('WP_DEBUG') && WP_DEBUG) {
+                        echo '<!-- AFTER get_template_part for product-gallery -->';
+                    }
+                    ?>
                 </div>
 
                 <!-- Product Info Section -->
@@ -49,46 +66,31 @@ while (have_posts()) :
                     <!-- Specifications Tab -->
                     <div class="tab-pane" id="tab-specifications">
                         <?php
-                        if (have_rows('specifications')) :
+                        // Get specifications using helper function (spec_name_1 to spec_name_8 fields)
+                        $specifications = angola_b2b_get_specifications($product_id);
+                        
+                        if (!empty($specifications)) :
                             ?>
                             <table class="specifications-table">
                                 <thead>
                                     <tr>
                                         <th><?php esc_html_e('Specification', 'angola-b2b'); ?></th>
                                         <th><?php esc_html_e('Value', 'angola-b2b'); ?></th>
-                                        <th><?php esc_html_e('Performance Level', 'angola-b2b'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    while (have_rows('specifications')) : the_row();
-                                        $spec_name = get_sub_field('spec_name');
-                                        $spec_value = get_sub_field('spec_value');
-                                        $spec_icon = get_sub_field('spec_icon');
-                                        $spec_level = get_sub_field('spec_level');
-                                        ?>
+                                    <?php foreach ($specifications as $spec) : ?>
                                         <tr class="spec-row">
-                                            <td>
-                                                <?php if ($spec_icon && is_array($spec_icon) && !empty($spec_icon['url'])) : ?>
-                                                    <img src="<?php echo esc_url($spec_icon['url']); ?>" alt="" class="spec-icon">
-                                                <?php endif; ?>
-                                                <?php echo esc_html($spec_name); ?>
-                                            </td>
-                                            <td><strong><?php echo esc_html($spec_value); ?></strong></td>
-                                            <td>
-                                                <?php if ($spec_level) : ?>
-                                                    <div class="spec-level-bar">
-                                                        <div class="spec-level-fill" data-level="<?php echo esc_attr($spec_level); ?>" style="width: 0%"></div>
-                                                        <span class="spec-level-text"><?php echo esc_html($spec_level); ?>%</span>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </td>
+                                            <td><?php echo esc_html($spec['name']); ?></td>
+                                            <td><strong><?php echo esc_html($spec['value']); ?></strong></td>
                                         </tr>
-                                        <?php
-                                    endwhile;
-                                    ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <?php
+                        else :
+                            ?>
+                            <p><?php esc_html_e('No specifications available for this product.', 'angola-b2b'); ?></p>
                             <?php
                         endif;
                         ?>

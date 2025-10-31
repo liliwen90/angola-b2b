@@ -9,10 +9,17 @@
 $product_id = get_the_ID();
 $featured_image = get_the_post_thumbnail_url($product_id, 'product-large');
 $gallery_images = angola_b2b_get_gallery_images($product_id);
-$images_360 = angola_b2b_get_360_images($product_id);
+$images_360 = angola_b2b_get_360_images($product_id); // Deprecated: Returns empty array
 $product_video = get_field('product_video', $product_id);
-$hotspot_annotations = get_field('hotspot_annotations', $product_id);
-$comparison_slider = get_field('comparison_slider', $product_id);
+$hotspot_annotations = get_field('hotspot_annotations', $product_id); // Optional: Not defined in ACF yet
+$comparison_slider = get_field('comparison_slider', $product_id); // Optional: Not defined in ACF yet
+
+// Debug output (only when WP_DEBUG is enabled)
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    echo '<!-- Product Gallery Debug -->';
+    echo '<!-- Product ID: ' . esc_html($product_id) . ' -->';
+    echo '<!-- Gallery Images Count: ' . count($gallery_images) . ' -->';
+}
 
 // Combine featured image with gallery
 $all_images = array();

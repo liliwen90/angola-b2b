@@ -116,8 +116,16 @@ get_header();
                 <h2 class="cta-title"><?php echo esc_html(get_field('cta_title', 'option')); ?></h2>
                 <p class="cta-text"><?php echo esc_html(get_field('cta_text', 'option')); ?></p>
                 <?php
-                $contact_page = get_page_by_path('contact');
-                $contact_url = $contact_page ? get_permalink($contact_page) : home_url('/contact/');
+                // Get contact page URL from ACF option or find by slug (WordPress 5.9+ compatible)
+                $contact_url = get_field('contact_page_url', 'option');
+                if (empty($contact_url)) {
+                    $contact_page = get_posts(array(
+                        'post_type'   => 'page',
+                        'name'        => 'contact',
+                        'numberposts' => 1,
+                    ));
+                    $contact_url = !empty($contact_page) ? get_permalink($contact_page[0]->ID) : home_url('/contact/');
+                }
                 ?>
                 <a href="<?php echo esc_url($contact_url); ?>" class="btn btn-light">
                     <?php esc_html_e('Contact Us Now', 'angola-b2b'); ?>

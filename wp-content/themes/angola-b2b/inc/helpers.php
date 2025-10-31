@@ -54,27 +54,23 @@ function angola_b2b_featured_badge() {
 }
 
 /**
- * Get product specifications
+ * Get product specifications (Simplified version)
+ * Only basic name-value pairs, no icons or levels
  */
 function angola_b2b_get_specifications($post_id = 0) {
     if (!$post_id) {
         $post_id = get_the_ID();
     }
     
-    if (!function_exists('have_rows')) {
-        return array();
-    }
-    
     $specs = array();
     
-    if (have_rows('specifications', $post_id)) {
-        while (have_rows('specifications', $post_id)) {
-            the_row();
+    // Simple version: collect from 8 fixed fields
+    for ($i = 1; $i <= 8; $i++) {
+        $spec_name = get_field('spec_name_' . $i, $post_id);
+        if (!empty($spec_name)) {
             $specs[] = array(
-                'name'  => get_sub_field('spec_name'),
-                'value' => get_sub_field('spec_value'),
-                'icon'  => get_sub_field('spec_icon'),
-                'level' => get_sub_field('spec_level'),
+                'name'  => $spec_name,
+                'value' => get_field('spec_value_' . $i, $post_id),
             );
         }
     }
@@ -83,17 +79,58 @@ function angola_b2b_get_specifications($post_id = 0) {
 }
 
 /**
- * Get product gallery images
+ * Get product gallery images (Simplified version)
+ * Collect from 5 image fields - enough for most products
  */
 function angola_b2b_get_gallery_images($post_id = 0) {
     if (!$post_id) {
         $post_id = get_the_ID();
     }
     
-    $gallery = get_field('product_gallery', $post_id);
+    $gallery = array();
     
-    if (empty($gallery) || !is_array($gallery)) {
-        return array();
+    // Try multiple possible field naming conventions
+    $field_names = array(
+        'product_image_',      // product_image_1, product_image_2, etc.
+        'product_gallery_',    // product_gallery_1, product_gallery_2, etc.
+        'chan_pin_tu_pian_',   // 产品图片_1 (possible Chinese pinyin)
+    );
+    
+    // Collect from 5 image fields
+    for ($i = 1; $i <= 5; $i++) {
+        foreach ($field_names as $prefix) {
+            $field_name = $prefix . $i;
+            $image = get_field($field_name, $post_id);
+            
+            if (!empty($image)) {
+                // Handle different ACF return formats
+                if (is_array($image)) {
+                    // Image Array format
+                    if (!empty($image['url'])) {
+                        $gallery[] = $image;
+                        break; // Found image, stop trying other prefixes
+                    }
+                } elseif (is_numeric($image)) {
+                    // Image ID format
+                    $image_array = wp_get_attachment_image_src($image, 'full');
+                    if ($image_array) {
+                        $gallery[] = array(
+                            'id'  => $image,
+                            'url' => $image_array[0],
+                            'alt' => get_post_meta($image, '_wp_attachment_image_alt', true),
+                        );
+                        break; // Found image, stop trying other prefixes
+                    }
+                } elseif (is_string($image)) {
+                    // Image URL format (direct URL string)
+                    $gallery[] = array(
+                        'url' => $image,
+                        'alt' => get_the_title($post_id),
+                    );
+                    break; // Found image, stop trying other prefixes
+                }
+            }
+        }
     }
     
     return $gallery;
@@ -101,19 +138,12 @@ function angola_b2b_get_gallery_images($post_id = 0) {
 
 /**
  * Get product 360 images
+ * DEPRECATED: 360-degree rotation feature removed for simplicity
+ * Keeping function for backward compatibility, returns empty array
  */
 function angola_b2b_get_360_images($post_id = 0) {
-    if (!$post_id) {
-        $post_id = get_the_ID();
-    }
-    
-    $images_360 = get_field('product_360_images', $post_id);
-    
-    if (empty($images_360) || !is_array($images_360)) {
-        return array();
-    }
-    
-    return $images_360;
+    // Feature removed - no longer collecting 360 images
+    return array();
 }
 
 /**

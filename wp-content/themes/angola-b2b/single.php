@@ -5,6 +5,9 @@
  * @package Angola_B2B
  */
 
+echo '<!-- !!!!! SINGLE.PHP IS RUNNING (NOT single-product.php) !!!!! -->';
+echo '<!-- Post Type: ' . get_post_type() . ' -->';
+
 get_header();
 ?>
 

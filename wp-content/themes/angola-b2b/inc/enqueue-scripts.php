@@ -164,6 +164,8 @@ function angola_b2b_enqueue_scripts() {
         true
     );
 
+    // Temporarily disabled product-gallery.js to debug
+    /*
     wp_enqueue_script(
         'angola-b2b-product-gallery',
         ANGOLA_B2B_THEME_URI . '/assets/js/product-gallery.js',
@@ -171,14 +173,9 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION,
         true
     );
+    */
 
-    wp_enqueue_script(
-        'angola-b2b-product-360',
-        ANGOLA_B2B_THEME_URI . '/assets/js/product-360.js',
-        array('jquery'),
-        ANGOLA_B2B_VERSION,
-        true
-    );
+    // product-360.js removed - 360-degree rotation feature simplified out
 
     wp_enqueue_script(
         'angola-b2b-ajax-filters',
