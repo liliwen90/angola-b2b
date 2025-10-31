@@ -24,6 +24,7 @@ $includes = array(
     '/inc/custom-taxonomies.php',
     '/inc/acf-fields.php',
     '/inc/admin-customization.php',
+    '/inc/admin-tools.php',
     '/inc/multilingual.php',
     '/inc/ajax-handlers.php',
     '/inc/inquiry-system.php',
