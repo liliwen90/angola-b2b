@@ -42,10 +42,11 @@ function angola_b2b_generate_products_page() {
         
         <div class="card" style="max-width: 800px;">
             <h2>测试产品生成器</h2>
-            <p>点击下面的按钮，系统会自动创建 <strong>8个测试产品</strong>：</p>
+            <p>点击下面的按钮，系统会自动创建 <strong>18个测试产品</strong>：</p>
             <ul>
-                <li>✅ <strong>5个库存产品</strong> - 会显示在首页"库存产品"区域</li>
-                <li>✅ <strong>8个精选产品</strong> - 会显示在首页"Featured Products"区域</li>
+                <li>✅ <strong>9个库存产品</strong> - 会显示在首页"库存产品"区域（可滑动查看）</li>
+                <li>✅ <strong>18个精选产品</strong> - 会显示在首页"Featured Products"区域（可滑动查看）</li>
+                <li>✅ 所有产品都带精美图片</li>
             </ul>
             
             <form method="post">
@@ -72,6 +73,7 @@ function angola_b2b_create_test_products() {
     $images_dir = 'F:/011 Projects/UnibroWeb/Unirbro/PICS for TEST/';
     
     $test_products = array(
+        // 库存产品 (1-9)
         array(
             'title' => 'LED灯泡套装',
             'description' => '高效节能LED灯泡，适用于家庭和商业场所。亮度可调，使用寿命长达25000小时。',
@@ -109,13 +111,60 @@ function angola_b2b_create_test_products() {
             'image' => '4.jpeg',
         ),
         array(
-            'title' => '手机保护壳套装',
+            'title' => '户外帐篷',
+            'description' => '防水防风户外帐篷，适合野营和户外活动。快速搭建，便于携带。',
+            'is_stock' => true,
+            'is_featured' => true,
+            'stock_quantity' => 60,
+            'category' => '户外用品',
+            'image' => '5.jpg',
+        ),
+        array(
+            'title' => '家用电器套装',
+            'description' => '包含电饭煲、电水壶等家用电器。节能环保，操作简便。',
+            'is_stock' => true,
+            'is_featured' => true,
+            'stock_quantity' => 120,
+            'category' => '家用电器',
+            'image' => '6.jpg',
+        ),
+        array(
+            'title' => '运动健身器材',
+            'description' => '专业运动健身器材，适合家庭和健身房使用。质量可靠，使用安全。',
+            'is_stock' => true,
+            'is_featured' => true,
+            'stock_quantity' => 45,
+            'category' => '运动器材',
+            'image' => '7.jpg',
+        ),
+        array(
+            'title' => '厨房用具套装',
+            'description' => '不锈钢厨房用具套装，包含锅、铲、勺等。耐用易清洗。',
+            'is_stock' => true,
+            'is_featured' => true,
+            'stock_quantity' => 200,
+            'category' => '厨房用品',
+            'image' => '8.jpg',
+        ),
+        array(
+            'title' => '园艺工具组合',
+            'description' => '专业园艺工具组合，包含铲子、耙子、剪刀等。适合家庭园艺。',
+            'is_stock' => true,
+            'is_featured' => true,
+            'stock_quantity' => 90,
+            'category' => '园艺工具',
+            'image' => '9.jpeg',
+        ),
+        
+        // 精选产品 (10-18)
+        array(
+            'title' => '智能手机配件',
             'description' => '适配多款手机型号，TPU材质，防摔耐用。颜色多样可选。',
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '电子配件',
-            'image' => '5.jpg',
+            'image' => '11.jpg',
         ),
         array(
             'title' => '儿童玩具套装',
@@ -124,16 +173,16 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '玩具',
-            'image' => '6.jpg',
+            'image' => '12.jpeg',
         ),
         array(
-            'title' => '电动螺丝刀',
-            'description' => '充电式电动螺丝刀，家庭维修必备工具。多档调速，操作简便。',
+            'title' => '电动工具套装',
+            'description' => '充电式电动工具套装，家庭维修必备。多档调速，操作简便。',
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '电动工具',
-            'image' => '7.jpg',
+            'image' => '8.jpeg',
         ),
         array(
             'title' => '家用塑料收纳箱',
@@ -142,7 +191,52 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '家居用品',
-            'image' => '8.jpg',
+            'image' => '13.jpeg',
+        ),
+        array(
+            'title' => '办公桌椅套装',
+            'description' => '人体工学办公桌椅，舒适耐用。适合长时间办公使用。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '办公家具',
+            'image' => '14.jpeg',
+        ),
+        array(
+            'title' => '汽车用品套装',
+            'description' => '汽车清洁保养用品，包含洗车液、打蜡剂等。车辆保养必备。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '汽车用品',
+            'image' => '15.jpeg',
+        ),
+        array(
+            'title' => '户外运动装备',
+            'description' => '专业户外运动装备，适合登山、徒步等活动。轻便耐用。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '户外装备',
+            'image' => '16.jpeg',
+        ),
+        array(
+            'title' => '宠物用品套装',
+            'description' => '宠物日常用品套装，包含食盆、玩具等。适合猫狗使用。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '宠物用品',
+            'image' => '1.jpeg',
+        ),
+        array(
+            'title' => '母婴用品组合',
+            'description' => '婴儿日常护理用品，安全无害。适合0-3岁婴幼儿使用。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '母婴用品',
+            'image' => '2.jpeg',
         ),
     );
     

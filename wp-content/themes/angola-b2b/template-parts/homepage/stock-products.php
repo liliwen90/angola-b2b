@@ -20,7 +20,7 @@ if ($enable_stock_section === false || $enable_stock_section === '0') {
 // 查询库存产品
 $stock_products = new WP_Query(array(
     'post_type' => 'product',
-    'posts_per_page' => 4, // 只显示4个库存产品
+    'posts_per_page' => 20, // 显示所有库存产品
     'meta_query' => array(
         array(
             'key' => 'product_in_stock',

@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
             <?php
             $featured_products = new WP_Query(array(
                 'post_type' => 'product',
-                'posts_per_page' => 8,
+                'posts_per_page' => 20, // 显示所有精选产品
                 'meta_query' => array(
                     array(
                         'key' => 'product_featured',
