@@ -68,6 +68,9 @@ function angola_b2b_generate_products_page() {
  * Create test products
  */
 function angola_b2b_create_test_products() {
+    // 图片目录路径
+    $images_dir = 'F:/011 Projects/UnibroWeb/Unirbro/PICS for TEST/';
+    
     $test_products = array(
         array(
             'title' => 'LED灯泡套装',
@@ -76,6 +79,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 200,
             'category' => '照明设备',
+            'image' => '1.jpeg',
         ),
         array(
             'title' => '建筑用水泥',
@@ -84,6 +88,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 500,
             'category' => '建筑材料',
+            'image' => '2.jpeg',
         ),
         array(
             'title' => '办公文具套装',
@@ -92,6 +97,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 150,
             'category' => '办公用品',
+            'image' => '3.jpg',
         ),
         array(
             'title' => '五金工具箱',
@@ -100,14 +106,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 80,
             'category' => '五金工具',
-        ),
-        array(
-            'title' => '家用塑料收纳箱',
-            'description' => '耐用塑料收纳箱，多种尺寸可选。防潮防尘，适合家庭和仓库使用。',
-            'is_stock' => true,
-            'is_featured' => true,
-            'stock_quantity' => 300,
-            'category' => '家居用品',
+            'image' => '4.jpeg',
         ),
         array(
             'title' => '手机保护壳套装',
@@ -116,6 +115,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '电子配件',
+            'image' => '5.jpg',
         ),
         array(
             'title' => '儿童玩具套装',
@@ -124,6 +124,7 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '玩具',
+            'image' => '6.jpg',
         ),
         array(
             'title' => '电动螺丝刀',
@@ -132,6 +133,16 @@ function angola_b2b_create_test_products() {
             'is_featured' => true,
             'stock_quantity' => 0,
             'category' => '电动工具',
+            'image' => '7.jpg',
+        ),
+        array(
+            'title' => '家用塑料收纳箱',
+            'description' => '耐用塑料收纳箱，多种尺寸可选。防潮防尘，适合家庭和仓库使用。',
+            'is_stock' => false,
+            'is_featured' => true,
+            'stock_quantity' => 0,
+            'category' => '家居用品',
+            'image' => '8.jpg',
         ),
     );
     
@@ -201,8 +212,25 @@ function angola_b2b_create_test_products() {
         update_field('spec_name_3', '质保期', $product_id);
         update_field('spec_value_3', '1年', $product_id);
         
+        // Upload and set featured image
+        if (!empty($product_data['image'])) {
+            $image_path = $images_dir . $product_data['image'];
+            if (file_exists($image_path)) {
+                $attachment_id = angola_b2b_upload_image_from_path($image_path, $product_id);
+                if ($attachment_id) {
+                    set_post_thumbnail($product_id, $attachment_id);
+                    echo '<div class="notice notice-success inline"><p>✅ 创建成功（含图片）：<strong>' . esc_html($product_data['title']) . '</strong></p></div>';
+                } else {
+                    echo '<div class="notice notice-success inline"><p>✅ 创建成功（图片上传失败）：<strong>' . esc_html($product_data['title']) . '</strong></p></div>';
+                }
+            } else {
+                echo '<div class="notice notice-success inline"><p>✅ 创建成功（图片文件不存在）：<strong>' . esc_html($product_data['title']) . '</strong></p></div>';
+            }
+        } else {
+            echo '<div class="notice notice-success inline"><p>✅ 创建成功：<strong>' . esc_html($product_data['title']) . '</strong></p></div>';
+        }
+        
         $created_count++;
-        echo '<div class="notice notice-success inline"><p>✅ 创建成功：<strong>' . esc_html($product_data['title']) . '</strong></p></div>';
     }
     
     // Summary
@@ -217,5 +245,54 @@ function angola_b2b_create_test_products() {
     echo '<p><a href="' . home_url() . '" class="button button-primary" target="_blank">🏠 查看首页</a> ';
     echo '<a href="' . admin_url('edit.php?post_type=product') . '" class="button">📦 查看所有产品</a></p>';
     echo '</div>';
+}
+
+/**
+ * Upload image from file path and attach to post
+ */
+function angola_b2b_upload_image_from_path($file_path, $post_id = 0) {
+    if (!file_exists($file_path)) {
+        return false;
+    }
+    
+    // Include required WordPress files
+    require_once(ABSPATH . 'wp-admin/includes/file.php');
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    require_once(ABSPATH . 'wp-admin/includes/media.php');
+    
+    // Get file info
+    $filename = basename($file_path);
+    $filetype = wp_check_filetype($filename);
+    
+    // Read file content
+    $file_content = file_get_contents($file_path);
+    
+    // Upload to WordPress media library
+    $upload = wp_upload_bits($filename, null, $file_content);
+    
+    if ($upload['error']) {
+        return false;
+    }
+    
+    // Prepare attachment data
+    $attachment = array(
+        'post_mime_type' => $filetype['type'],
+        'post_title'     => sanitize_file_name(pathinfo($filename, PATHINFO_FILENAME)),
+        'post_content'   => '',
+        'post_status'    => 'inherit'
+    );
+    
+    // Insert attachment
+    $attachment_id = wp_insert_attachment($attachment, $upload['file'], $post_id);
+    
+    if (is_wp_error($attachment_id)) {
+        return false;
+    }
+    
+    // Generate metadata
+    $attachment_data = wp_generate_attachment_metadata($attachment_id, $upload['file']);
+    wp_update_attachment_metadata($attachment_id, $attachment_data);
+    
+    return $attachment_id;
 }
 
