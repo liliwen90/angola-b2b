@@ -5,8 +5,11 @@
  * @package Angola_B2B
  */
 
-echo '<!-- !!!!! SINGLE.PHP IS RUNNING (NOT single-product.php) !!!!! -->';
-echo '<!-- Post Type: ' . get_post_type() . ' -->';
+// Debug output (only when WP_DEBUG is enabled)
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    echo '<!-- SINGLE.PHP IS RUNNING (NOT single-product.php) -->';
+    echo '<!-- Post Type: ' . esc_html(get_post_type()) . ' -->';
+}
 
 get_header();
 ?>
