@@ -31,22 +31,21 @@ $product_id = get_the_ID();
     <div class="product-thumbnail">
         <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(sprintf(__('View %s', 'angola-b2b'), get_the_title())); ?>">
             <?php
-            $image = get_field('product_image_1', $product_id);
-            if ($image && is_array($image)) {
-                $image_alt = !empty($image['alt']) ? $image['alt'] : get_the_title();
+            $thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+            if ($thumbnail) :
                 ?>
-                <img src="<?php echo esc_url($image['url']); ?>" 
-                     alt="<?php echo esc_attr($image_alt); ?>"
+                <img src="<?php echo esc_url($thumbnail); ?>" 
+                     alt="<?php echo esc_attr(get_the_title()); ?>"
                      loading="lazy">
                 <?php
-            } else {
+            else :
                 // 占位图
                 ?>
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/placeholder.jpg'); ?>" 
+                <img src="<?php echo esc_url(ANGOLA_B2B_THEME_URI . '/assets/images/placeholder-product.jpg'); ?>" 
                      alt="<?php echo esc_attr__('Product placeholder', 'angola-b2b'); ?>"
                      loading="lazy">
                 <?php
-            }
+            endif;
             ?>
         </a>
     </div>
