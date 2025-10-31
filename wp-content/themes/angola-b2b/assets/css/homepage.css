@@ -150,11 +150,43 @@
 .product-card--stock {
     position: relative;
     border: 2px solid var(--color-success);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .product-card--stock:hover {
     border-color: var(--color-success-dark);
     box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+}
+
+.product-card--stock .product-thumbnail {
+    flex-shrink: 0;
+}
+
+.product-card--stock .product-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: var(--space-4);
+}
+
+.product-card--stock .product-title {
+    margin-bottom: var(--space-3);
+}
+
+.product-card--stock .product-excerpt {
+    margin-bottom: var(--space-3);
+    flex-grow: 0;
+}
+
+.product-card--stock .product-stock-info {
+    margin-bottom: var(--space-4);
+}
+
+.product-card--stock .product-actions {
+    margin-top: auto;
+    padding-top: var(--space-3);
 }
 
 .product-badges {
