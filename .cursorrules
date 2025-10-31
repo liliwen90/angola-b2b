@@ -1,5 +1,37 @@
 # 项目开发规则
 
+## 项目目录结构
+**项目根目录**: `F:\011 Projects\UnibroWeb\Unirbro\`
+
+### 核心目录说明
+1. **主题开发目录** (主要工作区):
+   - 路径: `F:\011 Projects\UnibroWeb\Unirbro\wp-content\themes\angola-b2b\`
+   - 用途: WordPress主题源代码开发
+   - 包含: 所有PHP模板、CSS、JavaScript、inc/文件夹等
+   - 版本控制: 需要Git跟踪
+
+2. **Local开发环境** (测试运行):
+   - 路径: `F:\011 Projects\UnibroWeb\Unirbro\local-site\angola-b2b\`
+   - 用途: Local by Flywheel的WordPress完整站点
+   - 包含: WordPress核心、插件、数据库、配置文件
+   - 版本控制: 不需要Git跟踪 (应在.gitignore中)
+
+3. **主题符号链接** (自动同步):
+   - Local站点中的主题: `local-site\angola-b2b\app\public\wp-content\themes\angola-b2b\`
+   - 指向: `wp-content\themes\angola-b2b\` (开发目录)
+   - 效果: 修改开发目录的代码，Local站点立即同步
+
+4. **文档目录**:
+   - `AI-Development-Guide.md`: AI开发工作流指南
+   - `README.md`: 项目说明文档
+   - `外贸站开发规划.md`: 项目规划文档
+
+### 重要规则
+- **修改主题代码**: 始终在 `wp-content/themes/angola-b2b/` 进行
+- **测试站点**: 通过Local访问 `angola-b2b.local`
+- **不要直接修改**: `local-site/` 目录下的主题文件（它是符号链接）
+- **上传的图片**: 位于 `local-site/angola-b2b/app/public/wp-content/uploads/`
+
 ## 代码编写规范
 1. **聊天窗口禁止展示代码**: 用户不懂代码，在对话中只用人类语言沟通，不要展示任何代码片段。需要编写代码时直接创建/修改文件即可
 2. **禁止创建文档文件**: 不要创建 .md 等说明文档，所有沟通在对话窗口完成
@@ -15,4 +47,21 @@
 - 用人类日常交流语言沟通，不展示代码
 - 不主动生成文档类文件
 - 直接编写完整可运行的代码到文件中
+
+## PowerShell/CMD使用规则
+1. **Windows环境命令规范**:
+   - PowerShell使用 `Add-Content` 而非 `>>` 重定向（权限更可靠）
+   - 修改系统文件前先用 `attrib -r` 取消只读属性
+   - 涉及系统目录操作，提醒用户"以管理员身份运行"
+   - 避免使用复杂的多行PowerShell脚本，优先简单的单行命令
+
+2. **命令分步执行**:
+   - 每次最多3个步骤，确保用户能跟上
+   - 重要操作分成多个小命令，逐步验证
+   - 提供命令执行后的预期输出
+
+3. **错误处理**:
+   - 预判常见权限错误（UAC、只读文件、防病毒软件）
+   - 提供备用方案（如GUI操作代替命令行）
+   - 清晰说明错误原因和解决步骤
 

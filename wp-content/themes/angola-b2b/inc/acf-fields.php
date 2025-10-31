@@ -12,6 +12,27 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Set ACF JSON save and load points
+ */
+// Save JSON to theme folder
+add_filter('acf/settings/save_json', 'angola_b2b_acf_json_save_point');
+function angola_b2b_acf_json_save_point($path) {
+    return ANGOLA_B2B_THEME_DIR . '/acf-json';
+}
+
+// Load JSON from theme folder
+add_filter('acf/settings/load_json', 'angola_b2b_acf_json_load_point');
+function angola_b2b_acf_json_load_point($paths) {
+    // Remove original path
+    unset($paths[0]);
+    
+    // Append new path
+    $paths[] = ANGOLA_B2B_THEME_DIR . '/acf-json';
+    
+    return $paths;
+}
+
+/**
  * Register ACF options pages
  */
 if (function_exists('acf_add_options_page')) {
@@ -50,10 +71,11 @@ if (function_exists('acf_add_options_page')) {
 
 /**
  * Hide ACF menu in production
+ * 暂时注释掉，开发阶段需要访问ACF菜单
  */
-if (!defined('WP_DEBUG') || WP_DEBUG === false) {
-    add_filter('acf/settings/show_admin', '__return_false');
-}
+// if (!defined('WP_DEBUG') || WP_DEBUG === false) {
+//     add_filter('acf/settings/show_admin', '__return_false');
+// }
 
 /**
  * ACF field groups will be added here after ACF Pro installation

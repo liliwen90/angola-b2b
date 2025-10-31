@@ -140,7 +140,7 @@ wp-content/themes/angola-b2b/
 │   │   ├── main.js (main JavaScript)
 │   │   ├── animations.js (GSAP animations)
 │   │   ├── product-gallery.js (product gallery functions)
-│   │   ├── product-360.js (360 rotation)
+│   │   ├── product-360.js (360 rotation) [已移除 - 无法获取多角度产品图]
 │   │   ├── ajax-filters.js (AJAX product filters)
 │   │   ├── mobile-menu.js (mobile navigation)
 │   │   └── utils.js (utility functions)
@@ -524,7 +524,7 @@ function angola_b2b_setup() {
     add_image_size('product-thumbnail', 400, 400, true);
     add_image_size('product-medium', 800, 800, true);
     add_image_size('product-large', 1200, 1200, true);
-    add_image_size('product-360', 600, 600, true);
+    // add_image_size('product-360', 600, 600, true); // 360功能已移除
     add_image_size('hero-banner', 1920, 1080, true);
     
     // Register navigation menus
@@ -674,7 +674,8 @@ function angola_b2b_enqueue_scripts() {
     // Product pages specific scripts
     if (is_singular('product')) {
         wp_enqueue_script('angola-b2b-product-gallery', ANGOLA_B2B_THEME_URI . '/assets/js/product-gallery.js', array('swiper-js', 'photoswipe-lightbox'), ANGOLA_B2B_VERSION, true);
-        wp_enqueue_script('angola-b2b-product-360', ANGOLA_B2B_THEME_URI . '/assets/js/product-360.js', array('angola-b2b-utils'), ANGOLA_B2B_VERSION, true);
+        // 360度展示功能已移除 - 无法获取多角度产品图片
+        // wp_enqueue_script('angola-b2b-product-360', ANGOLA_B2B_THEME_URI . '/assets/js/product-360.js', array('angola-b2b-utils'), ANGOLA_B2B_VERSION, true);
     }
     
     // Product archive specific scripts
@@ -913,7 +914,7 @@ add_action('init', 'angola_b2b_register_product_taxonomy');
 ### Phase 5 Complete When:
 - [ ] All animations implemented
 - [ ] GSAP ScrollTrigger working
-- [ ] 360° rotation working
+- [ ] ~~360° rotation working~~ (功能已移除 - 无法获取多角度产品图)
 - [ ] Product gallery functional
 - [ ] All micro-interactions working
 
