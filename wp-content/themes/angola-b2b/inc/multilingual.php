@@ -188,16 +188,25 @@ function angola_b2b_language_body_class($classes) {
 add_filter('body_class', 'angola_b2b_language_body_class');
 
 /**
- * Disable WPML admin language filtering for backend
+ * Force admin backend to Chinese (Simplified)
+ * Works with both WPML and Polylang
  */
-function angola_b2b_wpml_admin_language() {
-    // Force admin to Chinese
-    if (is_admin() && function_exists('icl_get_current_language')) {
-        global $sitepress;
-        if ($sitepress) {
-            $sitepress->switch_lang('zh-hans', true);
-        }
+function angola_b2b_force_admin_language($locale) {
+    if (is_admin()) {
+        return 'zh_CN'; // Force admin to Simplified Chinese
     }
+    return $locale;
 }
-add_action('init', 'angola_b2b_wpml_admin_language', 1);
+add_filter('locale', 'angola_b2b_force_admin_language', 999);
+
+/**
+ * Prevent Polylang from filtering admin language
+ */
+function angola_b2b_polylang_admin_language_filter($lang) {
+    if (is_admin()) {
+        return false; // Disable Polylang's admin language filtering
+    }
+    return $lang;
+}
+add_filter('pll_preferred_language', 'angola_b2b_polylang_admin_language_filter', 999);
 
