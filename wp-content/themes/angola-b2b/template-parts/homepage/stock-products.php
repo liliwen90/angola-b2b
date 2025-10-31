@@ -68,14 +68,47 @@ if (!$stock_products->have_posts()) {
             </p>
         </div>
         
-        <div class="products-grid">
-            <?php
-            while ($stock_products->have_posts()) : $stock_products->the_post();
-                // 使用库存产品卡片模板
-                get_template_part('template-parts/product/product-card', 'stock');
-            endwhile;
-            wp_reset_postdata();
-            ?>
+        <!-- Swiper容器 -->
+        <div class="stock-products-slider-wrapper">
+            <div class="swiper stock-products-swiper">
+                <div class="swiper-wrapper">
+                    <?php
+                    while ($stock_products->have_posts()) : $stock_products->the_post();
+                        echo '<div class="swiper-slide">';
+                        // 使用库存产品卡片模板
+                        get_template_part('template-parts/product/product-card', 'stock');
+                        echo '</div>';
+                    endwhile;
+                    wp_reset_postdata();
+                    ?>
+                </div>
+            </div>
+            
+            <!-- 导航按钮 -->
+            <div class="swiper-button-prev stock-swiper-prev">
+                <span class="nav-arrow">‹</span>
+                <span class="nav-text">
+                    <?php 
+                    if (function_exists('pll__')) {
+                        echo esc_html(pll__('查看更多'));
+                    } else {
+                        esc_html_e('查看更多', 'angola-b2b');
+                    }
+                    ?>
+                </span>
+            </div>
+            <div class="swiper-button-next stock-swiper-next">
+                <span class="nav-text">
+                    <?php 
+                    if (function_exists('pll__')) {
+                        echo esc_html(pll__('查看更多'));
+                    } else {
+                        esc_html_e('查看更多', 'angola-b2b');
+                    }
+                    ?>
+                </span>
+                <span class="nav-arrow">›</span>
+            </div>
         </div>
     </div>
 </section>

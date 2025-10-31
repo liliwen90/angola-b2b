@@ -23,7 +23,8 @@ if (!defined('ABSPATH')) {
             }
             ?>
         </h2>
-        <div class="products-grid">
+        <!-- Swiper容器 -->
+        <div class="featured-products-slider-wrapper">
             <?php
             $featured_products = new WP_Query(array(
                 'post_type' => 'product',
@@ -38,10 +39,46 @@ if (!defined('ABSPATH')) {
             ));
 
             if ($featured_products->have_posts()) :
-                while ($featured_products->have_posts()) : $featured_products->the_post();
-                    get_template_part('template-parts/product/product-card');
-                endwhile;
-                wp_reset_postdata();
+                ?>
+                <div class="swiper featured-products-swiper">
+                    <div class="swiper-wrapper">
+                        <?php
+                        while ($featured_products->have_posts()) : $featured_products->the_post();
+                            echo '<div class="swiper-slide">';
+                            get_template_part('template-parts/product/product-card');
+                            echo '</div>';
+                        endwhile;
+                        wp_reset_postdata();
+                        ?>
+                    </div>
+                </div>
+                
+                <!-- 导航按钮 -->
+                <div class="swiper-button-prev featured-swiper-prev">
+                    <span class="nav-arrow">‹</span>
+                    <span class="nav-text">
+                        <?php 
+                        if (function_exists('pll__')) {
+                            echo esc_html(pll__('查看更多'));
+                        } else {
+                            esc_html_e('查看更多', 'angola-b2b');
+                        }
+                        ?>
+                    </span>
+                </div>
+                <div class="swiper-button-next featured-swiper-next">
+                    <span class="nav-text">
+                        <?php 
+                        if (function_exists('pll__')) {
+                            echo esc_html(pll__('查看更多'));
+                        } else {
+                            esc_html_e('查看更多', 'angola-b2b');
+                        }
+                        ?>
+                    </span>
+                    <span class="nav-arrow">›</span>
+                </div>
+                <?php
             else :
                 ?>
                 <p class="no-products-message">

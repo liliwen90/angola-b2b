@@ -80,6 +80,15 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
 
+    // Homepage sliders
+    wp_enqueue_script(
+        'angola-b2b-homepage-sliders',
+        ANGOLA_B2B_THEME_URI . '/assets/js/homepage-sliders.js',
+        array('swiper-js'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+
     // Swiper.js CSS
     wp_enqueue_style(
         'swiper-css',

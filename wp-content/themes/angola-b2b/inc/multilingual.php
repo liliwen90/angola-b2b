@@ -225,6 +225,7 @@ function angola_b2b_register_polylang_strings() {
     pll_register_string('angola-b2b', '库存：%d 件', 'Product Card');
     pll_register_string('angola-b2b', '现货', 'Product Card');
     pll_register_string('angola-b2b', '推荐', 'Product Card');
+    pll_register_string('angola-b2b', '查看更多', 'Product Card');
     
     // Homepage sections
     pll_register_string('angola-b2b', '现货供应 - 即刻发货', 'Homepage');
