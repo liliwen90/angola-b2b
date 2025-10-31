@@ -1,0 +1,210 @@
+/**
+ * Homepage Specific Styles
+ * 首页专用样式
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Hero区域 - 双按钮
+   ============================================ */
+
+.hero-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-cta-group .btn {
+    min-width: 180px;
+}
+
+@media (max-width: 640px) {
+    .hero-cta-group {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .hero-cta-group .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   热门库存产品区域
+   ============================================ */
+
+.stock-products-section {
+    padding: var(--space-20) 0;
+    background: var(--color-bg-secondary);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.section-header .section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.section-header .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+    .stock-products-section {
+        padding: var(--space-16) 0;
+    }
+    
+    .section-header .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .section-header .section-subtitle {
+        font-size: var(--font-size-base);
+    }
+}
+
+/* ============================================
+   产品卡片 - 库存变体
+   ============================================ */
+
+.product-card--stock {
+    position: relative;
+    border: 2px solid var(--color-success);
+}
+
+.product-card--stock:hover {
+    border-color: var(--color-success-dark);
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+}
+
+.product-badges {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 10;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.badge {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-stock {
+    background: var(--color-success);
+    color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.product-stock-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-success-light);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-success-dark);
+}
+
+.stock-icon {
+    font-size: var(--font-size-base);
+}
+
+.stock-quantity {
+    font-weight: var(--font-weight-medium);
+}
+
+/* ============================================
+   首页section布局优化
+   ============================================ */
+
+.homepage > section {
+    position: relative;
+}
+
+.homepage > section:nth-child(even):not(.hero-banner) {
+    background: var(--color-bg-secondary);
+}
+
+.homepage > section:nth-child(odd):not(.hero-banner) {
+    background: var(--color-white);
+}
+
+/* Section间距统一 */
+.homepage > section {
+    padding: var(--space-20) 0;
+}
+
+.homepage .hero-banner {
+    padding: 0; /* Hero保持原样 */
+}
+
+@media (max-width: 768px) {
+    .homepage > section {
+        padding: var(--space-16) 0;
+    }
+}
+
+/* ============================================
+   Loading & 空状态
+   ============================================ */
+
+.loading-state {
+    text-align: center;
+    padding: var(--space-16) 0;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto var(--space-4);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.no-products-message,
+.no-content-message {
+    text-align: center;
+    padding: var(--space-12) 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+}
+
+/* ============================================
+   平滑滚动
+   ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* 点击锚点链接时的偏移（避免被固定header遮挡） */
+section[id] {
+    scroll-margin-top: 100px;
+}
+

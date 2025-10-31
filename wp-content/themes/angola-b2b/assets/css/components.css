@@ -75,6 +75,20 @@
     background-color: var(--color-gray-50);
 }
 
+.btn-outline-white {
+    color: var(--color-white);
+    background-color: transparent;
+    border-color: var(--color-white);
+}
+
+.btn-outline-white:hover {
+    color: var(--color-primary);
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
 .btn-whatsapp {
     color: var(--color-white);
     background-color: #25d366;

@@ -34,40 +34,14 @@ function angola_b2b_acf_json_load_point($paths) {
 
 /**
  * Register ACF options pages
+ * ACF免费版不支持Options Page功能，已改用专门的WordPress页面（ID: 45）存储首页设置
+ * 其他设置（社交媒体、联系信息）将来可以用类似方式创建独立页面
  */
-if (function_exists('acf_add_options_page')) {
-    // Main theme options page
-    acf_add_options_page(array(
-        'page_title' => __('主题选项', 'angola-b2b'),
-        'menu_title' => __('主题选项', 'angola-b2b'),
-        'menu_slug'  => 'theme-general-settings',
-        'capability' => 'edit_posts',
-        'icon_url'   => 'dashicons-admin-generic',
-        'redirect'   => false,
-        'position'   => 60,
-    ));
-
-    // Homepage settings
-    acf_add_options_sub_page(array(
-        'page_title'  => __('首页设置', 'angola-b2b'),
-        'menu_title'  => __('首页设置', 'angola-b2b'),
-        'parent_slug' => 'theme-general-settings',
-    ));
-
-    // Social media settings
-    acf_add_options_sub_page(array(
-        'page_title'  => __('社交媒体', 'angola-b2b'),
-        'menu_title'  => __('社交媒体', 'angola-b2b'),
-        'parent_slug' => 'theme-general-settings',
-    ));
-
-    // Contact settings
-    acf_add_options_sub_page(array(
-        'page_title'  => __('联系信息', 'angola-b2b'),
-        'menu_title'  => __('联系信息', 'angola-b2b'),
-        'parent_slug' => 'theme-general-settings',
-    ));
-}
+// function angola_b2b_register_acf_options_pages() {
+//     // ACF PRO required for Options Pages
+//     // Using dedicated WordPress page (ID: 45) as alternative
+// }
+// add_action('acf/init', 'angola_b2b_register_acf_options_pages', 5);
 
 /**
  * Hide ACF menu in production
@@ -88,4 +62,191 @@ if (function_exists('acf_add_options_page')) {
  * - Social Media Links
  * - Contact Information
  */
+
+/**
+ * Register Homepage Settings Fields
+ * 注册首页设置字段
+ */
+function angola_b2b_register_homepage_settings_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_homepage_settings',
+        'title' => '首页设置',
+        'fields' => array(
+            
+            // Tab: Hero区域设置
+            array(
+                'key' => 'field_tab_hero_cta',
+                'label' => 'Hero按钮',
+                'type' => 'tab',
+                'placement' => 'left',
+            ),
+            array(
+                'key' => 'field_hero_cta_primary_text',
+                'label' => '主按钮文字',
+                'name' => 'hero_cta_primary_text',
+                'type' => 'text',
+                'default_value' => '查看库存产品',
+            ),
+            array(
+                'key' => 'field_hero_cta_primary_link',
+                'label' => '主按钮链接',
+                'name' => 'hero_cta_primary_link',
+                'type' => 'text',
+                'default_value' => '#stock-products',
+            ),
+            array(
+                'key' => 'field_hero_cta_secondary_text',
+                'label' => '次按钮文字',
+                'name' => 'hero_cta_secondary_text',
+                'type' => 'text',
+                'default_value' => '查看所有产品',
+            ),
+            array(
+                'key' => 'field_hero_cta_secondary_link',
+                'label' => '次按钮链接',
+                'name' => 'hero_cta_secondary_link',
+                'type' => 'url',
+                'default_value' => '/products/',
+            ),
+            
+            // Tab: 库存产品模块
+            array(
+                'key' => 'field_tab_stock_products',
+                'label' => '库存产品模块',
+                'type' => 'tab',
+                'placement' => 'left',
+            ),
+            array(
+                'key' => 'field_enable_stock_products_section',
+                'label' => '显示热门库存产品区域',
+                'name' => 'enable_stock_products_section',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'instructions' => '关闭后，首页将不显示库存产品区域',
+            ),
+            array(
+                'key' => 'field_stock_products_title',
+                'label' => '库存产品区域标题',
+                'name' => 'stock_products_title',
+                'type' => 'text',
+                'default_value' => '现货供应 - 即刻发货',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_enable_stock_products_section',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_stock_products_subtitle',
+                'label' => '库存产品区域副标题',
+                'name' => 'stock_products_subtitle',
+                'type' => 'text',
+                'default_value' => '本地库存，即刻发货',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_enable_stock_products_section',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => '45', // 首页设置页面ID
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_homepage_settings_fields');
+
+/**
+ * Register Product Stock Fields
+ * 注册产品库存字段（追加到产品基本信息字段组）
+ */
+function angola_b2b_register_product_stock_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_product_stock_info',
+        'title' => '产品库存信息',
+        'fields' => array(
+            array(
+                'key' => 'field_product_in_stock',
+                'label' => '是否为库存商品',
+                'name' => 'product_in_stock',
+                'type' => 'true_false',
+                'instructions' => '勾选后将在首页"热门库存"区域显示',
+                'ui' => 1,
+                'default_value' => 0,
+            ),
+            array(
+                'key' => 'field_product_stock_quantity',
+                'label' => '库存数量',
+                'name' => 'product_stock_quantity',
+                'type' => 'number',
+                'instructions' => '留空则不显示库存数',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_product_in_stock',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+                'min' => 0,
+                'step' => 1,
+            ),
+            array(
+                'key' => 'field_product_stock_badge_text',
+                'label' => '库存徽章文字',
+                'name' => 'product_stock_badge_text',
+                'type' => 'text',
+                'instructions' => '显示在产品卡片上的徽章文字',
+                'default_value' => '现货',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_product_in_stock',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'product',
+                ),
+            ),
+        ),
+        'menu_order' => 5,
+        'position' => 'normal',
+        'style' => 'default',
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_product_stock_fields');
 
