@@ -62,9 +62,14 @@ wp_body_open();
             <!-- Language Switcher -->
             <div class="language-switcher">
                 <?php
-                // Polylang language switcher
+                // Polylang language switcher - Show all languages even if no translation exists
                 if (function_exists('pll_the_languages')) {
-                    $languages = pll_the_languages(array('raw' => 1));
+                    $languages = pll_the_languages(array(
+                        'raw' => 1,
+                        'hide_if_empty' => 0,           // Show all languages even if no content
+                        'hide_if_no_translation' => 0,  // Don't hide untranslated languages
+                        'force_home' => 1,              // Link to home if no translation exists
+                    ));
                     if (!empty($languages) && is_array($languages)) {
                         echo '<select id="language-select" class="language-select-dropdown" aria-label="' . esc_attr__('Select Language', 'angola-b2b') . '">';
                         foreach ($languages as $lang) {
