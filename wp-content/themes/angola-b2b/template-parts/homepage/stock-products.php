@@ -86,28 +86,12 @@ if (!$stock_products->have_posts()) {
             
             <!-- 导航按钮 -->
             <div class="swiper-button-prev stock-swiper-prev">
+                <span class="nav-text">more</span>
                 <span class="nav-arrow">‹</span>
-                <span class="nav-text">
-                    <?php 
-                    if (function_exists('pll__')) {
-                        echo esc_html(pll__('查看更多'));
-                    } else {
-                        esc_html_e('查看更多', 'angola-b2b');
-                    }
-                    ?>
-                </span>
             </div>
             <div class="swiper-button-next stock-swiper-next">
-                <span class="nav-text">
-                    <?php 
-                    if (function_exists('pll__')) {
-                        echo esc_html(pll__('查看更多'));
-                    } else {
-                        esc_html_e('查看更多', 'angola-b2b');
-                    }
-                    ?>
-                </span>
                 <span class="nav-arrow">›</span>
+                <span class="nav-text">more</span>
             </div>
         </div>
     </div>
