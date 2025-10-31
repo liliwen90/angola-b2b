@@ -149,6 +149,29 @@
     .btn-group .btn {
         width: 100%;
     }
+    
+    /* Ensure all buttons are full-width on mobile */
+    .btn,
+    button:not(.gallery-control):not(.gallery-thumbnail):not(.view-type-btn):not(.swiper-button-prev):not(.swiper-button-next):not(.mobile-menu-toggle):not(.tab-button):not(.close-share-popup) {
+        width: 100% !important;
+        max-width: 100%;
+    }
+    
+    /* Button containers should stack vertically */
+    .product-card-actions,
+    .cta-buttons-row,
+    .quick-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--space-3) !important;
+        width: 100%;
+    }
+    
+    .product-card-actions .btn,
+    .cta-buttons-row .btn,
+    .quick-inquiry-wrapper .btn {
+        width: 100% !important;
+    }
 }
 
 /* ============================================
