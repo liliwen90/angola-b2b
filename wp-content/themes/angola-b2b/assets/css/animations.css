@@ -371,6 +371,7 @@
 .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
+    will-change: opacity, transform;
     transition: opacity var(--duration-700) var(--ease-out),
                 transform var(--duration-700) var(--ease-out);
 }
@@ -378,11 +379,13 @@
 .scroll-reveal.revealed {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
 }
 
 .scroll-reveal-left {
     opacity: 0;
     transform: translateX(-30px);
+    will-change: opacity, transform;
     transition: opacity var(--duration-700) var(--ease-out),
                 transform var(--duration-700) var(--ease-out);
 }
@@ -390,11 +393,13 @@
 .scroll-reveal-left.revealed {
     opacity: 1;
     transform: translateX(0);
+    will-change: auto;
 }
 
 .scroll-reveal-right {
     opacity: 0;
     transform: translateX(30px);
+    will-change: opacity, transform;
     transition: opacity var(--duration-700) var(--ease-out),
                 transform var(--duration-700) var(--ease-out);
 }
@@ -402,11 +407,13 @@
 .scroll-reveal-right.revealed {
     opacity: 1;
     transform: translateX(0);
+    will-change: auto;
 }
 
 .scroll-reveal-scale {
     opacity: 0;
     transform: scale(0.9);
+    will-change: opacity, transform;
     transition: opacity var(--duration-700) var(--ease-out),
                 transform var(--duration-700) var(--ease-out);
 }
@@ -414,6 +421,7 @@
 .scroll-reveal-scale.revealed {
     opacity: 1;
     transform: scale(1);
+    will-change: auto;
 }
 
 /* ============================================

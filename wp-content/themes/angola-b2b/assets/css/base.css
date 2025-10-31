@@ -321,16 +321,23 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-/* Form validation states */
-input:invalid,
-textarea:invalid,
-select:invalid {
+/* Form validation states - only show on touched fields */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
     border-color: var(--color-error);
 }
 
-input:valid,
-textarea:valid,
-select:valid {
+input:user-invalid,
+textarea:user-invalid,
+select:user-invalid {
+    border-color: var(--color-error);
+}
+
+/* Valid state only after user interaction */
+input.is-valid,
+textarea.is-valid,
+select.is-valid {
     border-color: var(--color-success);
 }
 

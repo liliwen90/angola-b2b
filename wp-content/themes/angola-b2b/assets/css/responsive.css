@@ -366,11 +366,19 @@
         text-shadow: none !important;
     }
     
-    /* Ensure links are visible */
-    a[href]::after {
+    /* Ensure links are visible - but not for internal links */
+    a[href^="http"]::after {
         content: " (" attr(href) ")";
         font-size: 10pt;
         color: #333;
+        word-wrap: break-word;
+    }
+    
+    /* Skip anchor and tel/mailto links */
+    a[href^="#"]::after,
+    a[href^="tel:"]::after,
+    a[href^="mailto:"]::after {
+        content: "";
     }
     
     /* Page breaks */
