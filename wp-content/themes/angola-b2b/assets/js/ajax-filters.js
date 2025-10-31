@@ -125,13 +125,34 @@
             }
             
             if (data.html) {
-                // Use DOMParser for safe HTML parsing
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data.html, 'text/html');
-                const elements = doc.body.children;
-                
-                while (elements.length > 0) {
-                    this.container.appendChild(elements[0]);
+                try {
+                    // Use DOMParser for safer HTML parsing
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data.html, 'text/html');
+                    
+                    // Check for parsing errors
+                    const parseError = doc.querySelector('parsererror');
+                    if (parseError) {
+                        console.error('HTML parsing error:', parseError);
+                        this.showError('Error displaying products');
+                        return;
+                    }
+                    
+                    const elements = doc.body.children;
+                    
+                    // Sanitize: Remove script tags as an extra precaution
+                    Array.from(elements).forEach(el => {
+                        const scripts = el.querySelectorAll('script');
+                        scripts.forEach(script => script.remove());
+                    });
+                    
+                    while (elements.length > 0) {
+                        this.container.appendChild(elements[0]);
+                    }
+                } catch (error) {
+                    console.error('Error updating products:', error);
+                    this.showError('Error displaying products');
+                    return;
                 }
             }
 
@@ -258,13 +279,31 @@
         appendProducts(html) {
             if (!this.container || !html) return;
 
-            // Use DOMParser for safe HTML parsing
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const elements = doc.body.children;
-            
-            while (elements.length > 0) {
-                this.container.appendChild(elements[0]);
+            try {
+                // Use DOMParser for safer HTML parsing
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                // Check for parsing errors
+                const parseError = doc.querySelector('parsererror');
+                if (parseError) {
+                    console.error('HTML parsing error:', parseError);
+                    return;
+                }
+                
+                const elements = doc.body.children;
+                
+                // Sanitize: Remove script tags as an extra precaution
+                Array.from(elements).forEach(el => {
+                    const scripts = el.querySelectorAll('script');
+                    scripts.forEach(script => script.remove());
+                });
+                
+                while (elements.length > 0) {
+                    this.container.appendChild(elements[0]);
+                }
+            } catch (error) {
+                console.error('Error appending products:', error);
             }
         }
 

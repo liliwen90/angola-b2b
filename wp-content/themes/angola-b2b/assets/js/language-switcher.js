@@ -22,18 +22,17 @@
 
         init() {
             this.switchers.forEach(switcher => {
-                // Handle change event
+                // Handle change event with loading state
                 switcher.addEventListener('change', (e) => {
                     const url = e.target.value;
                     if (url) {
+                        // Add loading state
+                        e.target.disabled = true;
+                        e.target.style.opacity = '0.6';
+                        
+                        // Switch language
                         this.switchLanguage(url);
                     }
-                });
-
-                // Add loading state on change
-                switcher.addEventListener('change', (e) => {
-                    e.target.disabled = true;
-                    e.target.style.opacity = '0.6';
                 });
             });
 

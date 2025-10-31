@@ -38,16 +38,25 @@
          */
         initLightbox() {
             if (typeof PhotoSwipeLightbox === 'undefined') {
+                console.warn('PhotoSwipeLightbox not loaded');
                 return;
             }
 
-            const lightbox = new PhotoSwipeLightbox({
-                gallery: this.mainViewer,
-                children: 'a',
-                pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.umd.min.js')
-            });
+            try {
+                const lightbox = new PhotoSwipeLightbox({
+                    gallery: this.mainViewer,
+                    children: 'a',
+                    pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.umd.min.js').catch(err => {
+                        console.error('Failed to load PhotoSwipe module:', err);
+                        return null;
+                    })
+                });
 
-            lightbox.init();
+                lightbox.init();
+                this.lightbox = lightbox;
+            } catch (error) {
+                console.error('Failed to initialize PhotoSwipe:', error);
+            }
 
             // Zoom button
             const zoomBtn = this.gallery.querySelector('.gallery-zoom');
@@ -251,8 +260,7 @@
 
             document.body.appendChild(tooltip);
 
-            // Close button
-            const closeBtn = tooltip.querySelector('.hotspot-close');
+            // Close button event
             closeBtn.addEventListener('click', () => {
                 tooltip.remove();
             });

@@ -187,11 +187,18 @@
                 const tooltipText = element.dataset.tooltip;
                 if (!tooltipText) return;
 
-                element.addEventListener('mouseenter', () => {
-                    const tooltip = document.createElement('div');
+                let tooltip = null;
+
+                const showTooltip = () => {
+                    // Remove existing tooltip if any
+                    if (tooltip && tooltip.parentNode) {
+                        tooltip.parentNode.removeChild(tooltip);
+                    }
+
+                    tooltip = document.createElement('div');
                     tooltip.className = 'tooltip-popup';
                     tooltip.textContent = tooltipText;
-                    tooltip.style.cssText = 'position:absolute;z-index:9999;padding:8px 12px;background:#1f2937;color:#fff;border-radius:4px;font-size:14px;white-space:nowrap;';
+                    tooltip.style.cssText = 'position:fixed;z-index:9999;padding:8px 12px;background:#1f2937;color:#fff;border-radius:4px;font-size:14px;white-space:nowrap;pointer-events:none;';
                     
                     const rect = element.getBoundingClientRect();
                     tooltip.style.top = (rect.top - 40) + 'px';
@@ -199,20 +206,19 @@
                     tooltip.style.transform = 'translateX(-50%)';
                     
                     document.body.appendChild(tooltip);
-                    element.dataset.tooltipId = Date.now().toString();
-                    tooltip.dataset.tooltipFor = element.dataset.tooltipId;
-                });
+                };
 
-                element.addEventListener('mouseleave', () => {
-                    const tooltipId = element.dataset.tooltipId;
-                    if (tooltipId) {
-                        const tooltip = document.querySelector('[data-tooltip-for="' + tooltipId + '"]');
-                        if (tooltip) {
-                            tooltip.remove();
-                        }
-                        delete element.dataset.tooltipId;
+                const hideTooltip = () => {
+                    if (tooltip && tooltip.parentNode) {
+                        tooltip.parentNode.removeChild(tooltip);
+                        tooltip = null;
                     }
-                });
+                };
+
+                element.addEventListener('mouseenter', showTooltip);
+                element.addEventListener('mouseleave', hideTooltip);
+                element.addEventListener('focus', showTooltip);
+                element.addEventListener('blur', hideTooltip);
             });
         }
 
