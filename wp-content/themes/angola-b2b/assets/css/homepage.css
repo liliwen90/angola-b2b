@@ -288,11 +288,11 @@
 }
 
 .product-card--stock .product-title {
-    margin-bottom: var(--space-2); /* 减少间距 */
-    font-size: var(--font-size-base); /* 减小字号 */
+    margin-bottom: var(--space-1); /* 进一步减少间距 */
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     line-height: 1.3;
-    min-height: 2.6em; /* 调整2行标题高度 */
+    min-height: 2.6em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -300,24 +300,40 @@
 }
 
 .product-card--stock .product-excerpt {
-    margin-bottom: var(--space-2); /* 减少间距 */
-    font-size: var(--font-size-xs); /* 减小字号 */
+    margin-bottom: var(--space-2); /* 描述和底部间距 */
+    font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     line-height: 1.4;
-    min-height: 4.2em; /* 调整3行描述高度 */
+    min-height: 4.2em;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.product-card--stock .product-stock-info {
-    margin-bottom: var(--space-3); /* 减少间距 */
+/* 库存信息和按钮在同一行 */
+.product-card--stock .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
     flex-shrink: 0;
+    margin-top: auto;
+}
+
+.product-card--stock .product-stock-info {
+    flex: 1;
+    margin-bottom: 0;
 }
 
 .product-card--stock .product-actions {
     flex-shrink: 0;
+}
+
+.product-card--stock .product-actions .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
 }
 
 .product-badges {
@@ -347,13 +363,13 @@
 .product-stock-info {
     display: flex;
     align-items: center;
-    gap: var(--space-1); /* 减少间距 */
-    margin-top: var(--space-2);
-    padding: var(--space-1) var(--space-2); /* 减少内边距 */
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
     background: var(--color-success-light);
     border-radius: var(--radius-md);
-    font-size: var(--font-size-xs); /* 减小字号 */
+    font-size: var(--font-size-xs);
     color: var(--color-success-dark);
+    white-space: nowrap; /* 防止库存文字换行 */
 }
 
 .stock-icon {

@@ -65,42 +65,43 @@ $product_id = get_the_ID();
             </p>
         <?php endif; ?>
         
-        <!-- 库存信息 -->
-        <?php
-        $stock_quantity = get_field('product_stock_quantity', $product_id);
-        if ($stock_quantity && intval($stock_quantity) > 0) :
-        ?>
-            <div class="product-stock-info">
-                <span class="stock-icon" aria-hidden="true">📦</span>
-                <span class="stock-quantity">
+        <!-- 库存信息和操作按钮（同一行） -->
+        <div class="product-footer">
+            <?php
+            $stock_quantity = get_field('product_stock_quantity', $product_id);
+            if ($stock_quantity && intval($stock_quantity) > 0) :
+            ?>
+                <div class="product-stock-info">
+                    <span class="stock-icon" aria-hidden="true">📦</span>
+                    <span class="stock-quantity">
+                        <?php 
+                        if (function_exists('pll__')) {
+                            printf(
+                                esc_html(pll__('库存：%d 件')), 
+                                intval($stock_quantity)
+                            );
+                        } else {
+                            printf(
+                                esc_html__('库存：%d 件', 'angola-b2b'), 
+                                intval($stock_quantity)
+                            );
+                        }
+                        ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+            
+            <div class="product-actions">
+                <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
                     <?php 
                     if (function_exists('pll__')) {
-                        printf(
-                            esc_html(pll__('库存：%d 件')), 
-                            intval($stock_quantity)
-                        );
+                        echo esc_html(pll__('立即询价'));
                     } else {
-                        printf(
-                            esc_html__('库存：%d 件', 'angola-b2b'), 
-                            intval($stock_quantity)
-                        );
+                        esc_html_e('立即询价', 'angola-b2b');
                     }
                     ?>
-                </span>
+                </a>
             </div>
-        <?php endif; ?>
-        
-        <!-- 操作按钮 -->
-        <div class="product-actions">
-            <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
-                <?php 
-                if (function_exists('pll__')) {
-                    echo esc_html(pll__('立即询价'));
-                } else {
-                    esc_html_e('立即询价', 'angola-b2b');
-                }
-                ?>
-            </a>
         </div>
     </div>
 </article>
