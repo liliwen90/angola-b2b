@@ -156,12 +156,12 @@
 
 .stock-swiper-prev,
 .featured-swiper-prev {
-    left: 10px;
+    left: 0;
 }
 
 .stock-swiper-next,
 .featured-swiper-next {
-    right: 10px;
+    right: 0;
 }
 
 .stock-swiper-prev:hover,
