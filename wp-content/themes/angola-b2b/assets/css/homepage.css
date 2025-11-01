@@ -258,7 +258,7 @@
     border: 2px solid var(--color-success);
     display: flex;
     flex-direction: column;
-    height: 420px; /* 减少固定高度 */
+    height: 100%; /* 自适应高度，和精选商品卡片一致 */
     overflow: hidden;
 }
 
