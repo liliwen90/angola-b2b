@@ -100,7 +100,7 @@
 4. CTA联系我们 (`template-parts/homepage/cta-section.php`)
 
 **产品卡片设计**:
-- 固定高度: 420px
+- 自适应高度: height: 100%（库存和精选商品卡片高度一致）
 - 图片区域: flex: 1, object-fit: cover
 - 内容区域: 固定从底部向上（标题2行、描述3行、库存信息、按钮）
 - 导航按钮: 半透明背景，位于图片内侧10px
