@@ -48,12 +48,83 @@
 - 不主动生成文档类文件
 - 直接编写完整可运行的代码到文件中
 
+## 技术栈和依赖
+### 核心技术
+- **WordPress**: 6.x
+- **PHP**: 7.4+
+- **Custom Post Type**: `product` (产品)
+- **Taxonomies**: `product_category` (产品分类)
+
+### 关键插件和库
+1. **ACF Free (Advanced Custom Fields)**: 
+   - ⚠️ **重要**: 使用免费版，不支持Options Page功能
+   - **解决方案**: 首页设置存储在专门的WordPress页面（**ID: 45**，页面标题: "首页设置"）
+   - ACF字段组 `homepage_settings` 绑定到该页面
+   - 读取首页设置时使用 `get_field('field_name', 45)` 而不是 `get_field('field_name', 'option')`
+
+2. **Polylang Free**: 
+   - 多语言管理
+   - 配置: 4种语言（英语默认、西班牙语、葡萄牙语、法语）
+   - URL结构: 使用"目录"方式（/en/, /es/），不使用"子域名"
+   - 使用 `pll__()` 翻译UI字符串
+   - 重要字符串已通过 `pll_register_string()` 注册
+
+3. **Swiper.js** (v11+):
+   - 首页产品横向滚动轮播
+   - 配置文件: `assets/js/homepage-sliders.js`
+   - 两个实例: `.stock-products-swiper` 和 `.featured-products-swiper`
+
+### 关键ACF字段
+**首页设置 (绑定到页面ID 45)**:
+- Hero区域: `hero_title`, `hero_subtitle`, `hero_cta_primary_*`, `hero_cta_secondary_*`
+- 库存产品: `enable_stock_products_section`, `stock_products_title`, `stock_products_subtitle`
+- 精选产品: 相关字段
+- 优势模块: 相关字段
+
+**产品字段 (product)**:
+- `product_in_stock`: 是否有库存（显示在"库存产品"区域）
+- `product_featured`: 是否精选（显示在"精选产品"区域）
+- `product_stock_quantity`: 库存数量
+- `product_image_1` 到 `product_image_5`: 产品图片（但优先使用 `get_the_post_thumbnail_url()`）
+- `product_specs_*`: 产品规格参数
+
+## 首页布局结构
+**模板**: `front-page.php`
+**顺序**:
+1. 热门库存产品 (`template-parts/homepage/stock-products.php`)
+   - 横向Swiper轮播，显示20个库存产品
+   - 使用 `product-card--stock` 卡片
+2. 精选产品 (`template-parts/homepage/featured-products.php`)
+   - 横向Swiper轮播，显示20个精选产品
+3. 核心优势 (`template-parts/homepage/advantages.php`)
+4. CTA联系我们 (`template-parts/homepage/cta-section.php`)
+
+**产品卡片设计**:
+- 固定高度: 420px
+- 图片区域: flex: 1, object-fit: cover
+- 内容区域: 固定从底部向上（标题2行、描述3行、库存信息、按钮）
+- 导航按钮: 半透明背景，位于图片内侧10px
+
+## Git操作规范
+1. **工作目录**: 始终在 `F:\011 Projects\UnibroWeb\Unirbro\wp-content\themes\angola-b2b\` 进行Git操作
+2. **切换目录**: 使用绝对路径 `cd "F:\011 Projects\UnibroWeb\Unirbro\wp-content\themes\angola-b2b"`
+3. **PowerShell限制**: 
+   - 不能使用 `&&` 连接命令
+   - commit message使用英文避免编码问题
+   - 命令需要分步执行
+
+## 测试资源
+- **测试图片目录**: `F:\011 Projects\UnibroWeb\Unirbro\PICS for TEST\`
+- **批量测试产品生成**: `inc/admin-tools.php` 中的 `angola_b2b_create_test_products()`
+- **产品分配**: 9个库存产品 + 9个精选产品（部分重叠）
+
 ## PowerShell/CMD使用规则
 1. **Windows环境命令规范**:
    - PowerShell使用 `Add-Content` 而非 `>>` 重定向（权限更可靠）
    - 修改系统文件前先用 `attrib -r` 取消只读属性
    - 涉及系统目录操作，提醒用户"以管理员身份运行"
    - 避免使用复杂的多行PowerShell脚本，优先简单的单行命令
+   - 不能使用 `&&` 连接命令，需要分步执行
 
 2. **命令分步执行**:
    - 每次最多3个步骤，确保用户能跟上
@@ -64,4 +135,10 @@
    - 预判常见权限错误（UAC、只读文件、防病毒软件）
    - 提供备用方案（如GUI操作代替命令行）
    - 清晰说明错误原因和解决步骤
+
+## 已知问题和解决方案
+1. **ACF Options Page不可用**: 使用WordPress页面（ID: 45）代替
+2. **Polylang语言切换403错误**: 确保URL修改设置为"目录"而非"子域名"
+3. **产品图片消失**: 使用 `get_the_post_thumbnail_url()` 而非 `get_field('product_image_1')`
+4. **PhotoSwipeLightbox加载问题**: 需要修复图片灯箱功能（待处理）
 
