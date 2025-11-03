@@ -289,31 +289,40 @@
     width: 100%;
 }
 
+/* 确保所有直接子元素（包括.btn和.quick-inquiry-wrapper）完全平均分配 */
 .product-card-actions > * {
-    flex: 1 1 0; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0 - 确保完全平均分配 */
-    min-width: 0; /* 允许flex收缩 */
+    flex: 1 1 0 !important; /* 使用!important确保优先级 */
+    min-width: 0;
+    max-width: calc(50% - var(--space-3) / 2); /* 确保不超过50%减去gap */
 }
 
-.product-card-actions .btn {
-    width: 100%;
+.product-card-actions .btn,
+.product-card-actions .btn-sm,
+.product-card-actions .btn-primary {
+    width: 100% !important;
     white-space: nowrap;
     text-align: center;
-    padding: var(--space-2) var(--space-3); /* 减少padding以适应更小的按钮 */
-    font-size: var(--font-size-sm);
+    padding: var(--space-2) var(--space-3) !important; /* 统一padding，使用!important覆盖.btn-sm */
+    font-size: var(--font-size-sm) !important;
+    box-sizing: border-box;
 }
 
 .quick-inquiry-wrapper {
-    flex: 1 1 0; /* 与.btn相同的flex设置 */
+    flex: 1 1 0 !important;
     min-width: 0;
+    max-width: calc(50% - var(--space-3) / 2); /* 确保不超过50%减去gap */
     display: flex;
 }
 
-.quick-inquiry-wrapper .btn {
-    width: 100%;
+.quick-inquiry-wrapper .btn,
+.quick-inquiry-wrapper .btn-primary,
+.quick-inquiry-wrapper .quick-inquiry-btn {
+    width: 100% !important;
     white-space: nowrap;
     text-align: center;
-    padding: var(--space-2) var(--space-3); /* 与上面的.btn相同的padding */
-    font-size: var(--font-size-sm);
+    padding: var(--space-2) var(--space-3) !important; /* 与上面的.btn相同的padding */
+    font-size: var(--font-size-sm) !important;
+    box-sizing: border-box;
 }
 
 /* ============================================
