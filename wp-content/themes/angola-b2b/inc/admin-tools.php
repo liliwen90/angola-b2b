@@ -30,6 +30,14 @@ function angola_b2b_add_tools_menu() {
         'angola-b2b-regenerate-thumbnails',
         'angola_b2b_regenerate_thumbnails_page'
     );
+    
+    add_management_page(
+        '删除所有产品和分类',
+        '删除所有产品和分类',
+        'manage_options',
+        'angola-b2b-delete-all',
+        'angola_b2b_delete_all_page'
+    );
 }
 add_action('admin_menu', 'angola_b2b_add_tools_menu');
 
@@ -537,4 +545,172 @@ function angola_b2b_regenerate_all_thumbnails() {
     echo '<p><a href="' . home_url() . '" class="button button-primary" target="_blank">🏠 查看首页</a></p>';
     echo '</div>';
 }
+
+/**
+ * Delete all products and categories page
+ */
+function angola_b2b_delete_all_page() {
+    ?>
+    <div class="wrap">
+        <h1>🗑️ 删除所有产品和分类</h1>
+        
+        <?php
+        // Handle form submission
+        if (isset($_POST['delete_all']) && check_admin_referer('angola_b2b_delete_all')) {
+            angola_b2b_delete_all_products_and_categories();
+        }
+        ?>
+        
+        <div class="card" style="max-width: 800px;">
+            <h2>⚠️ 危险操作</h2>
+            <p><strong>此操作将永久删除以下内容：</strong></p>
+            <ul>
+                <li>❌ 所有产品（包括已发布、草稿、已删除的所有状态）</li>
+                <li>❌ 所有产品分类（包括父分类和子分类）</li>
+                <li>❌ 所有产品标签</li>
+            </ul>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 20px 0;">
+                <p><strong>⚠️ 警告：</strong>此操作<strong>不可恢复</strong>！请确保您已经备份了重要数据。</p>
+            </div>
+            
+            <?php
+            // Get counts before deletion
+            $products_count = wp_count_posts('product');
+            $total_products = array_sum((array)$products_count);
+            
+            $categories_count = wp_count_terms(array(
+                'taxonomy' => 'product_category',
+                'hide_empty' => false,
+            ));
+            if (is_wp_error($categories_count)) {
+                $categories_count = 0;
+            }
+            
+            $tags_count = wp_count_terms(array(
+                'taxonomy' => 'product_tag',
+                'hide_empty' => false,
+            ));
+            if (is_wp_error($tags_count)) {
+                $tags_count = 0;
+            }
+            ?>
+            
+            <p><strong>当前统计：</strong></p>
+            <ul>
+                <li>产品总数：<strong><?php echo esc_html($total_products); ?></strong> 个</li>
+                <li>产品分类总数：<strong><?php echo esc_html($categories_count); ?></strong> 个</li>
+                <li>产品标签总数：<strong><?php echo esc_html($tags_count); ?></strong> 个</li>
+            </ul>
+            
+            <form method="post" onsubmit="return confirm('⚠️ 您确定要删除所有产品和分类吗？此操作不可恢复！');">
+                <?php wp_nonce_field('angola_b2b_delete_all'); ?>
+                <p>
+                    <button type="submit" name="delete_all" class="button button-primary button-large" style="background: #dc3232; border-color: #dc3232;">
+                        🗑️ 确认删除所有产品和分类
+                    </button>
+                </p>
+            </form>
+            
+            <hr>
+            <p><strong>提示：</strong>删除完成后，您可以重新运行"生成测试产品"工具来创建新的测试数据。</p>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Delete all products and categories
+ */
+function angola_b2b_delete_all_products_and_categories() {
+    echo '<div class="notice notice-info"><p>开始删除...</p></div>';
+    
+    $deleted_products = 0;
+    $deleted_categories = 0;
+    $deleted_tags = 0;
+    $errors = array();
+    
+    // Step 1: Delete all products (including all post statuses)
+    $products = get_posts(array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'post_status' => 'any', // 包括所有状态
+    ));
+    
+    foreach ($products as $product) {
+        $result = wp_delete_post($product->ID, true); // true = force delete (bypass trash)
+        if ($result) {
+            $deleted_products++;
+            echo '<div class="notice notice-success inline"><p>✅ 已删除产品：<strong>' . esc_html($product->post_title) . '</strong></p></div>';
+        } else {
+            $errors[] = '删除产品失败：' . $product->post_title;
+        }
+    }
+    
+    // Step 2: Delete all product categories
+    $categories = get_terms(array(
+        'taxonomy' => 'product_category',
+        'hide_empty' => false,
+    ));
+    
+    if (!is_wp_error($categories) && !empty($categories)) {
+        foreach ($categories as $category) {
+            $result = wp_delete_term($category->term_id, 'product_category');
+            if (!is_wp_error($result) && $result) {
+                $deleted_categories++;
+                echo '<div class="notice notice-success inline"><p>✅ 已删除分类：<strong>' . esc_html($category->name) . '</strong></p></div>';
+            } else {
+                $errors[] = '删除分类失败：' . $category->name;
+                if (is_wp_error($result)) {
+                    $errors[] = '错误信息：' . $result->get_error_message();
+                }
+            }
+        }
+    }
+    
+    // Step 3: Delete all product tags
+    $tags = get_terms(array(
+        'taxonomy' => 'product_tag',
+        'hide_empty' => false,
+    ));
+    
+    if (!is_wp_error($tags) && !empty($tags)) {
+        foreach ($tags as $tag) {
+            $result = wp_delete_term($tag->term_id, 'product_tag');
+            if (!is_wp_error($result) && $result) {
+                $deleted_tags++;
+                echo '<div class="notice notice-success inline"><p>✅ 已删除标签：<strong>' . esc_html($tag->name) . '</strong></p></div>';
+            } else {
+                $errors[] = '删除标签失败：' . $tag->name;
+                if (is_wp_error($result)) {
+                    $errors[] = '错误信息：' . $result->get_error_message();
+                }
+            }
+        }
+    }
+    
+    // Summary
+    echo '<div class="notice notice-success is-dismissible">';
+    echo '<h3>🎉 完成！</h3>';
+    echo '<ul>';
+    echo '<li><strong>已删除产品：</strong>' . $deleted_products . ' 个</li>';
+    echo '<li><strong>已删除分类：</strong>' . $deleted_categories . ' 个</li>';
+    echo '<li><strong>已删除标签：</strong>' . $deleted_tags . ' 个</li>';
+    echo '</ul>';
+    
+    if (!empty($errors)) {
+        echo '<h4>⚠️ 错误：</h4>';
+        echo '<ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . esc_html($error) . '</li>';
+        }
+        echo '</ul>';
+    }
+    
+    echo '<p><a href="' . admin_url('tools.php?page=angola-b2b-generate-products') . '" class="button button-primary">🚀 生成新的测试产品</a> ';
+    echo '<a href="' . admin_url('edit.php?post_type=product') . '" class="button">📦 查看产品列表</a> ';
+    echo '<a href="' . admin_url('edit-tags.php?taxonomy=product_category&post_type=product') . '" class="button">📁 查看分类列表</a></p>';
+    echo '</div>';
+}
+
 
