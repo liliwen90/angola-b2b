@@ -287,31 +287,33 @@
     gap: var(--space-3);
     margin-top: auto;
     width: 100%;
-    min-width: 0; /* 防止flex子元素溢出 */
 }
 
-.product-card-actions .btn,
-.product-card-actions .quick-inquiry-wrapper {
-    flex: 1;
-    min-width: 0; /* 防止文本溢出 */
+.product-card-actions > * {
+    flex: 1 1 0; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0 - 确保完全平均分配 */
+    min-width: 0; /* 允许flex收缩 */
 }
 
 .product-card-actions .btn {
+    width: 100%;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: center;
+    padding: var(--space-2) var(--space-3); /* 减少padding以适应更小的按钮 */
+    font-size: var(--font-size-sm);
 }
 
 .quick-inquiry-wrapper {
-    flex: 1;
+    flex: 1 1 0; /* 与.btn相同的flex设置 */
     min-width: 0;
+    display: flex;
 }
 
 .quick-inquiry-wrapper .btn {
     width: 100%;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: center;
+    padding: var(--space-2) var(--space-3); /* 与上面的.btn相同的padding */
+    font-size: var(--font-size-sm);
 }
 
 /* ============================================
