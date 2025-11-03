@@ -7,6 +7,10 @@
 
 $product_id = get_the_ID();
 $thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+// 如果没有特色图片，尝试使用原始尺寸
+if (!$thumbnail) {
+    $thumbnail = get_the_post_thumbnail_url($product_id, 'full');
+}
 $is_featured = angola_b2b_is_featured_product($product_id);
 $categories = get_the_terms($product_id, 'product_category');
 $short_description = get_the_excerpt();
@@ -21,11 +25,15 @@ $short_description = get_the_excerpt();
                 <?php if ($thumbnail) : ?>
                     <img src="<?php echo esc_url($thumbnail); ?>" 
                          alt="<?php echo esc_attr(get_the_title()); ?>"
-                         loading="lazy">
+                         loading="lazy"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="product-placeholder" style="display:none;">
+                        <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>
+                    </div>
                 <?php else : ?>
-                    <img src="<?php echo esc_url(ANGOLA_B2B_THEME_URI . '/assets/images/placeholder-product.jpg'); ?>" 
-                         alt="<?php echo esc_attr(get_the_title()); ?>"
-                         loading="lazy">
+                    <div class="product-placeholder">
+                        <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>
+                    </div>
                 <?php endif; ?>
                 
                 <?php if ($is_featured) : ?>
