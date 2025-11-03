@@ -22,6 +22,14 @@ function angola_b2b_add_tools_menu() {
         'angola-b2b-generate-products',
         'angola_b2b_generate_products_page'
     );
+    
+    add_management_page(
+        '重新生成缩略图',
+        '重新生成缩略图',
+        'manage_options',
+        'angola-b2b-regenerate-thumbnails',
+        'angola_b2b_regenerate_thumbnails_page'
+    );
 }
 add_action('admin_menu', 'angola_b2b_add_tools_menu');
 
@@ -388,5 +396,100 @@ function angola_b2b_upload_image_from_path($file_path, $post_id = 0) {
     wp_update_attachment_metadata($attachment_id, $attachment_data);
     
     return $attachment_id;
+}
+
+/**
+ * Regenerate thumbnails page
+ */
+function angola_b2b_regenerate_thumbnails_page() {
+    ?>
+    <div class="wrap">
+        <h1>🔄 重新生成缩略图</h1>
+        
+        <?php
+        // Handle form submission
+        if (isset($_POST['regenerate_thumbnails']) && check_admin_referer('angola_b2b_regenerate_thumbnails')) {
+            angola_b2b_regenerate_all_thumbnails();
+        }
+        ?>
+        
+        <div class="card" style="max-width: 800px;">
+            <h2>重新生成所有产品图片尺寸</h2>
+            <p>点击下面的按钮，系统会为所有产品图片重新生成以下尺寸：</p>
+            <ul>
+                <li>✅ <strong>homepage-banner</strong> (1920×600) - Banner轮播专用</li>
+                <li>✅ <strong>product-thumbnail</strong> (400×400) - 产品缩略图</li>
+                <li>✅ <strong>product-medium</strong> (800×800) - 产品中等尺寸</li>
+                <li>✅ <strong>product-large</strong> (1200×1200) - 产品大图</li>
+            </ul>
+            
+            <form method="post">
+                <?php wp_nonce_field('angola_b2b_regenerate_thumbnails'); ?>
+                <p>
+                    <button type="submit" name="regenerate_thumbnails" class="button button-primary button-large">
+                        🔄 开始重新生成
+                    </button>
+                </p>
+            </form>
+            
+            <hr>
+            <p><strong>提示：</strong>这个过程可能需要几分钟时间，具体取决于产品数量和图片大小。</p>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Regenerate all thumbnails for products
+ */
+function angola_b2b_regenerate_all_thumbnails() {
+    // 获取所有产品
+    $products = get_posts(array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+    ));
+    
+    $processed_count = 0;
+    $skipped_count = 0;
+    
+    echo '<div class="notice notice-info"><p>开始重新生成缩略图...</p></div>';
+    
+    foreach ($products as $product) {
+        $thumbnail_id = get_post_thumbnail_id($product->ID);
+        
+        if (!$thumbnail_id) {
+            echo '<div class="notice notice-warning inline"><p>⏩ 跳过（无特色图片）：<strong>' . esc_html($product->post_title) . '</strong></p></div>';
+            $skipped_count++;
+            continue;
+        }
+        
+        // 获取图片文件路径
+        $file_path = get_attached_file($thumbnail_id);
+        
+        if (!file_exists($file_path)) {
+            echo '<div class="notice notice-error inline"><p>❌ 图片文件不存在：<strong>' . esc_html($product->post_title) . '</strong></p></div>';
+            $skipped_count++;
+            continue;
+        }
+        
+        // 重新生成缩略图
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        $metadata = wp_generate_attachment_metadata($thumbnail_id, $file_path);
+        wp_update_attachment_metadata($thumbnail_id, $metadata);
+        
+        echo '<div class="notice notice-success inline"><p>✅ 已处理：<strong>' . esc_html($product->post_title) . '</strong></p></div>';
+        $processed_count++;
+    }
+    
+    // Summary
+    echo '<div class="notice notice-success is-dismissible">';
+    echo '<h3>🎉 完成！</h3>';
+    echo '<ul>';
+    echo '<li><strong>已处理：</strong>' . $processed_count . ' 个产品图片</li>';
+    echo '<li><strong>跳过：</strong>' . $skipped_count . ' 个产品</li>';
+    echo '</ul>';
+    echo '<p><a href="' . home_url() . '" class="button button-primary" target="_blank">🏠 查看首页</a></p>';
+    echo '</div>';
 }
 

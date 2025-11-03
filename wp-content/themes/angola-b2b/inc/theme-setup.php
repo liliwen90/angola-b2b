@@ -70,6 +70,7 @@ function angola_b2b_setup() {
     add_image_size('product-large', 1200, 1200, true);
     add_image_size('product-360', 600, 600, true);
     add_image_size('hero-banner', 1920, 800, true);
+    add_image_size('homepage-banner', 1920, 600, true); // Banner轮播专用尺寸
 }
 add_action('after_setup_theme', 'angola_b2b_setup');
 

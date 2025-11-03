@@ -28,7 +28,7 @@ if (empty($banner_products) || !is_array($banner_products)) {
                 <?php
                 $product_title = get_the_title($product_id);
                 $product_url = get_permalink($product_id);
-                $thumbnail_url = get_the_post_thumbnail_url($product_id, 'full');
+                $thumbnail_url = get_the_post_thumbnail_url($product_id, 'homepage-banner');
                 
                 // 如果没有特色图片，跳过这个产品
                 if (!$thumbnail_url) {
