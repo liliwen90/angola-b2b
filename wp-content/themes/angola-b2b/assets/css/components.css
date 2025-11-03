@@ -286,6 +286,32 @@
     display: flex;
     gap: var(--space-3);
     margin-top: auto;
+    width: 100%;
+    min-width: 0; /* 防止flex子元素溢出 */
+}
+
+.product-card-actions .btn,
+.product-card-actions .quick-inquiry-wrapper {
+    flex: 1;
+    min-width: 0; /* 防止文本溢出 */
+}
+
+.product-card-actions .btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quick-inquiry-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+.quick-inquiry-wrapper .btn {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* ============================================
