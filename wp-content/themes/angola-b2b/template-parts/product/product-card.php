@@ -6,8 +6,9 @@
  */
 
 $product_id = get_the_ID();
-// 尝试获取图片，按优先级顺序
-$thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+// 使用固定的产品卡片尺寸
+$thumbnail = get_the_post_thumbnail_url($product_id, 'product-card');
+// 如果固定尺寸不存在，按优先级回退
 if (!$thumbnail) {
     $thumbnail = get_the_post_thumbnail_url($product_id, 'product-thumbnail');
 }
@@ -32,6 +33,8 @@ $short_description = get_the_excerpt();
                     <img src="<?php echo esc_url($thumbnail); ?>" 
                          alt="<?php echo esc_attr(get_the_title()); ?>"
                          loading="lazy"
+                         width="300"
+                         height="300"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="product-placeholder" style="display:none;">
                         <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>

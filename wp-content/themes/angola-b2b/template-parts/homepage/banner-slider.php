@@ -43,7 +43,9 @@ if (empty($banner_products) || !is_array($banner_products)) {
                             <img src="<?php echo esc_url($thumbnail_url); ?>" 
                                  alt="<?php echo esc_attr($product_title); ?>"
                                  class="banner-image"
-                                 loading="eager">
+                                 loading="eager"
+                                 width="1100"
+                                 height="400">
                             <div class="banner-overlay"></div>
                         </div>
                         <div class="banner-content">

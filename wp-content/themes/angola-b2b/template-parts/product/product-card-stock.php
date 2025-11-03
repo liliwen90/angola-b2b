@@ -31,12 +31,25 @@ $product_id = get_the_ID();
     <div class="product-thumbnail">
         <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(sprintf(__('View %s', 'angola-b2b'), get_the_title())); ?>">
             <?php
-            $thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+            // 使用固定的产品卡片尺寸
+            $thumbnail = get_the_post_thumbnail_url($product_id, 'product-card');
+            // 如果固定尺寸不存在，按优先级回退
+            if (!$thumbnail) {
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'product-thumbnail');
+            }
+            if (!$thumbnail) {
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'thumbnail');
+            }
+            if (!$thumbnail) {
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'full');
+            }
             if ($thumbnail) :
                 ?>
                 <img src="<?php echo esc_url($thumbnail); ?>" 
                      alt="<?php echo esc_attr(get_the_title()); ?>"
-                     loading="lazy">
+                     loading="lazy"
+                     width="300"
+                     height="300">
                 <?php
             else :
                 // 占位图

@@ -417,9 +417,10 @@ function angola_b2b_regenerate_thumbnails_page() {
             <h2>重新生成所有产品图片尺寸</h2>
             <p>点击下面的按钮，系统会为所有产品图片重新生成以下尺寸：</p>
             <ul>
-                <li>✅ <strong>homepage-banner</strong> (1920×600) - Banner轮播专用</li>
+                <li>✅ <strong>product-card</strong> (300×300) - 首页产品卡片固定尺寸</li>
+                <li>✅ <strong>homepage-banner</strong> (1100×400) - Banner轮播固定尺寸</li>
                 <li>✅ <strong>product-thumbnail</strong> (400×400) - 产品缩略图</li>
-                <li>✅ <strong>product-medium</strong> (800×800) - 产品中等尺寸</li>
+                <li>✅ <strong>product-medium</strong> (600×600) - 产品中等尺寸</li>
                 <li>✅ <strong>product-large</strong> (1200×1200) - 产品大图</li>
             </ul>
             

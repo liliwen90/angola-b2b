@@ -65,12 +65,14 @@ function angola_b2b_setup() {
     ));
 
     // Register custom image sizes for product showcase
-    add_image_size('product-thumbnail', 400, 400, true);
-    add_image_size('product-medium', 800, 800, true);
-    add_image_size('product-large', 1200, 1200, true);
+    // 所有尺寸都使用hard crop (true) 确保固定尺寸
+    add_image_size('product-card', 300, 300, true); // 首页产品卡片固定尺寸（正方形）
+    add_image_size('product-thumbnail', 400, 400, true); // 产品列表缩略图
+    add_image_size('product-medium', 600, 600, true); // 产品中等尺寸
+    add_image_size('product-large', 1200, 1200, true); // 产品详情页大图
+    add_image_size('homepage-banner', 1100, 400, true); // Banner轮播固定尺寸（1100x400）
     add_image_size('product-360', 600, 600, true);
     add_image_size('hero-banner', 1920, 800, true);
-    add_image_size('homepage-banner', 1920, 600, true); // Banner轮播专用尺寸
 }
 add_action('after_setup_theme', 'angola_b2b_setup');
 
