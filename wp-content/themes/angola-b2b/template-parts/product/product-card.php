@@ -6,8 +6,14 @@
  */
 
 $product_id = get_the_ID();
+// 尝试获取图片，按优先级顺序
 $thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
-// 如果没有特色图片，尝试使用原始尺寸
+if (!$thumbnail) {
+    $thumbnail = get_the_post_thumbnail_url($product_id, 'product-thumbnail');
+}
+if (!$thumbnail) {
+    $thumbnail = get_the_post_thumbnail_url($product_id, 'thumbnail');
+}
 if (!$thumbnail) {
     $thumbnail = get_the_post_thumbnail_url($product_id, 'full');
 }
