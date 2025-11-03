@@ -98,12 +98,15 @@ function angola_b2b_register_homepage_settings_fields() {
                 'label' => '选择展示的产品',
                 'name' => 'banner_products',
                 'type' => 'relationship',
-                'instructions' => '选择要在Banner中展示的产品（将显示产品的特色图片）',
+                'instructions' => '选择要在Banner中展示的产品（将显示产品的特色图片）。注意：这里只能选择具体产品，不能选择分类。',
                 'post_type' => array('product'),
-                'filters' => array('search'),
+                'filters' => array('search', 'taxonomy'),
+                'taxonomy' => 'product_category',
                 'return_format' => 'id',
                 'min' => 1,
                 'max' => 10,
+                'elements' => array('featured_image'),
+                'post_status' => array('publish'), // 只显示已发布的产品
                 'conditional_logic' => array(
                     array(
                         array(
