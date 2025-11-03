@@ -23,6 +23,7 @@ $includes = array(
     '/inc/custom-post-types.php',
     '/inc/custom-taxonomies.php',
     '/inc/acf-fields.php',
+    '/inc/acf-filters.php',
     '/inc/admin-customization.php',
     '/inc/admin-tools.php',
     '/inc/multilingual.php',
