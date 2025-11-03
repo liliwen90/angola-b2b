@@ -266,7 +266,10 @@
    ============================================ */
 
 /* Section spacing and alignment */
-.featured-products,
+.featured-products {
+    padding: 1.5rem 0;
+}
+
 .core-advantages,
 .cta-section {
     padding: var(--space-16) 0;
