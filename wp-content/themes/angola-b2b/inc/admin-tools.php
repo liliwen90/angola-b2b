@@ -89,7 +89,7 @@ function angola_b2b_create_test_products() {
     $images_dir = 'F:/011 Projects/UnibroWeb/Unirbro/PICS for TEST/';
     
     $test_products = array(
-        // 库存产品 (1-9)
+        // 库存产品 (1-9) - 使用图片1-9
         array(
             'title' => 'LED灯泡套装',
             'description' => '高效节能LED灯泡，适用于家庭和商业场所。亮度可调，使用寿命长达25000小时。',
@@ -181,7 +181,7 @@ function angola_b2b_create_test_products() {
             'image' => '9.jpeg',
         ),
         
-        // 精选产品 (10-18)
+        // 精选产品 (10-18) - 使用图片11-18和8.jpeg
         array(
             'title' => '智能手机配件',
             'description' => '适配多款手机型号，TPU材质，防摔耐用。颜色多样可选。',
@@ -260,7 +260,7 @@ function angola_b2b_create_test_products() {
             'stock_quantity' => 0,
             'parent_category' => '宠物用品',
             'category' => '日常用品',
-            'image' => '1.jpeg',
+            'image' => '17.jpg',
         ),
         array(
             'title' => '母婴用品组合',
@@ -270,7 +270,7 @@ function angola_b2b_create_test_products() {
             'stock_quantity' => 0,
             'parent_category' => '母婴用品',
             'category' => '护理用品',
-            'image' => '2.jpeg',
+            'image' => '18.jpeg',
         ),
     );
     
