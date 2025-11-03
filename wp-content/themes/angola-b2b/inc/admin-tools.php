@@ -88,6 +88,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 200,
+            'parent_category' => '电子电器',
             'category' => '照明设备',
             'image' => '1.jpeg',
         ),
@@ -97,7 +98,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 500,
-            'category' => '建筑材料',
+            'parent_category' => '建筑材料',
+            'category' => '水泥制品',
             'image' => '2.jpeg',
         ),
         array(
@@ -106,7 +108,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 150,
-            'category' => '办公用品',
+            'parent_category' => '办公用品',
+            'category' => '文具用品',
             'image' => '3.jpg',
         ),
         array(
@@ -115,6 +118,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 80,
+            'parent_category' => '工具设备',
             'category' => '五金工具',
             'image' => '4.jpeg',
         ),
@@ -124,7 +128,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 60,
-            'category' => '户外用品',
+            'parent_category' => '户外用品',
+            'category' => '户外装备',
             'image' => '5.jpg',
         ),
         array(
@@ -133,6 +138,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 120,
+            'parent_category' => '电子电器',
             'category' => '家用电器',
             'image' => '6.jpg',
         ),
@@ -142,7 +148,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 45,
-            'category' => '运动器材',
+            'parent_category' => '运动健身',
+            'category' => '健身器材',
             'image' => '7.jpg',
         ),
         array(
@@ -151,6 +158,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 200,
+            'parent_category' => '家居用品',
             'category' => '厨房用品',
             'image' => '8.jpg',
         ),
@@ -160,6 +168,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => true,
             'is_featured' => true,
             'stock_quantity' => 90,
+            'parent_category' => '工具设备',
             'category' => '园艺工具',
             'image' => '9.jpeg',
         ),
@@ -171,6 +180,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
+            'parent_category' => '电子电器',
             'category' => '电子配件',
             'image' => '11.jpg',
         ),
@@ -180,6 +190,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
+            'parent_category' => '儿童用品',
             'category' => '玩具',
             'image' => '12.jpeg',
         ),
@@ -189,6 +200,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
+            'parent_category' => '工具设备',
             'category' => '电动工具',
             'image' => '8.jpeg',
         ),
@@ -198,7 +210,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
-            'category' => '家居用品',
+            'parent_category' => '家居用品',
+            'category' => '收纳用品',
             'image' => '13.jpeg',
         ),
         array(
@@ -207,6 +220,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
+            'parent_category' => '办公用品',
             'category' => '办公家具',
             'image' => '14.jpeg',
         ),
@@ -216,7 +230,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
-            'category' => '汽车用品',
+            'parent_category' => '汽车用品',
+            'category' => '保养用品',
             'image' => '15.jpeg',
         ),
         array(
@@ -225,6 +240,7 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
+            'parent_category' => '户外用品',
             'category' => '户外装备',
             'image' => '16.jpeg',
         ),
@@ -234,7 +250,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
-            'category' => '宠物用品',
+            'parent_category' => '宠物用品',
+            'category' => '日常用品',
             'image' => '1.jpeg',
         ),
         array(
@@ -243,7 +260,8 @@ function angola_b2b_create_test_products() {
             'is_stock' => false,
             'is_featured' => true,
             'stock_quantity' => 0,
-            'category' => '母婴用品',
+            'parent_category' => '母婴用品',
+            'category' => '护理用品',
             'image' => '2.jpeg',
         ),
     );
@@ -278,14 +296,40 @@ function angola_b2b_create_test_products() {
             continue;
         }
         
-        // Add category
-        $category_term = get_term_by('name', $product_data['category'], 'product_category');
-        if (!$category_term) {
-            $category_result = wp_insert_term($product_data['category'], 'product_category');
-            if (!is_wp_error($category_result)) {
-                wp_set_post_terms($product_id, array($category_result['term_id']), 'product_category');
+        // Add category with parent-child hierarchy
+        // 1. 先创建或获取父分类
+        $parent_term = null;
+        if (!empty($product_data['parent_category'])) {
+            $parent_term = get_term_by('name', $product_data['parent_category'], 'product_category');
+            if (!$parent_term) {
+                $parent_result = wp_insert_term($product_data['parent_category'], 'product_category');
+                if (!is_wp_error($parent_result)) {
+                    $parent_term = get_term($parent_result['term_id'], 'product_category');
+                }
             }
-        } else {
+        }
+        
+        // 2. 创建或获取子分类（属于父分类）
+        $category_term = null;
+        if (!empty($product_data['category'])) {
+            $category_term = get_term_by('name', $product_data['category'], 'product_category');
+            if (!$category_term) {
+                $category_args = array();
+                if ($parent_term) {
+                    $category_args['parent'] = $parent_term->term_id;
+                }
+                $category_result = wp_insert_term($product_data['category'], 'product_category', $category_args);
+                if (!is_wp_error($category_result)) {
+                    $category_term = get_term($category_result['term_id'], 'product_category');
+                }
+            } elseif ($parent_term && $category_term->parent != $parent_term->term_id) {
+                // 如果子分类存在但父分类不对，更新父分类
+                wp_update_term($category_term->term_id, 'product_category', array('parent' => $parent_term->term_id));
+            }
+        }
+        
+        // 3. 将产品分配给子分类
+        if ($category_term) {
             wp_set_post_terms($product_id, array($category_term->term_id), 'product_category');
         }
         
