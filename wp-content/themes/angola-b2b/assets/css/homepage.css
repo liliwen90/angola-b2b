@@ -12,7 +12,7 @@
 .homepage-banner-slider {
     position: relative;
     width: 100%;
-    max-width: var(--container-xl);
+    max-width: 1100px;
     margin: 0 auto var(--space-12);
     padding: 0 var(--space-4);
 }
