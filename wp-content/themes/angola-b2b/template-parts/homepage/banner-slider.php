@@ -28,7 +28,25 @@ if (empty($banner_products) || !is_array($banner_products)) {
                 <?php
                 $product_title = get_the_title($product_id);
                 $product_url = get_permalink($product_id);
+                
+                // 调试：检查是否有特色图片
+                $thumbnail_id = get_post_thumbnail_id($product_id);
+                
+                // 尝试获取Banner图片，按优先级回退
                 $thumbnail_url = get_the_post_thumbnail_url($product_id, 'homepage-banner');
+                if (!$thumbnail_url) {
+                    $thumbnail_url = get_the_post_thumbnail_url($product_id, 'product-large');
+                }
+                if (!$thumbnail_url) {
+                    $thumbnail_url = get_the_post_thumbnail_url($product_id, 'full');
+                }
+                if (!$thumbnail_url) {
+                    $thumbnail_url = get_the_post_thumbnail_url($product_id, 'large');
+                }
+                if (!$thumbnail_url && $thumbnail_id) {
+                    // 如果所有尺寸都不存在，但attachment ID存在，直接获取原始文件URL
+                    $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'full');
+                }
                 
                 // 如果没有特色图片，跳过这个产品
                 if (!$thumbnail_url) {

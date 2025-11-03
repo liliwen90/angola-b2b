@@ -31,17 +31,29 @@ $product_id = get_the_ID();
     <div class="product-thumbnail">
         <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr(sprintf(__('View %s', 'angola-b2b'), get_the_title())); ?>">
             <?php
-            // 使用固定的产品卡片尺寸
+            // 调试：检查是否有特色图片
+            $thumbnail_id = get_post_thumbnail_id($product_id);
+            // 使用固定的产品卡片尺寸，但如果不存在则回退
             $thumbnail = get_the_post_thumbnail_url($product_id, 'product-card');
             // 如果固定尺寸不存在，按优先级回退
             if (!$thumbnail) {
                 $thumbnail = get_the_post_thumbnail_url($product_id, 'product-thumbnail');
             }
             if (!$thumbnail) {
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'product-medium');
+            }
+            if (!$thumbnail) {
                 $thumbnail = get_the_post_thumbnail_url($product_id, 'thumbnail');
             }
             if (!$thumbnail) {
-                $thumbnail = get_the_post_thumbnail_url($product_id, 'full');
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'medium');
+            }
+            if (!$thumbnail) {
+                $thumbnail = get_the_post_thumbnail_url($product_id, 'large');
+            }
+            if (!$thumbnail && $thumbnail_id) {
+                // 如果所有尺寸都不存在，但attachment ID存在，直接获取原始文件URL
+                $thumbnail = wp_get_attachment_image_url($thumbnail_id, 'full');
             }
             if ($thumbnail) :
                 ?>
