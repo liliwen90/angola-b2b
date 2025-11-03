@@ -39,9 +39,10 @@ function angola_b2b_ajax_filter_products() {
     if (!empty($category)) {
         $args['tax_query'] = array(
             array(
-                'taxonomy' => 'product_category',
-                'field'    => 'slug',
-                'terms'    => $category,
+                'taxonomy'         => 'product_category',
+                'field'            => 'slug',
+                'terms'            => $category,
+                'include_children' => true, // 包含子分类
             ),
         );
     }
@@ -124,9 +125,10 @@ function angola_b2b_ajax_load_more_products() {
     if (!empty($category)) {
         $args['tax_query'] = array(
             array(
-                'taxonomy' => 'product_category',
-                'field'    => 'slug',
-                'terms'    => $category,
+                'taxonomy'         => 'product_category',
+                'field'            => 'slug',
+                'terms'            => $category,
+                'include_children' => true, // 包含子分类
             ),
         );
     }

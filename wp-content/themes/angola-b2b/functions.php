@@ -29,6 +29,7 @@ $includes = array(
     '/inc/ajax-handlers.php',
     '/inc/inquiry-system.php',
     '/inc/helpers.php',
+    '/inc/query-modifications.php',
 );
 
 foreach ($includes as $file) {
