@@ -77,6 +77,44 @@ function angola_b2b_register_homepage_settings_fields() {
         'title' => '首页设置',
         'fields' => array(
             
+            // Tab: Banner轮播
+            array(
+                'key' => 'field_tab_banner_slider',
+                'label' => 'Banner轮播',
+                'type' => 'tab',
+                'placement' => 'left',
+            ),
+            array(
+                'key' => 'field_enable_banner_slider',
+                'label' => '显示Banner轮播',
+                'name' => 'enable_banner_slider',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+                'instructions' => '关闭后，首页将不显示Banner轮播',
+            ),
+            array(
+                'key' => 'field_banner_products',
+                'label' => '选择展示的产品',
+                'name' => 'banner_products',
+                'type' => 'relationship',
+                'instructions' => '选择要在Banner中展示的产品（将显示产品的特色图片）',
+                'post_type' => array('product'),
+                'filters' => array('search'),
+                'return_format' => 'id',
+                'min' => 1,
+                'max' => 10,
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_enable_banner_slider',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+            
             // Tab: 库存产品模块
             array(
                 'key' => 'field_tab_stock_products',

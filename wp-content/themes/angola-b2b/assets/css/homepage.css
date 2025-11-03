@@ -6,6 +6,150 @@
  */
 
 /* ============================================
+   Banner轮播区域
+   ============================================ */
+
+.homepage-banner-slider {
+    position: relative;
+    width: 100%;
+    margin-bottom: var(--space-12);
+}
+
+.banner-swiper {
+    width: 100%;
+    height: 600px;
+}
+
+@media (max-width: 768px) {
+    .banner-swiper {
+        height: 400px;
+    }
+}
+
+.banner-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.banner-slide-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-decoration: none;
+}
+
+.banner-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.banner-slide:hover .banner-image {
+    transform: scale(1.05);
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%);
+    z-index: 1;
+}
+
+.banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-8) var(--space-6);
+    z-index: 2;
+    text-align: center;
+}
+
+.banner-product-title {
+    color: var(--color-white);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    .banner-product-title {
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Banner分页器 */
+.banner-pagination {
+    bottom: var(--space-4) !important;
+}
+
+.banner-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: var(--color-white);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.banner-pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+    width: 32px;
+    border-radius: 6px;
+    background: var(--color-primary);
+}
+
+/* Banner导航按钮 */
+.banner-prev,
+.banner-next {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.banner-prev:after,
+.banner-next:after {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+}
+
+.banner-prev:hover,
+.banner-next:hover {
+    background: var(--color-white);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .banner-prev,
+    .banner-next {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .banner-prev:after,
+    .banner-next:after {
+        font-size: var(--font-size-base);
+    }
+}
+
+/* ============================================
    Hero Banner区域
    ============================================ */
 
