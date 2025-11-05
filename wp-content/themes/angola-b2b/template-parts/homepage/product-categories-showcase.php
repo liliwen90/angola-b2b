@@ -73,27 +73,34 @@ if (empty($product_categories)) {
             </p>
         </div>
         
-        <div class="product-categories-grid">
-            <?php foreach ($product_categories as $category) : ?>
-                <a href="<?php echo esc_url($category['link']); ?>" class="product-category-card">
-                    <div class="category-card-image" style="background-image: url('<?php echo esc_url($category['image']); ?>');">
-                        <div class="category-overlay"></div>
+        <div class="product-categories-wrapper">
+            <!-- Background Images Container -->
+            <div class="categories-background">
+                <?php foreach ($product_categories as $index => $category) : ?>
+                    <div class="category-bg-image <?php echo $index === 0 ? 'active' : ''; ?>" 
+                         data-category="<?php echo esc_attr($category['id']); ?>"
+                         style="background-image: url('<?php echo esc_url($category['image']); ?>');">
                     </div>
-                    <div class="category-content">
-                        <div class="category-icon">
-                            <?php echo $category['icon']; ?>
+                <?php endforeach; ?>
+                <div class="category-bg-overlay"></div>
+            </div>
+            
+            <!-- Category Cards -->
+            <div class="product-categories-grid">
+                <?php foreach ($product_categories as $category) : ?>
+                    <a href="<?php echo esc_url($category['link']); ?>" 
+                       class="product-category-card" 
+                       data-category="<?php echo esc_attr($category['id']); ?>">
+                        <div class="category-content">
+                            <div class="category-icon">
+                                <?php echo $category['icon']; ?>
+                            </div>
+                            <h3 class="category-title"><?php echo esc_html($category['title']); ?></h3>
+                            <p class="category-description"><?php echo esc_html($category['description']); ?></p>
                         </div>
-                        <h3 class="category-title"><?php echo esc_html($category['title']); ?></h3>
-                        <p class="category-description"><?php echo esc_html($category['description']); ?></p>
-                        <span class="category-link-btn">
-                            <?php esc_html_e('Explore Products', 'angola-b2b'); ?>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </span>
-                    </div>
-                </a>
-            <?php endforeach; ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </section>

@@ -314,6 +314,15 @@ function angola_b2b_enqueue_scripts() {
         true
     );
     
+    // Product Categories Showcase script
+    wp_enqueue_script(
+        'angola-b2b-product-categories-showcase',
+        ANGOLA_B2B_THEME_URI . '/assets/js/product-categories-showcase.js',
+        array('jquery'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
     // Services showcase carousel script
     wp_enqueue_script(
         'angola-b2b-services-showcase',
