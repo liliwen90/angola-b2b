@@ -426,3 +426,102 @@ function angola_b2b_register_product_hero_fields() {
 }
 add_action('acf/init', 'angola_b2b_register_product_hero_fields');
 
+/**
+ * Register Service (解决方案) ACF Fields
+ */
+function angola_b2b_register_service_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_service_details',
+        'title' => '解决方案详细信息',
+        'fields' => array(
+            array(
+                'key' => 'field_service_icon',
+                'label' => '图标SVG代码',
+                'name' => 'service_icon',
+                'type' => 'textarea',
+                'instructions' => '粘贴SVG图标代码（可选）。留空则不显示图标。',
+                'rows' => 4,
+            ),
+            array(
+                'key' => 'field_service_link',
+                'label' => '链接地址',
+                'name' => 'service_link',
+                'type' => 'url',
+                'instructions' => '点击该解决方案后跳转的链接（可选）。留空则不可点击。',
+            ),
+            array(
+                'key' => 'field_service_features',
+                'label' => '特性列表',
+                'name' => 'service_features',
+                'type' => 'repeater',
+                'instructions' => '添加该解决方案的关键特性（显示为列表）',
+                'button_label' => '添加特性',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_service_feature_text',
+                        'label' => '特性文本',
+                        'name' => 'feature_text',
+                        'type' => 'text',
+                    ),
+                ),
+                'min' => 0,
+                'max' => 5,
+                'layout' => 'table',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'service',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_service_fields');
+
+/**
+ * Register Industry (行业) ACF Fields
+ */
+function angola_b2b_register_industry_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_industry_details',
+        'title' => '行业详细信息',
+        'fields' => array(
+            array(
+                'key' => 'field_industry_link',
+                'label' => '链接地址',
+                'name' => 'industry_link',
+                'type' => 'url',
+                'instructions' => '点击该行业后跳转的链接（可选）。留空则不可点击。',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'industry',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_industry_fields');
+

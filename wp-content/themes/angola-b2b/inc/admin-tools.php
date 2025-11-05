@@ -32,6 +32,14 @@ function angola_b2b_add_tools_menu() {
     );
     
     add_management_page(
+        '导入解决方案和行业数据',
+        '导入解决方案和行业数据',
+        'manage_options',
+        'angola-b2b-import-content',
+        'angola_b2b_import_content_page'
+    );
+    
+    add_management_page(
         '删除所有产品和分类',
         '删除所有产品和分类',
         'manage_options',
@@ -716,6 +724,262 @@ function angola_b2b_delete_all_products_and_categories() {
     echo '<p><a href="' . admin_url('tools.php?page=angola-b2b-generate-products') . '" class="button button-primary">🚀 生成新的测试产品</a> ';
     echo '<a href="' . admin_url('edit.php?post_type=product') . '" class="button">📦 查看产品列表</a> ';
     echo '<a href="' . admin_url('edit-tags.php?taxonomy=product_category&post_type=product') . '" class="button">📁 查看分类列表</a></p>';
+    echo '</div>';
+}
+
+/**
+ * Import Services and Industries Content Page
+ * 导入解决方案和行业数据
+ */
+function angola_b2b_import_content_page() {
+    ?>
+    <div class="wrap">
+        <h1>📥 导入解决方案和行业数据</h1>
+        <p>将MSC风格的解决方案和行业数据导入到后台，导入后你可以在后台自由编辑这些内容。</p>
+        
+        <form method="post" action="">
+            <?php wp_nonce_field('angola_b2b_import_content_action', 'angola_b2b_import_content_nonce'); ?>
+            
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><label>导入解决方案数据</label></th>
+                    <td>
+                        <input type="checkbox" name="import_services" value="1" checked> 
+                        导入5个解决方案（Shipping Solutions, Inland Transportation, Air Cargo, Digital Solutions, Cargo Protection）
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>导入行业数据</label></th>
+                    <td>
+                        <input type="checkbox" name="import_industries" value="1" checked> 
+                        导入10个行业（Agriculture, Fruit, Pharmaceuticals, Car Parts, Mining, Plastics, Chemicals, Food & Beverages, Forestry, Retail）
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>覆盖已存在的数据</label></th>
+                    <td>
+                        <input type="checkbox" name="overwrite_existing" value="1"> 
+                        <strong>警告：</strong>如果勾选，将删除所有现有的解决方案和行业数据后重新导入
+                    </td>
+                </tr>
+            </table>
+            
+            <p class="submit">
+                <button type="submit" name="import_content" class="button button-primary">🚀 开始导入</button>
+            </p>
+        </form>
+    </div>
+    <?php
+    
+    // Handle form submission
+    if (isset($_POST['import_content']) && check_admin_referer('angola_b2b_import_content_action', 'angola_b2b_import_content_nonce')) {
+        angola_b2b_import_content_data();
+    }
+}
+
+/**
+ * Import Services and Industries Data
+ * 执行导入操作
+ */
+function angola_b2b_import_content_data() {
+    $import_services = isset($_POST['import_services']);
+    $import_industries = isset($_POST['import_industries']);
+    $overwrite = isset($_POST['overwrite_existing']);
+    
+    $services_count = 0;
+    $industries_count = 0;
+    $errors = array();
+    
+    // Delete existing data if overwrite is enabled
+    if ($overwrite) {
+        // Delete services
+        $existing_services = get_posts(array(
+            'post_type' => 'service',
+            'posts_per_page' => -1,
+            'post_status' => 'any',
+        ));
+        foreach ($existing_services as $service) {
+            wp_delete_post($service->ID, true);
+        }
+        
+        // Delete industries
+        $existing_industries = get_posts(array(
+            'post_type' => 'industry',
+            'posts_per_page' => -1,
+            'post_status' => 'any',
+        ));
+        foreach ($existing_industries as $industry) {
+            wp_delete_post($industry->ID, true);
+        }
+    }
+    
+    // Import Services
+    if ($import_services) {
+        $services_data = array(
+            array(
+                'title' => 'Shipping Solutions',
+                'description' => 'Comprehensive shipping solutions for all your cargo needs. From dry containers to specialized transport, we ensure your goods reach their destination safely.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=800',
+                'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M3 6h18M5 6v12M19 6v12M9 6v12M15 6v12"/></svg>',
+                'features' => array('Dry Containers', 'Specialized Transport', 'Global Coverage'),
+            ),
+            array(
+                'title' => 'Inland Transportation & Logistics',
+                'description' => 'Seamless inland transportation and logistics services. Door-to-door delivery solutions that keep your supply chain moving efficiently.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/inland-services/msc-inland-services-solutions-hero.jpg?w=800',
+                'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h15v9H1V6zM16 8h5l3 3v4h-3M5.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>',
+                'features' => array('Door-to-Door Delivery', 'Warehouse Services', 'Supply Chain Management'),
+            ),
+            array(
+                'title' => 'Air Cargo Solutions',
+                'description' => 'Fast and reliable air cargo services for time-sensitive shipments. Global reach with express delivery options for urgent needs.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/air-cargo/msc-air-cargo-solutions-hero.jpg?w=800',
+                'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>',
+                'features' => array('Express Delivery', 'Time-Critical Shipments', 'Global Network'),
+            ),
+            array(
+                'title' => 'Digital Business Solutions',
+                'description' => 'Advanced digital tools and platforms to streamline your operations. Real-time tracking, automated documentation, and seamless integration.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/digital/msc-digital-solutions-hero.jpg?w=800',
+                'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+                'features' => array('Real-time Tracking', 'Automated Documentation', 'API Integration'),
+            ),
+            array(
+                'title' => 'Cargo Cover Solutions',
+                'description' => 'Comprehensive insurance and protection plans for your valuable cargo. Peace of mind with every shipment, backed by trusted coverage.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/reefer-cargo/msc-reefer-cargo-shipping-solutions-hero.jpg?w=800',
+                'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+                'features' => array('Comprehensive Coverage', 'Risk Management', 'Claims Support'),
+            ),
+        );
+        
+        foreach ($services_data as $index => $service) {
+            $post_id = wp_insert_post(array(
+                'post_type' => 'service',
+                'post_title' => $service['title'],
+                'post_content' => $service['description'],
+                'post_status' => 'publish',
+                'menu_order' => $index + 1,
+            ));
+            
+            if ($post_id && !is_wp_error($post_id)) {
+                // Set featured image from URL (note: this will just store the URL, not download the image)
+                // For a production site, you'd want to download and attach the image properly
+                // update_post_meta($post_id, '_thumbnail_url', $service['image_url']);
+                
+                // Set ACF fields
+                update_field('service_icon', $service['icon'], $post_id);
+                
+                // Set features
+                $features_array = array();
+                foreach ($service['features'] as $feature_text) {
+                    $features_array[] = array('feature_text' => $feature_text);
+                }
+                update_field('service_features', $features_array, $post_id);
+                
+                $services_count++;
+            } else {
+                $errors[] = '导入解决方案 "' . $service['title'] . '" 失败';
+            }
+        }
+    }
+    
+    // Import Industries
+    if ($import_industries) {
+        $industries_data = array(
+            array(
+                'title' => 'Agriculture',
+                'description' => 'With global sourcing an everyday reality, MSC connects the growers, farmers and producers of agricultural products around the world with their key markets.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Fruit',
+                'description' => 'Whether you\'re shipping apples or avocados, our world-leading reefer fleet is equipped with the technology you need to keep your fruit in perfect condition.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/fruit/msc-fruit-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Pharmaceuticals',
+                'description' => 'More and more pharmaceutical companies are turning to sea transport to deliver medicines and other essential goods quickly and safely to the places where they are needed.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/pharma/msc-pharma-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Car Parts',
+                'description' => 'Whether you are shipping production or service parts, a reliable and experienced shipping partner is a vital link in your uninterruptible supply chain.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/automotive/msc-automotive-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Mining & Minerals',
+                'description' => 'For decades MSC has been successfully connecting the minerals extraction industries with customer markets around the world – offering fast transit times across all key trade lanes.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/mining/msc-mining-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Plastics & Rubber Products',
+                'description' => 'Transported to and from every major trade lane, plastic and rubber goods are at the very centre of most modern global supply chains.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/plastics/msc-plastics-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Chemicals & Petrochemicals',
+                'description' => 'MSC provides careful, precise and robust processes to safely transport hazardous and dangerous goods, such as chemicals and petrochemicals.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/chemicals/msc-chemicals-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Food & Beverages',
+                'description' => 'Thanks to its decades of experience servicing the food and beverage industries, MSC understands the unique needs of the sector.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/food-beverage/msc-food-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Pulp, Paper & Forestry Products',
+                'description' => 'Using our knowledge in transportation and logistics we can provide versatile solutions for your pulp, paper and forest products.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/forestry/msc-forestry-shipping-solutions-hero.jpg?w=800',
+            ),
+            array(
+                'title' => 'Retail',
+                'description' => 'Retailers rely on efficient global product sourcing and a flexible and robust "just-in-time" supply chain.',
+                'image_url' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/retail/msc-retail-shipping-solutions-hero.jpg?w=800',
+            ),
+        );
+        
+        foreach ($industries_data as $index => $industry) {
+            $post_id = wp_insert_post(array(
+                'post_type' => 'industry',
+                'post_title' => $industry['title'],
+                'post_content' => $industry['description'],
+                'post_status' => 'publish',
+                'menu_order' => $index + 1,
+            ));
+            
+            if ($post_id && !is_wp_error($post_id)) {
+                $industries_count++;
+            } else {
+                $errors[] = '导入行业 "' . $industry['title'] . '" 失败';
+            }
+        }
+    }
+    
+    // Display results
+    echo '<div class="notice notice-success is-dismissible">';
+    echo '<h3>🎉 导入完成！</h3>';
+    echo '<ul>';
+    echo '<li><strong>已导入解决方案：</strong>' . $services_count . ' 个</li>';
+    echo '<li><strong>已导入行业：</strong>' . $industries_count . ' 个</li>';
+    echo '</ul>';
+    
+    if (!empty($errors)) {
+        echo '<h4>⚠️ 错误：</h4>';
+        echo '<ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . esc_html($error) . '</li>';
+        }
+        echo '</ul>';
+    }
+    
+    echo '<p><strong>📝 下一步：</strong></p>';
+    echo '<ol>';
+    echo '<li>前往 <a href="' . admin_url('edit.php?post_type=service') . '"><strong>解决方案</strong></a> 或 <a href="' . admin_url('edit.php?post_type=industry') . '"><strong>行业</strong></a> 编辑内容</li>';
+    echo '<li>点击每个条目，上传自己的图片（设置特色图片）</li>';
+    echo '<li>根据需要修改标题、描述等信息</li>';
+    echo '<li>支持多语言：配合Polylang插件翻译内容</li>';
+    echo '</ol>';
     echo '</div>';
 }
 

@@ -11,44 +11,54 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define services (can be customized via ACF later)
-$services = array(
-    array(
-        'id' => 'shipping-solutions',
-        'title' => __('Shipping Solutions', 'angola-b2b'),
-        'description' => __('Comprehensive shipping solutions for all your cargo needs. From dry containers to specialized transport, we ensure your goods reach their destination safely.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=800',
-        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M3 6h18M5 6v12M19 6v12M9 6v12M15 6v12"/></svg>',
-    ),
-    array(
-        'id' => 'inland-transportation',
-        'title' => __('Inland Transportation & Logistics', 'angola-b2b'),
-        'description' => __('Seamless inland transportation and logistics services. Door-to-door delivery solutions that keep your supply chain moving efficiently.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/inland-services/msc-inland-services-solutions-hero.jpg?w=800',
-        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h15v9H1V6zM16 8h5l3 3v4h-3M5.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>',
-    ),
-    array(
-        'id' => 'air-cargo',
-        'title' => __('Air Cargo Solutions', 'angola-b2b'),
-        'description' => __('Fast and reliable air cargo services for time-sensitive shipments. Global reach with express delivery options for urgent needs.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/air-cargo/msc-air-cargo-solutions-hero.jpg?w=800',
-        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>',
-    ),
-    array(
-        'id' => 'digital-solutions',
-        'title' => __('Digital Business Solutions', 'angola-b2b'),
-        'description' => __('Advanced digital tools and platforms to streamline your operations. Real-time tracking, automated documentation, and seamless integration.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/digital/msc-digital-solutions-hero.jpg?w=800',
-        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
-    ),
-    array(
-        'id' => 'cargo-protection',
-        'title' => __('Cargo Cover Solutions', 'angola-b2b'),
-        'description' => __('Comprehensive insurance and protection plans for your valuable cargo. Peace of mind with every shipment, backed by trusted coverage.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/reefer-cargo/msc-reefer-cargo-shipping-solutions-hero.jpg?w=800',
-        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-    ),
-);
+// Fetch services from database
+$services_query = new WP_Query(array(
+    'post_type' => 'service',
+    'posts_per_page' => -1,
+    'orderby' => 'menu_order',
+    'order' => 'ASC',
+    'post_status' => 'publish',
+));
+
+$services = array();
+if ($services_query->have_posts()) {
+    while ($services_query->have_posts()) {
+        $services_query->the_post();
+        
+        // Get featured image
+        $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        if (!$image_url) {
+            $image_url = 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=800';
+        }
+        
+        // Get ACF fields
+        $icon = get_field('service_icon');
+        $link = get_field('service_link');
+        $features = get_field('service_features');
+        
+        // Build features array
+        $features_array = array();
+        if ($features) {
+            foreach ($features as $feature) {
+                if (!empty($feature['feature_text'])) {
+                    $features_array[] = $feature['feature_text'];
+                }
+            }
+        }
+        
+        $services[] = array(
+            'id' => 'service-' . get_the_ID(),
+            'title' => get_the_title(),
+            'description' => get_the_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 30),
+            'image' => $image_url,
+            'icon' => $icon,
+            'link_url' => $link ? $link : get_permalink(),
+            'link_text' => __('Learn More', 'angola-b2b'),
+            'features' => $features_array,
+        );
+    }
+    wp_reset_postdata();
+}
 
 $services = apply_filters('angola_b2b_services_showcase', $services);
 
@@ -84,14 +94,23 @@ if (empty($services)) {
                                     
                                     <!-- Service Content -->
                                     <div class="service-content">
-                                        <div class="service-icon">
-                                            <?php echo $service['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                                        </div>
+                                        <?php if (!empty($service['icon'])) : ?>
+                                            <div class="service-icon">
+                                                <?php echo $service['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                            </div>
+                                        <?php endif; ?>
                                         <h3 class="service-title"><?php echo esc_html($service['title']); ?></h3>
                                         <p class="service-description"><?php echo esc_html($service['description']); ?></p>
+                                        <?php if (!empty($service['features'])) : ?>
+                                            <ul class="service-features">
+                                                <?php foreach ($service['features'] as $feature) : ?>
+                                                    <li><?php echo esc_html($feature); ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        <?php endif; ?>
                                         <div class="service-link">
-                                            <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" class="btn-link">
-                                                <?php esc_html_e('Learn More', 'angola-b2b'); ?>
+                                            <a href="<?php echo esc_url($service['link_url']); ?>" class="btn-link">
+                                                <?php echo esc_html($service['link_text']); ?>
                                                 <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                     <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>

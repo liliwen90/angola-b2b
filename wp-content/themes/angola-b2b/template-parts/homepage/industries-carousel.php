@@ -11,79 +11,39 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define industries (can be customized via ACF later)
-$industries = array(
-    array(
-        'id' => 'agriculture',
-        'title' => __('Agriculture', 'angola-b2b'),
-        'description' => __('With global sourcing an everyday reality, MSC connects the growers, farmers and producers of agricultural products around the world with their key markets.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
-        'link' => get_term_link('农机农具', 'product_category'),
-    ),
-    array(
-        'id' => 'fruit',
-        'title' => __('Fruit', 'angola-b2b'),
-        'description' => __('Whether you\'re shipping apples or avocados, our world-leading reefer fleet is equipped with the technology you need to keep your fruit in perfect condition.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/fruit/msc-fruit-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'pharmaceuticals',
-        'title' => __('Pharmaceuticals', 'angola-b2b'),
-        'description' => __('More and more pharmaceutical companies are turning to sea transport to deliver medicines and other essential goods quickly and safely to the places where they are needed.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/pharma/msc-pharma-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'car-parts',
-        'title' => __('Car Parts', 'angola-b2b'),
-        'description' => __('Whether you are shipping production or service parts, a reliable and experienced shipping partner is a vital link in your uninterruptible supply chain.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/automotive/msc-automotive-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'mining',
-        'title' => __('Mining & Minerals', 'angola-b2b'),
-        'description' => __('For decades MSC has been successfully connecting the minerals extraction industries with customer markets around the world – offering fast transit times across all key trade lanes.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/mining/msc-mining-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'plastics',
-        'title' => __('Plastics & Rubber Products', 'angola-b2b'),
-        'description' => __('Transported to and from every major trade lane, plastic and rubber goods are at the very centre of most modern global supply chains.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/plastics/msc-plastics-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'chemicals',
-        'title' => __('Chemicals & Petrochemicals', 'angola-b2b'),
-        'description' => __('MSC provides careful, precise and robust processes to safely transport hazardous and dangerous goods, such as chemicals and petrochemicals.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/chemicals/msc-chemicals-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'food-beverage',
-        'title' => __('Food & Beverages', 'angola-b2b'),
-        'description' => __('Thanks to its decades of experience servicing the food and beverage industries, MSC understands the unique needs of the sector.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/food-beverage/msc-food-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'forestry',
-        'title' => __('Pulp, Paper & Forestry Products', 'angola-b2b'),
-        'description' => __('Using our knowledge in transportation and logistics we can provide versatile solutions for your pulp, paper and forest products.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/forestry/msc-forestry-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-    array(
-        'id' => 'retail',
-        'title' => __('Retail', 'angola-b2b'),
-        'description' => __('Retailers rely on efficient global product sourcing and a flexible and robust "just-in-time" supply chain.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/retail/msc-retail-shipping-solutions-hero.jpg?w=800',
-        'link' => get_post_type_archive_link('product'),
-    ),
-);
+// Fetch industries from database
+$industries_query = new WP_Query(array(
+    'post_type' => 'industry',
+    'posts_per_page' => -1,
+    'orderby' => 'menu_order',
+    'order' => 'ASC',
+    'post_status' => 'publish',
+));
+
+$industries = array();
+if ($industries_query->have_posts()) {
+    while ($industries_query->have_posts()) {
+        $industries_query->the_post();
+        
+        // Get featured image
+        $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        if (!$image_url) {
+            $image_url = 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800';
+        }
+        
+        // Get ACF fields
+        $link = get_field('industry_link');
+        
+        $industries[] = array(
+            'id' => 'industry-' . get_the_ID(),
+            'title' => get_the_title(),
+            'description' => get_the_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 30),
+            'image' => $image_url,
+            'link' => $link ? $link : get_permalink(),
+        );
+    }
+    wp_reset_postdata();
+}
 
 $industries = apply_filters('angola_b2b_industries_carousel', $industries);
 

@@ -74,3 +74,129 @@ function angola_b2b_register_product_post_type() {
 }
 add_action('init', 'angola_b2b_register_product_post_type', 0);
 
+/**
+ * Register Service Custom Post Type (解决方案)
+ */
+function angola_b2b_register_service_post_type() {
+    $labels = array(
+        'name'                  => _x('解决方案', 'Post Type General Name', 'angola-b2b'),
+        'singular_name'         => _x('解决方案', 'Post Type Singular Name', 'angola-b2b'),
+        'menu_name'             => __('解决方案', 'angola-b2b'),
+        'name_admin_bar'        => __('解决方案', 'angola-b2b'),
+        'archives'              => __('解决方案列表', 'angola-b2b'),
+        'attributes'            => __('解决方案属性', 'angola-b2b'),
+        'parent_item_colon'     => __('父级解决方案:', 'angola-b2b'),
+        'all_items'             => __('所有解决方案', 'angola-b2b'),
+        'add_new_item'          => __('添加新解决方案', 'angola-b2b'),
+        'add_new'               => __('添加解决方案', 'angola-b2b'),
+        'new_item'              => __('新解决方案', 'angola-b2b'),
+        'edit_item'             => __('编辑解决方案', 'angola-b2b'),
+        'update_item'           => __('更新解决方案', 'angola-b2b'),
+        'view_item'             => __('查看解决方案', 'angola-b2b'),
+        'view_items'            => __('查看解决方案', 'angola-b2b'),
+        'search_items'          => __('搜索解决方案', 'angola-b2b'),
+        'not_found'             => __('未找到解决方案', 'angola-b2b'),
+        'not_found_in_trash'    => __('回收站中未找到解决方案', 'angola-b2b'),
+        'featured_image'        => __('解决方案图片', 'angola-b2b'),
+        'set_featured_image'    => __('设置解决方案图片', 'angola-b2b'),
+        'remove_featured_image' => __('移除解决方案图片', 'angola-b2b'),
+        'use_featured_image'    => __('使用解决方案图片', 'angola-b2b'),
+        'insert_into_item'      => __('插入到解决方案', 'angola-b2b'),
+        'uploaded_to_this_item' => __('上传到此解决方案', 'angola-b2b'),
+        'items_list'            => __('解决方案列表', 'angola-b2b'),
+        'items_list_navigation' => __('解决方案列表导航', 'angola-b2b'),
+        'filter_items_list'     => __('筛选解决方案列表', 'angola-b2b'),
+    );
+
+    $args = array(
+        'label'               => __('解决方案', 'angola-b2b'),
+        'description'         => __('公司提供的解决方案和服务展示', 'angola-b2b'),
+        'labels'              => $labels,
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'),
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 6,
+        'menu_icon'           => 'dashicons-lightbulb',
+        'show_in_admin_bar'   => true,
+        'show_in_nav_menus'   => true,
+        'can_export'          => true,
+        'has_archive'         => true,
+        'exclude_from_search' => false,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'show_in_rest'        => true,
+        'rewrite'             => array(
+            'slug'       => 'services',
+            'with_front' => false,
+        ),
+    );
+
+    register_post_type('service', $args);
+}
+add_action('init', 'angola_b2b_register_service_post_type', 0);
+
+/**
+ * Register Industry Custom Post Type (行业)
+ */
+function angola_b2b_register_industry_post_type() {
+    $labels = array(
+        'name'                  => _x('行业', 'Post Type General Name', 'angola-b2b'),
+        'singular_name'         => _x('行业', 'Post Type Singular Name', 'angola-b2b'),
+        'menu_name'             => __('行业', 'angola-b2b'),
+        'name_admin_bar'        => __('行业', 'angola-b2b'),
+        'archives'              => __('行业列表', 'angola-b2b'),
+        'attributes'            => __('行业属性', 'angola-b2b'),
+        'parent_item_colon'     => __('父级行业:', 'angola-b2b'),
+        'all_items'             => __('所有行业', 'angola-b2b'),
+        'add_new_item'          => __('添加新行业', 'angola-b2b'),
+        'add_new'               => __('添加行业', 'angola-b2b'),
+        'new_item'              => __('新行业', 'angola-b2b'),
+        'edit_item'             => __('编辑行业', 'angola-b2b'),
+        'update_item'           => __('更新行业', 'angola-b2b'),
+        'view_item'             => __('查看行业', 'angola-b2b'),
+        'view_items'            => __('查看行业', 'angola-b2b'),
+        'search_items'          => __('搜索行业', 'angola-b2b'),
+        'not_found'             => __('未找到行业', 'angola-b2b'),
+        'not_found_in_trash'    => __('回收站中未找到行业', 'angola-b2b'),
+        'featured_image'        => __('行业图片', 'angola-b2b'),
+        'set_featured_image'    => __('设置行业图片', 'angola-b2b'),
+        'remove_featured_image' => __('移除行业图片', 'angola-b2b'),
+        'use_featured_image'    => __('使用行业图片', 'angola-b2b'),
+        'insert_into_item'      => __('插入到行业', 'angola-b2b'),
+        'uploaded_to_this_item' => __('上传到此行业', 'angola-b2b'),
+        'items_list'            => __('行业列表', 'angola-b2b'),
+        'items_list_navigation' => __('行业列表导航', 'angola-b2b'),
+        'filter_items_list'     => __('筛选行业列表', 'angola-b2b'),
+    );
+
+    $args = array(
+        'label'               => __('行业', 'angola-b2b'),
+        'description'         => __('公司服务的行业展示', 'angola-b2b'),
+        'labels'              => $labels,
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'),
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 7,
+        'menu_icon'           => 'dashicons-building',
+        'show_in_admin_bar'   => true,
+        'show_in_nav_menus'   => true,
+        'can_export'          => true,
+        'has_archive'         => true,
+        'exclude_from_search' => false,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+        'show_in_rest'        => true,
+        'rewrite'             => array(
+            'slug'       => 'industries',
+            'with_front' => false,
+        ),
+    );
+
+    register_post_type('industry', $args);
+}
+add_action('init', 'angola_b2b_register_industry_post_type', 0);
+
