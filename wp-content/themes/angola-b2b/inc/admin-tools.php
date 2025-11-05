@@ -40,6 +40,14 @@ function angola_b2b_add_tools_menu() {
     );
     
     add_management_page(
+        '首页图片管理',
+        '首页图片管理',
+        'manage_options',
+        'angola-b2b-homepage-images',
+        'angola_b2b_homepage_images_page'
+    );
+    
+    add_management_page(
         '删除所有产品和分类',
         '删除所有产品和分类',
         'manage_options',
@@ -980,6 +988,355 @@ function angola_b2b_import_content_data() {
     echo '<li>根据需要修改标题、描述等信息</li>';
     echo '<li>支持多语言：配合Polylang插件翻译内容</li>';
     echo '</ol>';
+    echo '</div>';
+}
+
+/**
+ * Homepage Images Management Page
+ * 首页图片管理页面
+ */
+function angola_b2b_homepage_images_page() {
+    // Handle form submission
+    if (isset($_POST['save_homepage_images']) && check_admin_referer('angola_b2b_homepage_images_action', 'angola_b2b_homepage_images_nonce')) {
+        angola_b2b_save_homepage_images();
+    }
+    
+    // Get current settings from page ID 45
+    $homepage_page_id = 45;
+    
+    // Get current images
+    $hero_bg = get_field('hero_background_image', $homepage_page_id);
+    $hero_bg_url = is_array($hero_bg) ? $hero_bg['url'] : '';
+    $hero_bg_id = is_array($hero_bg) ? $hero_bg['ID'] : 0;
+    
+    ?>
+    <div class="wrap">
+        <h1>🖼️ 首页图片管理</h1>
+        <p>在这里集中管理首页所有图片。上传的图片会保存到媒体库，你可以随时替换。</p>
+        
+        <form method="post" action="" id="homepage-images-form">
+            <?php wp_nonce_field('angola_b2b_homepage_images_action', 'angola_b2b_homepage_images_nonce'); ?>
+            
+            <div class="postbox" style="margin-top: 20px;">
+                <div class="inside">
+                    <h2 style="margin-top: 0;">🎬 Hero区域背景图</h2>
+                    <p class="description">首页顶部大图，建议尺寸：1920x800px 或更大</p>
+                    
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><label>当前图片</label></th>
+                            <td>
+                                <div class="image-preview" id="hero-bg-preview">
+                                    <?php if ($hero_bg_url) : ?>
+                                        <img src="<?php echo esc_url($hero_bg_url); ?>" style="max-width: 400px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">暂无图片</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="hero_bg_id" name="hero_bg_id" value="<?php echo esc_attr($hero_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="hero_bg">
+                                    <?php echo $hero_bg_url ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($hero_bg_url) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="hero_bg">移除图片</button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="postbox">
+                <div class="inside">
+                    <h2 style="margin-top: 0;">🎨 默认占位图设置</h2>
+                    <p class="description">当解决方案、行业、新闻等内容没有设置特色图片时，会使用这些默认图片</p>
+                    
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><label>解决方案默认图</label></th>
+                            <td>
+                                <?php 
+                                $service_default = get_option('angola_b2b_service_default_image', '');
+                                $service_default_id = get_option('angola_b2b_service_default_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="service-default-preview">
+                                    <?php if ($service_default) : ?>
+                                        <img src="<?php echo esc_url($service_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用MSC默认图片</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="service_default_id" name="service_default_id" value="<?php echo esc_attr($service_default_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="service_default">
+                                    <?php echo $service_default ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($service_default) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="service_default">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：800x600px</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>行业默认图</label></th>
+                            <td>
+                                <?php 
+                                $industry_default = get_option('angola_b2b_industry_default_image', '');
+                                $industry_default_id = get_option('angola_b2b_industry_default_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="industry-default-preview">
+                                    <?php if ($industry_default) : ?>
+                                        <img src="<?php echo esc_url($industry_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用MSC默认图片</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="industry_default_id" name="industry_default_id" value="<?php echo esc_attr($industry_default_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="industry_default">
+                                    <?php echo $industry_default ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($industry_default) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="industry_default">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：800x600px</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>新闻默认图</label></th>
+                            <td>
+                                <?php 
+                                $news_default = get_option('angola_b2b_news_default_image', '');
+                                $news_default_id = get_option('angola_b2b_news_default_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="news-default-preview">
+                                    <?php if ($news_default) : ?>
+                                        <img src="<?php echo esc_url($news_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用MSC默认图片</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="news_default_id" name="news_default_id" value="<?php echo esc_attr($news_default_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="news_default">
+                                    <?php echo $news_default ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($news_default) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="news_default">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：800x600px</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="postbox">
+                <div class="inside">
+                    <h2 style="margin-top: 0;">📊 统计数据与其他图片</h2>
+                    <p class="description">其他首页使用的背景图片或装饰性图片</p>
+                    
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><label>CTA区域背景图</label></th>
+                            <td>
+                                <?php 
+                                $cta_bg = get_option('angola_b2b_cta_bg_image', '');
+                                $cta_bg_id = get_option('angola_b2b_cta_bg_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="cta-bg-preview">
+                                    <?php if ($cta_bg) : ?>
+                                        <img src="<?php echo esc_url($cta_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">暂无背景图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="cta_bg_id" name="cta_bg_id" value="<?php echo esc_attr($cta_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="cta_bg">
+                                    <?php echo $cta_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($cta_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="cta_bg">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">行动号召区域的背景图，建议尺寸：1920x400px</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="submit">
+                <button type="submit" name="save_homepage_images" class="button button-primary button-large">💾 保存所有更改</button>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="button button-secondary" target="_blank">👀 查看首页</a>
+            </p>
+        </form>
+        
+        <div class="postbox" style="margin-top: 30px;">
+            <div class="inside">
+                <h3>💡 使用提示</h3>
+                <ul style="line-height: 1.8;">
+                    <li><strong>图片尺寸建议：</strong>根据显示位置调整，Hero背景建议大于1920px宽度</li>
+                    <li><strong>文件格式：</strong>支持 JPG、PNG、WebP 格式，建议使用 WebP 以获得更好的性能</li>
+                    <li><strong>文件大小：</strong>建议单张图片不超过 500KB，使用图片压缩工具优化后再上传</li>
+                    <li><strong>默认占位图：</strong>如果不上传，系统会使用MSC的图片作为占位</li>
+                    <li><strong>批量替换：</strong>可以直接到 <a href="<?php echo admin_url('edit.php?post_type=service'); ?>">解决方案</a> 或 <a href="<?php echo admin_url('edit.php?post_type=industry'); ?>">行业</a> 管理页面逐个编辑图片</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .postbox { padding: 20px; margin-bottom: 20px; }
+        .image-preview { margin-bottom: 15px; min-height: 50px; }
+        .image-preview img { display: block; margin-bottom: 10px; }
+        .remove-image-button { margin-left: 10px; color: #b32d2e; }
+        .remove-image-button:hover { color: #dc3232; }
+    </style>
+    
+    <script>
+    jQuery(document).ready(function($) {
+        var mediaUploader;
+        var currentTarget = '';
+        
+        // Upload image button
+        $('.upload-image-button').on('click', function(e) {
+            e.preventDefault();
+            currentTarget = $(this).data('target');
+            
+            // If the media uploader exists, reopen it
+            if (mediaUploader) {
+                mediaUploader.open();
+                return;
+            }
+            
+            // Create a new media uploader
+            mediaUploader = wp.media({
+                title: '选择图片',
+                button: {
+                    text: '使用此图片'
+                },
+                multiple: false
+            });
+            
+            // When an image is selected
+            mediaUploader.on('select', function() {
+                var attachment = mediaUploader.state().get('selection').first().toJSON();
+                
+                // Update preview
+                $('#' + currentTarget + '-preview').html(
+                    '<img src="' + attachment.url + '" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;"><br><br>'
+                );
+                
+                // Update hidden field
+                $('#' + currentTarget + '_id').val(attachment.id);
+                
+                // Update button text and add remove button if not exists
+                var $button = $('.upload-image-button[data-target="' + currentTarget + '"]');
+                $button.text('更换图片');
+                
+                if (!$button.next('.remove-image-button').length) {
+                    $button.after('<button type="button" class="button remove-image-button" data-target="' + currentTarget + '">移除图片</button>');
+                }
+            });
+            
+            mediaUploader.open();
+        });
+        
+        // Remove image button (delegated event for dynamically added buttons)
+        $(document).on('click', '.remove-image-button', function(e) {
+            e.preventDefault();
+            var target = $(this).data('target');
+            
+            // Clear preview
+            $('#' + target + '-preview').html('<p style="color: #999;">暂无图片</p>');
+            
+            // Clear hidden field
+            $('#' + target + '_id').val('');
+            
+            // Update button text and remove this button
+            $('.upload-image-button[data-target="' + target + '"]').text('上传图片');
+            $(this).remove();
+        });
+    });
+    </script>
+    <?php
+}
+
+/**
+ * Save Homepage Images
+ * 保存首页图片设置
+ */
+function angola_b2b_save_homepage_images() {
+    $homepage_page_id = 45;
+    
+    // Save Hero background
+    if (isset($_POST['hero_bg_id'])) {
+        $hero_bg_id = intval($_POST['hero_bg_id']);
+        if ($hero_bg_id) {
+            update_field('hero_background_image', $hero_bg_id, $homepage_page_id);
+        } else {
+            delete_field('hero_background_image', $homepage_page_id);
+        }
+    }
+    
+    // Save Service default image
+    if (isset($_POST['service_default_id'])) {
+        $service_default_id = intval($_POST['service_default_id']);
+        if ($service_default_id) {
+            $image_url = wp_get_attachment_url($service_default_id);
+            update_option('angola_b2b_service_default_image', $image_url);
+            update_option('angola_b2b_service_default_image_id', $service_default_id);
+        } else {
+            delete_option('angola_b2b_service_default_image');
+            delete_option('angola_b2b_service_default_image_id');
+        }
+    }
+    
+    // Save Industry default image
+    if (isset($_POST['industry_default_id'])) {
+        $industry_default_id = intval($_POST['industry_default_id']);
+        if ($industry_default_id) {
+            $image_url = wp_get_attachment_url($industry_default_id);
+            update_option('angola_b2b_industry_default_image', $image_url);
+            update_option('angola_b2b_industry_default_image_id', $industry_default_id);
+        } else {
+            delete_option('angola_b2b_industry_default_image');
+            delete_option('angola_b2b_industry_default_image_id');
+        }
+    }
+    
+    // Save News default image
+    if (isset($_POST['news_default_id'])) {
+        $news_default_id = intval($_POST['news_default_id']);
+        if ($news_default_id) {
+            $image_url = wp_get_attachment_url($news_default_id);
+            update_option('angola_b2b_news_default_image', $image_url);
+            update_option('angola_b2b_news_default_image_id', $news_default_id);
+        } else {
+            delete_option('angola_b2b_news_default_image');
+            delete_option('angola_b2b_news_default_image_id');
+        }
+    }
+    
+    // Save CTA background image
+    if (isset($_POST['cta_bg_id'])) {
+        $cta_bg_id = intval($_POST['cta_bg_id']);
+        if ($cta_bg_id) {
+            $image_url = wp_get_attachment_url($cta_bg_id);
+            update_option('angola_b2b_cta_bg_image', $image_url);
+            update_option('angola_b2b_cta_bg_image_id', $cta_bg_id);
+        } else {
+            delete_option('angola_b2b_cta_bg_image');
+            delete_option('angola_b2b_cta_bg_image_id');
+        }
+    }
+    
+    echo '<div class="notice notice-success is-dismissible" style="margin: 20px 0;">';
+    echo '<p><strong>✅ 保存成功！</strong> 首页图片设置已更新。<a href="' . esc_url(home_url('/')) . '" target="_blank">查看首页效果</a></p>';
     echo '</div>';
 }
 

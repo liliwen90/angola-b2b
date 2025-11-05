@@ -28,7 +28,9 @@ if ($industries_query->have_posts()) {
         // Get featured image
         $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
         if (!$image_url) {
-            $image_url = 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800';
+            // Use custom default image if set, otherwise use MSC placeholder
+            $custom_default = get_option('angola_b2b_industry_default_image', '');
+            $image_url = $custom_default ? $custom_default : 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800';
         }
         
         // Get ACF fields
