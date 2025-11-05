@@ -110,8 +110,9 @@
     opacity: 0.9;
     transform: translateY(0);
     transition: all 0.4s ease 0.1s;
-    line-height: 0;
-    padding: 10px 0;
+    line-height: 1;
+    padding: 5px;
+    display: inline-block;
 }
 
 .product-category-card:hover .category-icon {
@@ -121,12 +122,15 @@
 
 .category-icon svg {
     display: block;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
+    max-width: none;
+    max-height: none;
     stroke: #f4c430;
     stroke-width: 1.5;
     fill: none;
     filter: drop-shadow(0 3px 10px rgba(244, 196, 48, 0.4));
+    overflow: visible;
 }
 
 .category-title {
