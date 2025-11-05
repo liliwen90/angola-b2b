@@ -112,6 +112,22 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
 
+    // Statistics section styles
+    wp_enqueue_style(
+        'angola-b2b-statistics',
+        ANGOLA_B2B_THEME_URI . '/assets/css/statistics.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
+    // Services showcase styles
+    wp_enqueue_style(
+        'angola-b2b-services-showcase',
+        ANGOLA_B2B_THEME_URI . '/assets/css/services-showcase.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
     // Homepage specific styles
     wp_enqueue_style(
         'angola-b2b-homepage',
@@ -226,6 +242,33 @@ function angola_b2b_enqueue_scripts() {
     wp_enqueue_script(
         'angola-b2b-mega-menu',
         ANGOLA_B2B_THEME_URI . '/assets/js/mega-menu.js',
+        array(),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // Hero Quick Actions script
+    wp_enqueue_script(
+        'angola-b2b-hero-quick-actions',
+        ANGOLA_B2B_THEME_URI . '/assets/js/hero-quick-actions.js',
+        array(),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // Statistics counter animation script
+    wp_enqueue_script(
+        'angola-b2b-statistics',
+        ANGOLA_B2B_THEME_URI . '/assets/js/statistics.js',
+        array(),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // Services showcase tab switcher script
+    wp_enqueue_script(
+        'angola-b2b-services-showcase',
+        ANGOLA_B2B_THEME_URI . '/assets/js/services-showcase.js',
         array(),
         ANGOLA_B2B_VERSION,
         true

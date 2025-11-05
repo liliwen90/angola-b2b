@@ -1,0 +1,25 @@
+ngrok使用说明
+================
+
+1. 启动ngrok：
+   - 双击"启动ngrok.bat"文件
+   - 或者手动运行：C:\ngrok\ngrok.exe http 80 --host-header=rewrite angola-b2b.local:80
+
+2. 查看公网URL：
+   - ngrok窗口会显示类似这样的信息：
+     Forwarding  https://xxxx.ngrok-free.app -> http://localhost:80
+   - 复制这个 https://xxxx.ngrok-free.app URL
+
+3. 分享给朋友：
+   - 将复制的URL发送给朋友
+   - 朋友在浏览器中打开即可访问
+
+4. 重要提示：
+   - 确保Local应用中的 angola-b2b 站点正在运行
+   - 不要关闭ngrok的命令窗口（关闭后隧道会断开）
+   - 每次重启ngrok，URL可能会变化
+
+5. 测试连接：
+   - 运行"测试ngrok.bat"检查状态
+   - 或访问 http://127.0.0.1:4040 查看Web界面
+

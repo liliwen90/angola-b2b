@@ -193,7 +193,10 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
     <div class="hero-content">
         <div class="hero-container">
             <?php if ($args['title']) : ?>
-                <h1 class="hero-title"><?php echo esc_html($args['title']); ?></h1>
+                <h1 class="hero-title">
+                    <span class="hero-title-line1">LEADER IN</span>
+                    <span class="hero-title-line2"><?php echo esc_html($args['title']); ?></span>
+                </h1>
             <?php endif; ?>
             
             <?php if ($args['subtitle']) : ?>
@@ -202,23 +205,105 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                 </div>
             <?php endif; ?>
             
-            <?php if ((!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) || 
-                      (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url']))) : ?>
-                <div class="hero-actions">
-                    <?php if (!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) : ?>
-                        <a href="<?php echo esc_url($args['cta_primary']['url']); ?>" 
-                           class="btn btn-primary btn-lg hero-cta-primary">
-                            <?php echo esc_html($args['cta_primary']['text']); ?>
-                        </a>
-                    <?php endif; ?>
+            <?php if (is_front_page()) : ?>
+                <!-- MSC-Style Quick Action Tabs -->
+                <div class="hero-quick-actions">
+                    <div class="quick-action-tabs">
+                        <button class="quick-action-tab active" data-tab="tracking">
+                            <span><?php esc_html_e('TRACKING', 'angola-b2b'); ?></span>
+                        </button>
+                        <button class="quick-action-tab" data-tab="quote">
+                            <span><?php esc_html_e('GET QUOTE', 'angola-b2b'); ?></span>
+                        </button>
+                        <button class="quick-action-tab" data-tab="contact">
+                            <span><?php esc_html_e('CONTACTS', 'angola-b2b'); ?></span>
+                        </button>
+                    </div>
                     
-                    <?php if (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url'])) : ?>
-                        <a href="<?php echo esc_url($args['cta_secondary']['url']); ?>" 
-                           class="btn btn-secondary btn-lg hero-cta-secondary">
-                            <?php echo esc_html($args['cta_secondary']['text']); ?>
-                        </a>
-                    <?php endif; ?>
+                    <div class="quick-action-content">
+                        <!-- Tracking Tab Content -->
+                        <div class="action-panel active" data-panel="tracking">
+                            <form class="tracking-form" action="<?php echo esc_url(home_url('/tracking')); ?>" method="get">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                               name="tracking_number" 
+                                               class="form-control form-control-lg" 
+                                               placeholder="<?php esc_attr_e('Container / Order Number', 'angola-b2b'); ?>"
+                                               required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <span><?php esc_html_e('Track', 'angola-b2b'); ?></span>
+                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Quote Tab Content -->
+                        <div class="action-panel" data-panel="quote">
+                            <form class="quote-form" action="<?php echo esc_url(home_url('/request-quote')); ?>" method="get">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                               name="product_name" 
+                                               class="form-control form-control-lg" 
+                                               placeholder="<?php esc_attr_e('Product or Category', 'angola-b2b'); ?>"
+                                               required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <span><?php esc_html_e('Get Quote', 'angola-b2b'); ?></span>
+                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Contact Tab Content -->
+                        <div class="action-panel" data-panel="contact">
+                            <div class="contact-quick-info">
+                                <div class="contact-item">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>info@example.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>+1 234 567 8900</span>
+                                </div>
+                                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-primary btn-lg">
+                                    <?php esc_html_e('Contact Us', 'angola-b2b'); ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            <?php else : ?>
+                <?php if ((!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) || 
+                          (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url']))) : ?>
+                    <div class="hero-actions">
+                        <?php if (!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) : ?>
+                            <a href="<?php echo esc_url($args['cta_primary']['url']); ?>" 
+                               class="btn btn-primary btn-lg hero-cta-primary">
+                                <?php echo esc_html($args['cta_primary']['text']); ?>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url'])) : ?>
+                            <a href="<?php echo esc_url($args['cta_secondary']['url']); ?>" 
+                               class="btn btn-secondary btn-lg hero-cta-secondary">
+                                <?php echo esc_html($args['cta_secondary']['text']); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>

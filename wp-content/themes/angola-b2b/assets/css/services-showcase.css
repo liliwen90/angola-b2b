@@ -1,0 +1,341 @@
+/**
+ * Services Showcase Section Styles
+ * MSC-style tabbed service presentation
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Services Showcase Section
+   ============================================ */
+
+.services-showcase-section {
+    padding: var(--space-24) 0;
+    background: var(--color-white);
+    position: relative;
+}
+
+.services-showcase-section .section-header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+}
+
+.services-showcase-section .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.02em;
+}
+
+.services-showcase-section .section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   Tabs Navigation
+   ============================================ */
+
+.services-tabs-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.services-tabs {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-12);
+    border-bottom: 2px solid var(--color-border-primary);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.service-tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-6);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.service-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #002B63 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-tab.active::after {
+    transform: scaleX(1);
+}
+
+.service-tab:hover {
+    background: rgba(0, 74, 173, 0.05);
+}
+
+.tab-number {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+}
+
+.service-tab.active .tab-number {
+    opacity: 1;
+}
+
+.tab-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    transition: color 0.3s ease;
+}
+
+.service-tab.active .tab-title {
+    color: var(--color-primary);
+}
+
+/* ============================================
+   Tab Content
+   ============================================ */
+
+.services-content {
+    position: relative;
+    min-height: 500px;
+}
+
+.service-panel {
+    display: none;
+    opacity: 0;
+}
+
+.service-panel.active {
+    display: block;
+    animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ============================================
+   Service Grid Layout
+   ============================================ */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+}
+
+/* ============================================
+   Service Image
+   ============================================ */
+
+.service-image-wrapper {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    aspect-ratio: 16 / 10;
+}
+
+.service-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-panel.active .service-image {
+    animation: zoomIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.service-image-wrapper:hover .service-image {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 74, 173, 0.1) 0%, rgba(0, 43, 99, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-image-wrapper:hover .image-overlay {
+    opacity: 1;
+}
+
+/* ============================================
+   Service Text
+   ============================================ */
+
+.service-text {
+    padding: var(--space-8);
+}
+
+.service-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-6);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.service-description {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+}
+
+/* ============================================
+   Service Features
+   ============================================ */
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-8) 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+    background: rgba(0, 74, 173, 0.1);
+    padding: var(--space-1);
+    border-radius: 50%;
+}
+
+/* ============================================
+   Service CTA
+   ============================================ */
+
+.service-cta {
+    margin-top: var(--space-8);
+}
+
+.service-cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover .btn-icon {
+    transform: translateX(4px);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+    .services-showcase-section {
+        padding: var(--space-16) 0;
+    }
+    
+    .services-tabs {
+        gap: var(--space-2);
+        margin-bottom: var(--space-8);
+    }
+    
+    .service-tab {
+        padding: var(--space-4);
+        min-width: 150px;
+    }
+    
+    .tab-number {
+        font-size: var(--font-size-xs);
+    }
+    
+    .tab-title {
+        font-size: var(--font-size-sm);
+    }
+    
+    .service-text {
+        padding: var(--space-4) 0;
+    }
+    
+    .services-content {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-tab {
+        min-width: 120px;
+        padding: var(--space-3);
+    }
+    
+    .tab-title {
+        font-size: var(--font-size-xs);
+    }
+}
+
