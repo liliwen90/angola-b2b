@@ -50,9 +50,16 @@ function angola_b2b_get_main_categories_with_children() {
         return array();
     }
     
+    // Filter out old Chinese category names - only show English slugs
+    $excluded_names = array('建筑工程', '建筑材料', '农机农具', '工业设备');
+    
     $categories_data = array();
     
     foreach ($parent_categories as $parent) {
+        // Skip excluded categories
+        if (in_array($parent->name, $excluded_names)) {
+            continue;
+        }
         // Get subcategories for this parent
         $subcategories = get_terms(array(
             'taxonomy'   => 'product_category',
