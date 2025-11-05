@@ -12,8 +12,10 @@ get_header();
 <main id="primary" class="site-main homepage">
     
     <?php
-    // 1. Banner轮播区域（产品主图展示）
-    get_template_part('template-parts/homepage/banner-slider');
+    // 1. Hero区域（MSC风格全宽Hero，背景图片+标题+CTA）
+    angola_b2b_display_hero_section(array(
+        'height' => 'large',
+    ));
     
     // 2. 热门库存产品区域（本地现货，首屏展示）
     get_template_part('template-parts/homepage/stock-products');

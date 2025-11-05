@@ -18,6 +18,8 @@
             this.thumbnails = this.gallery.querySelector('.gallery-thumbnails');
             this.viewSwitcher = this.gallery.querySelector('.view-type-switcher');
             this.currentView = 'gallery';
+            this.lightboxInitRetries = 0;
+            this.maxRetries = 50; // Maximum 5 seconds of retries (50 * 100ms) for slow connections
             
             if (!this.mainViewer) return;
             
@@ -37,19 +39,49 @@
          * Initialize PhotoSwipe lightbox
          */
         initLightbox() {
-            if (typeof PhotoSwipeLightbox === 'undefined') {
-                console.warn('PhotoSwipeLightbox not loaded');
+            // Try different ways to access PhotoSwipe (check typeof first to avoid ReferenceError)
+            let PhotoSwipeLib = null;
+            let PhotoSwipeLightboxLib = null;
+            
+            // Check window.PhotoSwipe first
+            if (typeof window.PhotoSwipe !== 'undefined') {
+                PhotoSwipeLib = window.PhotoSwipe.default || window.PhotoSwipe;
+            } else if (typeof PhotoSwipe !== 'undefined') {
+                PhotoSwipeLib = PhotoSwipe;
+            }
+            
+            // Check window.PhotoSwipeLightbox first
+            if (typeof window.PhotoSwipeLightbox !== 'undefined') {
+                PhotoSwipeLightboxLib = window.PhotoSwipeLightbox.default || window.PhotoSwipeLightbox;
+            } else if (typeof PhotoSwipeLightbox !== 'undefined') {
+                PhotoSwipeLightboxLib = PhotoSwipeLightbox;
+            }
+            
+            // Wait for PhotoSwipe to be available
+            if (!PhotoSwipeLightboxLib || !PhotoSwipeLib) {
+                // Retry after a short delay (max 50 times = 5 seconds for slow connections)
+                if (this.lightboxInitRetries < this.maxRetries) {
+                    this.lightboxInitRetries++;
+                    setTimeout(() => {
+                        this.initLightbox();
+                    }, 100);
+                } else {
+                    console.warn('PhotoSwipeLightbox failed to load after maximum retries.');
+                    console.log('Available globals:', {
+                        windowPhotoSwipe: typeof window.PhotoSwipe,
+                        windowPhotoSwipeLightbox: typeof window.PhotoSwipeLightbox,
+                        globalPhotoSwipe: typeof (typeof PhotoSwipe !== 'undefined' ? PhotoSwipe : 'undefined'),
+                        globalPhotoSwipeLightbox: typeof (typeof PhotoSwipeLightbox !== 'undefined' ? PhotoSwipeLightbox : 'undefined')
+                    });
+                }
                 return;
             }
 
             try {
-                const lightbox = new PhotoSwipeLightbox({
+                const lightbox = new PhotoSwipeLightboxLib({
                     gallery: this.mainViewer,
                     children: 'a',
-                    pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.umd.min.js').catch(err => {
-                        console.error('Failed to load PhotoSwipe module:', err);
-                        return null;
-                    })
+                    pswpModule: () => Promise.resolve(PhotoSwipeLib)
                 });
 
                 lightbox.init();
@@ -337,11 +369,15 @@
         });
     }
 
-    // Initialize on DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    // Initialize after all scripts are loaded
+    // Wait for window.load to ensure PhotoSwipe is available
+    if (document.readyState === 'complete') {
+        // If already loaded, wait a bit for scripts to execute
+        setTimeout(init, 100);
     } else {
-        init();
+        window.addEventListener('load', () => {
+            setTimeout(init, 100);
+        });
     }
 
 })(jQuery);

@@ -18,12 +18,7 @@ $key_features = get_field('key_features', $product_id);
     
     <!-- Product Title & Breadcrumbs -->
     <div class="product-header">
-        <?php
-        $breadcrumbs = angola_b2b_breadcrumbs();
-        if ($breadcrumbs) {
-            echo $breadcrumbs;
-        }
-        ?>
+        <?php angola_b2b_display_breadcrumbs(); ?>
         
         <h1 class="product-title"><?php the_title(); ?></h1>
         

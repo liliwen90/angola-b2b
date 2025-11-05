@@ -1,0 +1,288 @@
+/**
+ * Mega Menu Navigation Styles
+ * MSC-style large dropdown menu with images and subcategories
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Mega Menu Container
+   ============================================ */
+
+.mega-menu-navigation {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .mega-menu-navigation {
+        display: block;
+        flex: 1;
+    }
+}
+
+.mega-menu-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mega-menu-item {
+    position: relative;
+    margin: 0;
+}
+
+/* ============================================
+   Mega Menu Link (Top Level)
+   ============================================ */
+
+.mega-menu-link {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: var(--transition-colors);
+    position: relative;
+}
+
+.mega-menu-link:hover,
+.mega-menu-link:focus {
+    color: var(--color-primary);
+}
+
+.mega-menu-item.active > .mega-menu-link {
+    color: var(--color-primary);
+}
+
+.mega-menu-item.active > .mega-menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--space-4);
+    right: var(--space-4);
+    height: 2px;
+    background-color: var(--color-primary);
+}
+
+/* ============================================
+   Mega Menu Dropdown (Large Panel)
+   ============================================ */
+
+.mega-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-index-dropdown);
+    width: 100vw;
+    max-width: 1200px;
+    margin-top: var(--space-2);
+    padding: 0;
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.mega-menu-item:hover > .mega-menu-dropdown,
+.mega-menu-item:focus-within > .mega-menu-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.mega-menu-container {
+    padding: var(--space-6);
+}
+
+.mega-menu-content {
+    display: flex;
+    gap: var(--space-8);
+    align-items: flex-start;
+}
+
+/* ============================================
+   Mega Menu Image
+   ============================================ */
+
+.mega-menu-image {
+    flex-shrink: 0;
+    width: 300px;
+    height: 200px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+}
+
+.mega-menu-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mega-menu-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-500);
+    font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   Mega Menu Links (Subcategories)
+   ============================================ */
+
+.mega-menu-links {
+    flex: 1;
+    min-width: 0;
+}
+
+.mega-menu-category-title {
+    margin: 0 0 var(--space-4) 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.mega-menu-category-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition-colors);
+}
+
+.mega-menu-category-title a:hover {
+    color: var(--color-primary);
+}
+
+.mega-menu-subcategories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-2);
+    margin: 0 0 var(--space-4) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mega-menu-subcategory-item {
+    margin: 0;
+}
+
+.mega-menu-subcategory-item a {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
+}
+
+.mega-menu-subcategory-item a:hover {
+    background-color: var(--color-gray-50);
+    color: var(--color-primary);
+    padding-left: var(--space-4);
+}
+
+.mega-menu-subcategory-item.current > a {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    background-color: var(--color-primary-lighter);
+}
+
+.mega-menu-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+}
+
+.mega-menu-view-all:hover {
+    background-color: var(--color-primary-lighter);
+    gap: var(--space-3);
+}
+
+.mega-menu-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.mega-menu-view-all:hover .mega-menu-arrow {
+    transform: translateX(4px);
+}
+
+/* ============================================
+   Mobile Menu (Hidden on Desktop)
+   ============================================ */
+
+@media (max-width: 1023px) {
+    .mega-menu-navigation {
+        display: none;
+    }
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 1280px) {
+    .mega-menu-dropdown {
+        max-width: calc(100vw - var(--space-8));
+    }
+    
+    .mega-menu-content {
+        gap: var(--space-6);
+    }
+    
+    .mega-menu-image {
+        width: 250px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 1120px) {
+    .mega-menu-subcategories {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    
+    .mega-menu-image {
+        width: 200px;
+        height: 150px;
+    }
+}
+
+/* ============================================
+   Animation Improvements
+   ============================================ */
+
+.mega-menu-dropdown {
+    will-change: opacity, transform;
+}
+
+.mega-menu-item {
+    will-change: auto;
+}
+
+/* Smooth transition for subcategory links */
+.mega-menu-subcategory-item a {
+    will-change: padding, background-color, color;
+}
+

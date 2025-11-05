@@ -1,6 +1,7 @@
 <?php
 /**
  * The template for displaying product archives
+ * MSC-style category archive page
  *
  * @package Angola_B2B
  */
@@ -9,85 +10,179 @@ get_header();
 ?>
 
 <main id="primary" class="site-main product-archive">
+    <?php
+    // Hero Section for category archives
+    if (is_tax('product_category')) {
+        $term = get_queried_object();
+        angola_b2b_display_hero_section(array(
+            'height' => 'large',
+        ));
+    }
+    ?>
+    
     <div class="container">
-        <header class="page-header">
-            <h1 class="page-title"><?php esc_html_e('Products', 'angola-b2b'); ?></h1>
+        <?php angola_b2b_display_breadcrumbs(); ?>
+        
+        <?php if (is_tax('product_category')) : 
+            $term = get_queried_object();
+        ?>
+            <!-- Tab Navigation -->
+            <?php angola_b2b_display_tab_navigation(); ?>
+            
+            <!-- Overview Section -->
+            <section id="overview" class="archive-content-section">
+                <?php
+                // Get category description
+                $category_description = term_description($term->term_id, 'product_category');
+                if ($category_description || function_exists('get_field')) {
+                    // Try to get custom content from ACF
+                    $overview_title = function_exists('get_field') ? get_field('overview_title', $term) : '';
+                    $overview_content = function_exists('get_field') ? get_field('overview_content', $term) : '';
+                    
+                    if ($overview_title || $overview_content || $category_description) {
+                        angola_b2b_display_title_description(array(
+                            'title' => $overview_title ?: $term->name,
+                            'description' => $overview_content ?: $category_description,
+                            'alignment' => 'left',
+                            'size' => 'medium',
+                        ));
+                    }
+                }
+                ?>
+            </section>
+            
+            <!-- Advantages Section -->
             <?php
-            if (is_tax('product_category')) {
-                $term_desc = term_description();
-                if ($term_desc) {
-                    echo '<p class="archive-description">' . wp_kses_post($term_desc) . '</p>';
+            if (function_exists('get_field')) {
+                $advantages = get_field('advantages_list', $term);
+                if ($advantages && is_array($advantages) && !empty($advantages)) {
+                    ?>
+                    <section id="advantages" class="archive-content-section">
+                        <?php
+                        angola_b2b_display_advantages_list(array(
+                            'title' => pll__('Why Choose Us', 'angola-b2b') ?: __('Why Choose Us', 'angola-b2b'),
+                            'advantages' => $advantages,
+                            'layout' => 'grid',
+                            'columns' => 3,
+                        ));
+                        ?>
+                    </section>
+                    <?php
                 }
             }
             ?>
-        </header>
-
-        <div class="archive-controls">
-            <!-- Search Box -->
-            <div class="product-search">
-                <input type="text" id="product-search-input" placeholder="<?php esc_attr_e('Search products...', 'angola-b2b'); ?>">
-            </div>
-
-            <!-- Filter Options -->
-            <div class="product-filters">
-                <select id="product-category-filter">
-                    <option value=""><?php esc_html_e('All Categories', 'angola-b2b'); ?></option>
-                    <?php
-                    $categories = get_terms(array(
-                        'taxonomy' => 'product_category',
-                        'hide_empty' => true,
-                    ));
-                    if (!is_wp_error($categories) && !empty($categories)) {
-                        foreach ($categories as $category) {
-                            echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+            
+            <!-- Image + Text Sections (if configured via ACF) -->
+            <?php
+            if (function_exists('get_field')) {
+                $content_blocks = get_field('content_blocks', $term);
+                if ($content_blocks && is_array($content_blocks)) {
+                    foreach ($content_blocks as $block) {
+                        if ($block['acf_fc_layout'] === 'image_text') {
+                            $image = isset($block['image']) ? $block['image'] : '';
+                            $image_url = '';
+                            if (is_array($image) && isset($image['url'])) {
+                                $image_url = $image['url'];
+                            } elseif (is_numeric($image)) {
+                                $image_url = wp_get_attachment_image_url($image, 'large');
+                            } elseif (is_string($image)) {
+                                $image_url = $image;
+                            }
+                            
+                            if ($image_url || $block['title'] || $block['content']) {
+                                ?>
+                                <section class="archive-content-section">
+                                    <?php
+                                    angola_b2b_display_image_text(array(
+                                        'image' => $image_url,
+                                        'image_position' => isset($block['image_position']) ? $block['image_position'] : 'left',
+                                        'title' => isset($block['title']) ? $block['title'] : '',
+                                        'content' => isset($block['content']) ? $block['content'] : '',
+                                        'cta' => isset($block['cta']) ? $block['cta'] : array(),
+                                    ));
+                                    ?>
+                                </section>
+                                <?php
+                            }
                         }
                     }
-                    ?>
-                </select>
+                }
+            }
+            ?>
+            
+            <!-- Products Section -->
+            <section id="products" class="archive-content-section">
+                <div class="section-header">
+                    <h2 class="section-title"><?php echo esc_html($term->name); ?></h2>
+                </div>
                 
-                <select id="product-sort">
-                    <option value="date-desc"><?php esc_html_e('Newest First', 'angola-b2b'); ?></option>
-                    <option value="date-asc"><?php esc_html_e('Oldest First', 'angola-b2b'); ?></option>
-                    <option value="title-asc"><?php esc_html_e('Name A-Z', 'angola-b2b'); ?></option>
-                    <option value="title-desc"><?php esc_html_e('Name Z-A', 'angola-b2b'); ?></option>
-                </select>
-            </div>
-        </div>
+                <!-- Products Grid -->
+                <div class="products-grid">
+                    <?php
+                    if (have_posts()) :
+                        while (have_posts()) :
+                            the_post();
+                            get_template_part('template-parts/product/product-card');
+                        endwhile;
+                    else :
+                        ?>
+                        <p class="no-products"><?php esc_html_e('No products found in this category.', 'angola-b2b'); ?></p>
+                        <?php
+                    endif;
+                    ?>
+                </div>
+                
+                <!-- Pagination -->
+                <?php if (paginate_links()) : ?>
+                    <div class="pagination">
+                        <?php
+                        the_posts_pagination(array(
+                            'mid_size'  => 2,
+                            'prev_text' => esc_html__('Previous', 'angola-b2b'),
+                            'next_text' => esc_html__('Next', 'angola-b2b'),
+                        ));
+                        ?>
+                    </div>
+                <?php endif; ?>
+            </section>
+            
+        <?php else : ?>
+            <!-- Product Archive (not category) -->
+            <header class="page-header">
+                <h1 class="page-title"><?php esc_html_e('Products', 'angola-b2b'); ?></h1>
+            </header>
 
-        <!-- Products Grid -->
-        <div id="products-container" class="products-grid">
-            <?php
-            if (have_posts()) :
-                while (have_posts()) :
-                    the_post();
-                    get_template_part('template-parts/product/product-card');
-                endwhile;
-            else :
-                ?>
-                <p class="no-products"><?php esc_html_e('No products found.', 'angola-b2b'); ?></p>
+            <!-- Products Grid -->
+            <div class="products-grid">
                 <?php
-            endif;
-            ?>
-        </div>
+                if (have_posts()) :
+                    while (have_posts()) :
+                        the_post();
+                        get_template_part('template-parts/product/product-card');
+                    endwhile;
+                else :
+                    ?>
+                    <p class="no-products"><?php esc_html_e('No products found.', 'angola-b2b'); ?></p>
+                    <?php
+                endif;
+                ?>
+            </div>
 
-        <!-- Loading Indicator -->
-        <div id="loading-indicator" class="loading-indicator" style="display: none;">
-            <span class="spinner"></span>
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <?php
-            the_posts_pagination(array(
-                'mid_size'  => 2,
-                'prev_text' => esc_html__('Previous', 'angola-b2b'),
-                'next_text' => esc_html__('Next', 'angola-b2b'),
-            ));
-            ?>
-        </div>
+            <!-- Pagination -->
+            <?php if (paginate_links()) : ?>
+                <div class="pagination">
+                    <?php
+                    the_posts_pagination(array(
+                        'mid_size'  => 2,
+                        'prev_text' => esc_html__('Previous', 'angola-b2b'),
+                        'next_text' => esc_html__('Next', 'angola-b2b'),
+                    ));
+                    ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </main>
 
 <?php
 get_footer();
-

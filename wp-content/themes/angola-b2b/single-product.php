@@ -19,7 +19,15 @@ while (have_posts()) :
     ?>
 
     <main id="primary" class="site-main product-single">
+        <?php
+        // Hero Section for product pages
+        angola_b2b_display_hero_section(array(
+            'height' => 'medium',
+        ));
+        ?>
+        
         <div class="container">
+            <?php angola_b2b_display_breadcrumbs(); ?>
             <div class="product-layout">
                 
                 <!-- Product Gallery Section -->

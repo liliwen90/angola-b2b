@@ -25,7 +25,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 $all_images = array();
 
 if ($featured_image) {
+    $featured_id = get_post_thumbnail_id($product_id);
     $all_images[] = array(
+        'id'  => $featured_id,
         'url' => $featured_image,
         'alt' => get_the_title(),
     );
@@ -34,6 +36,10 @@ if ($featured_image) {
 if (!empty($gallery_images) && is_array($gallery_images)) {
     foreach ($gallery_images as $image) {
         if (is_array($image) && !empty($image['url'])) {
+            // Ensure ID is set (ACF may return 'ID' instead of 'id')
+            if (empty($image['id']) && !empty($image['ID'])) {
+                $image['id'] = $image['ID'];
+            }
             $all_images[] = $image;
         }
     }
@@ -51,13 +57,25 @@ if (!empty($gallery_images) && is_array($gallery_images)) {
                 <?php foreach ($all_images as $index => $image) : 
                     $active_class = ($index === 0) ? 'active' : '';
                     $img_alt = !empty($image['alt']) ? $image['alt'] : get_the_title();
+                    // Get full size image for lightbox
+                    $full_size_url = $image['url'];
+                    // Try to get full size version if available
+                    if (!empty($image['id']) && is_numeric($image['id'])) {
+                        $full_size = wp_get_attachment_image_src($image['id'], 'full');
+                        if ($full_size && !empty($full_size[0])) {
+                            $full_size_url = $full_size[0];
+                        }
+                    }
                 ?>
                     <div class="gallery-image <?php echo esc_attr($active_class); ?>" 
                          data-index="<?php echo esc_attr($index); ?>">
-                        <img src="<?php echo esc_url($image['url']); ?>" 
-                             alt="<?php echo esc_attr($img_alt); ?>"
-                             data-pswp-width="1200"
-                             data-pswp-height="1200">
+                        <a href="<?php echo esc_url($full_size_url); ?>" 
+                           data-pswp-width="1200"
+                           data-pswp-height="1200"
+                           data-cropped="true">
+                            <img src="<?php echo esc_url($image['url']); ?>" 
+                                 alt="<?php echo esc_attr($img_alt); ?>">
+                        </a>
                         
                         <!-- Image Hot Spots -->
                         <?php if ($hotspot_annotations && is_array($hotspot_annotations)) : ?>

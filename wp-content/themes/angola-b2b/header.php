@@ -51,11 +51,18 @@ wp_body_open();
             <!-- Main Navigation -->
             <nav class="main-navigation" id="site-navigation">
                 <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_id'        => 'primary-menu',
-                    'container'      => false,
-                ));
+                // Try to use custom mega menu first, fallback to WordPress menu
+                $mega_menu_template = get_template_directory() . '/template-parts/header/mega-menu.php';
+                if (file_exists($mega_menu_template)) {
+                    get_template_part('template-parts/header/mega-menu');
+                } else {
+                    // Fallback to WordPress menu
+                    wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'menu_id'        => 'primary-menu',
+                        'container'      => false,
+                    ));
+                }
                 ?>
             </nav>
             

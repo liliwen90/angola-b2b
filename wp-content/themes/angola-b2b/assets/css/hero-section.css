@@ -1,0 +1,312 @@
+/**
+ * Hero Section Styles
+ * MSC-style full-width hero banner with background image/video
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Hero Section Container
+   ============================================ */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--color-gray-900);
+}
+
+/* Height Variations */
+.hero-section.hero-height-small {
+    min-height: 40vh;
+    height: 40vh;
+}
+
+.hero-section.hero-height-medium {
+    min-height: 50vh;
+    height: 50vh;
+}
+
+.hero-section.hero-height-large {
+    min-height: 70vh;
+    height: 70vh;
+}
+
+.hero-section.hero-height-full {
+    min-height: 100vh;
+    height: 100vh;
+}
+
+/* ============================================
+   Hero Background (Image/Video)
+   ============================================ */
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-black);
+    z-index: 2;
+}
+
+/* ============================================
+   Hero Content
+   ============================================ */
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: var(--space-8) var(--space-4);
+    text-align: center;
+    color: var(--color-white);
+}
+
+.hero-container {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+}
+
+.hero-title {
+    margin: 0 0 var(--space-4) 0;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    color: var(--color-white);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    margin: 0 0 var(--space-6) 0;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    color: var(--color-white);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-subtitle p {
+    margin: 0 0 var(--space-3) 0;
+}
+
+.hero-subtitle p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   Hero Actions (CTA Buttons)
+   ============================================ */
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+    min-width: 200px;
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hero-cta-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.hero-cta-primary:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cta-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+}
+
+/* Ensure btn-secondary exists (fallback if not in components.css) */
+.hero-cta-secondary.btn-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.hero-cta-secondary:hover {
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Parallax Effect
+   ============================================ */
+
+.hero-section[data-parallax="true"] .hero-background {
+    will-change: transform;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .hero-section.hero-height-large {
+        min-height: 60vh;
+        height: 60vh;
+    }
+    
+    .hero-section.hero-height-full {
+        min-height: 80vh;
+        height: 80vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section.hero-height-small {
+        min-height: 30vh;
+        height: 30vh;
+    }
+    
+    .hero-section.hero-height-medium {
+        min-height: 40vh;
+        height: 40vh;
+    }
+    
+    .hero-section.hero-height-large {
+        min-height: 50vh;
+        height: 50vh;
+    }
+    
+    .hero-section.hero-height-full {
+        min-height: 70vh;
+        height: 70vh;
+    }
+    
+    .hero-content {
+        padding: var(--space-6) var(--space-4);
+    }
+    
+    .hero-title {
+        margin-bottom: var(--space-3);
+    }
+    
+    .hero-subtitle {
+        margin-bottom: var(--space-4);
+        font-size: var(--font-size-base);
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-3);
+        margin-top: var(--space-4);
+    }
+    
+    .hero-cta-primary,
+    .hero-cta-secondary {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: var(--space-4) var(--space-3);
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* ============================================
+   Animation (if needed)
+   ============================================ */
+
+.hero-title,
+.hero-subtitle,
+.hero-actions {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-subtitle {
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+.hero-actions {
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+

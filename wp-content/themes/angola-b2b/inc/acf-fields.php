@@ -77,6 +77,87 @@ function angola_b2b_register_homepage_settings_fields() {
         'title' => '首页设置',
         'fields' => array(
             
+            // Tab: Hero区域
+            array(
+                'key' => 'field_tab_hero_section',
+                'label' => 'Hero区域',
+                'type' => 'tab',
+                'placement' => 'left',
+            ),
+            array(
+                'key' => 'field_hero_background_image',
+                'label' => 'Hero背景图片',
+                'name' => 'hero_background_image',
+                'type' => 'image',
+                'instructions' => '首页Hero区域的背景图片（建议尺寸：1920x800px）',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'library' => 'all',
+            ),
+            array(
+                'key' => 'field_hero_title',
+                'label' => 'Hero标题',
+                'name' => 'hero_title',
+                'type' => 'text',
+                'instructions' => '首页Hero区域的主标题',
+                'default_value' => '',
+            ),
+            array(
+                'key' => 'field_hero_subtitle',
+                'label' => 'Hero副标题/描述',
+                'name' => 'hero_subtitle',
+                'type' => 'textarea',
+                'instructions' => '首页Hero区域的副标题或描述文字',
+                'rows' => 3,
+                'new_lines' => 'wpautop',
+            ),
+            array(
+                'key' => 'field_hero_cta_primary_text',
+                'label' => '主要按钮文字',
+                'name' => 'hero_cta_primary_text',
+                'type' => 'text',
+                'instructions' => 'Hero区域主要CTA按钮的文字',
+                'default_value' => '',
+            ),
+            array(
+                'key' => 'field_hero_cta_primary_url',
+                'label' => '主要按钮链接',
+                'name' => 'hero_cta_primary_url',
+                'type' => 'url',
+                'instructions' => 'Hero区域主要CTA按钮的链接地址',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_hero_cta_primary_text',
+                            'operator' => '!=empty',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_hero_cta_secondary_text',
+                'label' => '次要按钮文字',
+                'name' => 'hero_cta_secondary_text',
+                'type' => 'text',
+                'instructions' => 'Hero区域次要CTA按钮的文字',
+                'default_value' => '',
+            ),
+            array(
+                'key' => 'field_hero_cta_secondary_url',
+                'label' => '次要按钮链接',
+                'name' => 'hero_cta_secondary_url',
+                'type' => 'url',
+                'instructions' => 'Hero区域次要CTA按钮的链接地址',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_hero_cta_secondary_text',
+                            'operator' => '!=empty',
+                        ),
+                    ),
+                ),
+            ),
+            
             // Tab: Banner轮播
             array(
                 'key' => 'field_tab_banner_slider',
@@ -254,4 +335,94 @@ function angola_b2b_register_product_stock_fields() {
     ));
 }
 add_action('acf/init', 'angola_b2b_register_product_stock_fields');
+
+/**
+ * Register Product Category Hero Fields
+ * 为产品分类添加Hero区域字段
+ */
+function angola_b2b_register_category_hero_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_category_hero',
+        'title' => '分类Hero设置',
+        'fields' => array(
+            array(
+                'key' => 'field_category_hero_image',
+                'label' => 'Hero背景图片',
+                'name' => 'category_hero_image',
+                'type' => 'image',
+                'instructions' => '分类归档页Hero区域的背景图片（建议尺寸：1920x800px）',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'library' => 'all',
+            ),
+            array(
+                'key' => 'field_category_nav_image',
+                'label' => '导航菜单图片',
+                'name' => 'category_nav_image',
+                'type' => 'image',
+                'instructions' => '导航菜单下拉面板中显示的图片（建议尺寸：400x300px）',
+                'return_format' => 'url',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'taxonomy',
+                    'operator' => '==',
+                    'value' => 'product_category',
+                ),
+            ),
+        ),
+        'menu_order' => 10,
+        'position' => 'normal',
+        'style' => 'default',
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_category_hero_fields');
+
+/**
+ * Register Product Hero Fields
+ * 为产品添加Hero区域字段
+ */
+function angola_b2b_register_product_hero_fields() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_product_hero',
+        'title' => '产品Hero设置',
+        'fields' => array(
+            array(
+                'key' => 'field_product_hero_image',
+                'label' => 'Hero背景图片',
+                'name' => 'product_hero_image',
+                'type' => 'image',
+                'instructions' => '产品详情页Hero区域的背景图片（建议尺寸：1920x800px）。如果未设置，将使用产品特色图片。',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'library' => 'all',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'product',
+                ),
+            ),
+        ),
+        'menu_order' => 15,
+        'position' => 'normal',
+        'style' => 'default',
+    ));
+}
+add_action('acf/init', 'angola_b2b_register_product_hero_fields');
 

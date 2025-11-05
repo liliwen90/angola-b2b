@@ -72,6 +72,46 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
 
+    // Mega Menu Navigation styles
+    wp_enqueue_style(
+        'angola-b2b-mega-menu',
+        ANGOLA_B2B_THEME_URI . '/assets/css/navigation-mega-menu.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+
+    // Hero Section styles
+    wp_enqueue_style(
+        'angola-b2b-hero-section',
+        ANGOLA_B2B_THEME_URI . '/assets/css/hero-section.css',
+        array('angola-b2b-components'),
+        ANGOLA_B2B_VERSION
+    );
+
+    // Breadcrumbs styles
+    wp_enqueue_style(
+        'angola-b2b-breadcrumbs',
+        ANGOLA_B2B_THEME_URI . '/assets/css/breadcrumbs.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+
+    // Tab Navigation styles
+    wp_enqueue_style(
+        'angola-b2b-tab-navigation',
+        ANGOLA_B2B_THEME_URI . '/assets/css/tab-navigation.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+
+    // Content Blocks styles
+    wp_enqueue_style(
+        'angola-b2b-content-blocks',
+        ANGOLA_B2B_THEME_URI . '/assets/css/content-blocks.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+
     // Homepage specific styles
     wp_enqueue_style(
         'angola-b2b-homepage',
@@ -80,20 +120,20 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
 
-    // Homepage banner slider
-    wp_enqueue_script(
-        'angola-b2b-banner-slider',
-        ANGOLA_B2B_THEME_URI . '/assets/js/banner-slider.js',
-        array('swiper-js'),
-        ANGOLA_B2B_VERSION,
-        true
-    );
-
     // Homepage product sliders
     wp_enqueue_script(
         'angola-b2b-homepage-sliders',
         ANGOLA_B2B_THEME_URI . '/assets/js/homepage-sliders.js',
         array('swiper-js'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+
+    // Tab Navigation script
+    wp_enqueue_script(
+        'angola-b2b-tab-navigation',
+        ANGOLA_B2B_THEME_URI . '/assets/js/tab-navigation.js',
+        array(),
         ANGOLA_B2B_VERSION,
         true
     );
@@ -178,6 +218,15 @@ function angola_b2b_enqueue_scripts() {
         'angola-b2b-mobile-menu',
         ANGOLA_B2B_THEME_URI . '/assets/js/mobile-menu.js',
         array('jquery', 'angola-b2b-utils'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+
+    // Mega Menu Navigation script
+    wp_enqueue_script(
+        'angola-b2b-mega-menu',
+        ANGOLA_B2B_THEME_URI . '/assets/js/mega-menu.js',
+        array(),
         ANGOLA_B2B_VERSION,
         true
     );
@@ -267,12 +316,12 @@ add_action('admin_enqueue_scripts', 'angola_b2b_admin_enqueue_scripts');
  */
 function angola_b2b_script_loader_tag($tag, $handle, $src) {
     // Add defer to external library scripts for better performance
+    // Note: photoswipe-js and photoswipe-lightbox should NOT use defer
+    // as they need to be available when product-gallery.js initializes
     $defer_scripts = array(
         'gsap',
         'gsap-scrolltrigger',
         'swiper-js',
-        'photoswipe-js',
-        'photoswipe-lightbox',
     );
 
     if (in_array($handle, $defer_scripts, true)) {

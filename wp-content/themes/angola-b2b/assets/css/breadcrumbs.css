@@ -1,0 +1,121 @@
+/**
+ * Breadcrumbs Styles
+ * MSC-style breadcrumb navigation
+ * 
+ * @package Angola_B2B
+ */
+
+/* ============================================
+   Breadcrumbs Container
+   ============================================ */
+
+.breadcrumbs {
+    padding: var(--space-4) 0;
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border-primary);
+}
+
+/* ============================================
+   Breadcrumb List
+   ============================================ */
+
+.breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+}
+
+/* ============================================
+   Breadcrumb Item
+   ============================================ */
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-secondary);
+}
+
+/* Separator between items */
+.breadcrumb-item:not(:last-child)::after {
+    content: '/';
+    margin-left: var(--space-2);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-normal);
+    opacity: 0.6;
+}
+
+/* ============================================
+   Breadcrumb Links
+   ============================================ */
+
+.breadcrumb-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-link:focus {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+/* ============================================
+   Current Breadcrumb (Last Item)
+   ============================================ */
+
+.breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.breadcrumb-item:last-child {
+    color: var(--color-text-primary);
+}
+
+.breadcrumb-item:last-child::after {
+    display: none;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+    .breadcrumbs {
+        padding: var(--space-3) 0;
+        margin-bottom: var(--space-4);
+    }
+    
+    .breadcrumb-list {
+        font-size: var(--font-size-xs);
+        gap: var(--space-1);
+    }
+    
+    .breadcrumb-item:not(:last-child)::after {
+        margin-left: var(--space-1);
+    }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+.breadcrumbs [aria-label] {
+    /* Ensure screen readers can identify breadcrumbs */
+}
+
+.breadcrumb-link:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
