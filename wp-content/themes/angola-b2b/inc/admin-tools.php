@@ -996,6 +996,9 @@ function angola_b2b_import_content_data() {
  * 首页图片管理页面
  */
 function angola_b2b_homepage_images_page() {
+    // Enqueue WordPress media scripts
+    wp_enqueue_media();
+    
     // Handle form submission
     if (isset($_POST['save_homepage_images']) && check_admin_referer('angola_b2b_homepage_images_action', 'angola_b2b_homepage_images_nonce')) {
         angola_b2b_save_homepage_images();
