@@ -1181,9 +1181,10 @@ function angola_b2b_homepage_images_page() {
                 <ul style="line-height: 1.8;">
                     <li><strong>图片尺寸建议：</strong>根据显示位置调整，Hero背景建议大于1920px宽度</li>
                     <li><strong>文件格式：</strong>支持 JPG、PNG、WebP 格式，建议使用 WebP 以获得更好的性能</li>
-                    <li><strong>文件大小：</strong>建议单张图片不超过 500KB，使用图片压缩工具优化后再上传</li>
+                    <li><strong>文件大小：</strong>高清图片可以上传，WordPress会自动生成缩略图。如果图片过大影响加载速度，可以使用 TinyPNG、Squoosh 等工具适当压缩</li>
                     <li><strong>默认占位图：</strong>如果不上传，系统会使用MSC的图片作为占位</li>
                     <li><strong>批量替换：</strong>可以直接到 <a href="<?php echo admin_url('edit.php?post_type=service'); ?>">解决方案</a> 或 <a href="<?php echo admin_url('edit.php?post_type=industry'); ?>">行业</a> 管理页面逐个编辑图片</li>
+                    <li><strong>服务器限制：</strong>如果上传失败，可能是服务器上传大小限制。可以联系主机商调整 upload_max_filesize 和 post_max_size 设置</li>
                 </ul>
             </div>
         </div>
