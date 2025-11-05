@@ -1029,7 +1029,7 @@ function angola_b2b_homepage_images_page() {
                         <tr>
                             <th scope="row"><label>当前图片</label></th>
                             <td>
-                                <div class="image-preview" id="hero-bg-preview">
+                                <div class="image-preview" id="hero_bg-preview">
                                     <?php if ($hero_bg_url) : ?>
                                         <img src="<?php echo esc_url($hero_bg_url); ?>" style="max-width: 400px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
                                         <br><br>
@@ -1063,7 +1063,7 @@ function angola_b2b_homepage_images_page() {
                                 $service_default = get_option('angola_b2b_service_default_image', '');
                                 $service_default_id = get_option('angola_b2b_service_default_image_id', 0);
                                 ?>
-                                <div class="image-preview" id="service-default-preview">
+                                <div class="image-preview" id="service_default-preview">
                                     <?php if ($service_default) : ?>
                                         <img src="<?php echo esc_url($service_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
                                         <br><br>
@@ -1089,7 +1089,7 @@ function angola_b2b_homepage_images_page() {
                                 $industry_default = get_option('angola_b2b_industry_default_image', '');
                                 $industry_default_id = get_option('angola_b2b_industry_default_image_id', 0);
                                 ?>
-                                <div class="image-preview" id="industry-default-preview">
+                                <div class="image-preview" id="industry_default-preview">
                                     <?php if ($industry_default) : ?>
                                         <img src="<?php echo esc_url($industry_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
                                         <br><br>
@@ -1115,7 +1115,7 @@ function angola_b2b_homepage_images_page() {
                                 $news_default = get_option('angola_b2b_news_default_image', '');
                                 $news_default_id = get_option('angola_b2b_news_default_image_id', 0);
                                 ?>
-                                <div class="image-preview" id="news-default-preview">
+                                <div class="image-preview" id="news_default-preview">
                                     <?php if ($news_default) : ?>
                                         <img src="<?php echo esc_url($news_default); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
                                         <br><br>
@@ -1150,7 +1150,7 @@ function angola_b2b_homepage_images_page() {
                                 $cta_bg = get_option('angola_b2b_cta_bg_image', '');
                                 $cta_bg_id = get_option('angola_b2b_cta_bg_image_id', 0);
                                 ?>
-                                <div class="image-preview" id="cta-bg-preview">
+                                <div class="image-preview" id="cta_bg-preview">
                                     <?php if ($cta_bg) : ?>
                                         <img src="<?php echo esc_url($cta_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
                                         <br><br>
