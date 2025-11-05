@@ -1139,8 +1139,121 @@ function angola_b2b_homepage_images_page() {
             
             <div class="postbox">
                 <div class="inside">
-                    <h2 style="margin-top: 0;">📊 统计数据与其他图片</h2>
-                    <p class="description">其他首页使用的背景图片或装饰性图片</p>
+                    <h2 style="margin-top: 0;">📦 产品大分类背景图</h2>
+                    <p class="description">首页"Our Products"区域的4个产品大分类卡片背景图</p>
+                    
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><label>建筑工程</label></th>
+                            <td>
+                                <?php 
+                                $construction_bg = get_option('angola_b2b_product_construction_image', '');
+                                $construction_bg_id = get_option('angola_b2b_product_construction_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="product_construction-preview">
+                                    <?php if ($construction_bg) : ?>
+                                        <img src="<?php echo esc_url($construction_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用默认占位图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="product_construction_id" name="product_construction_id" value="<?php echo esc_attr($construction_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="product_construction">
+                                    <?php echo $construction_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($construction_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="product_construction">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：600x500px（土方设备、混凝土设备、脚手架、起重设备）</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>建筑材料</label></th>
+                            <td>
+                                <?php 
+                                $materials_bg = get_option('angola_b2b_product_materials_image', '');
+                                $materials_bg_id = get_option('angola_b2b_product_materials_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="product_materials-preview">
+                                    <?php if ($materials_bg) : ?>
+                                        <img src="<?php echo esc_url($materials_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用默认占位图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="product_materials_id" name="product_materials_id" value="<?php echo esc_attr($materials_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="product_materials">
+                                    <?php echo $materials_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($materials_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="product_materials">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：600x500px（钢材、水泥、木材、装饰材料）</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>农机农具</label></th>
+                            <td>
+                                <?php 
+                                $agricultural_bg = get_option('angola_b2b_product_agricultural_image', '');
+                                $agricultural_bg_id = get_option('angola_b2b_product_agricultural_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="product_agricultural-preview">
+                                    <?php if ($agricultural_bg) : ?>
+                                        <img src="<?php echo esc_url($agricultural_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用默认占位图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="product_agricultural_id" name="product_agricultural_id" value="<?php echo esc_attr($agricultural_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="product_agricultural">
+                                    <?php echo $agricultural_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($agricultural_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="product_agricultural">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：600x500px（动力机械、播种设备、收获设备、灌溉设备）</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>工业设备</label></th>
+                            <td>
+                                <?php 
+                                $industrial_bg = get_option('angola_b2b_product_industrial_image', '');
+                                $industrial_bg_id = get_option('angola_b2b_product_industrial_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="product_industrial-preview">
+                                    <?php if ($industrial_bg) : ?>
+                                        <img src="<?php echo esc_url($industrial_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用默认占位图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="product_industrial_id" name="product_industrial_id" value="<?php echo esc_attr($industrial_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="product_industrial">
+                                    <?php echo $industrial_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($industrial_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="product_industrial">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：600x500px（加工设备、电力设备、自动化设备、检测设备）</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="postbox">
+                <div class="inside">
+                    <h2 style="margin-top: 0;">📊 其他背景图片</h2>
+                    <p class="description">首页其他区域使用的背景图片</p>
                     
                     <table class="form-table">
                         <tr>
@@ -1297,6 +1410,8 @@ function angola_b2b_homepage_images_page() {
                 placeholderText = '使用MSC默认图片';
             } else if (target === 'cta_bg') {
                 placeholderText = '暂无背景图';
+            } else if (target.includes('product_')) {
+                placeholderText = '使用默认占位图';
             }
             
             // Clear preview
@@ -1380,6 +1495,58 @@ function angola_b2b_save_homepage_images() {
         } else {
             delete_option('angola_b2b_cta_bg_image');
             delete_option('angola_b2b_cta_bg_image_id');
+        }
+    }
+    
+    // Save Product Category: Construction Engineering
+    if (isset($_POST['product_construction_id'])) {
+        $product_construction_id = intval($_POST['product_construction_id']);
+        if ($product_construction_id) {
+            $image_url = wp_get_attachment_url($product_construction_id);
+            update_option('angola_b2b_product_construction_image', $image_url);
+            update_option('angola_b2b_product_construction_image_id', $product_construction_id);
+        } else {
+            delete_option('angola_b2b_product_construction_image');
+            delete_option('angola_b2b_product_construction_image_id');
+        }
+    }
+    
+    // Save Product Category: Building Materials
+    if (isset($_POST['product_materials_id'])) {
+        $product_materials_id = intval($_POST['product_materials_id']);
+        if ($product_materials_id) {
+            $image_url = wp_get_attachment_url($product_materials_id);
+            update_option('angola_b2b_product_materials_image', $image_url);
+            update_option('angola_b2b_product_materials_image_id', $product_materials_id);
+        } else {
+            delete_option('angola_b2b_product_materials_image');
+            delete_option('angola_b2b_product_materials_image_id');
+        }
+    }
+    
+    // Save Product Category: Agricultural Machinery
+    if (isset($_POST['product_agricultural_id'])) {
+        $product_agricultural_id = intval($_POST['product_agricultural_id']);
+        if ($product_agricultural_id) {
+            $image_url = wp_get_attachment_url($product_agricultural_id);
+            update_option('angola_b2b_product_agricultural_image', $image_url);
+            update_option('angola_b2b_product_agricultural_image_id', $product_agricultural_id);
+        } else {
+            delete_option('angola_b2b_product_agricultural_image');
+            delete_option('angola_b2b_product_agricultural_image_id');
+        }
+    }
+    
+    // Save Product Category: Industrial Equipment
+    if (isset($_POST['product_industrial_id'])) {
+        $product_industrial_id = intval($_POST['product_industrial_id']);
+        if ($product_industrial_id) {
+            $image_url = wp_get_attachment_url($product_industrial_id);
+            update_option('angola_b2b_product_industrial_image', $image_url);
+            update_option('angola_b2b_product_industrial_image_id', $product_industrial_id);
+        } else {
+            delete_option('angola_b2b_product_industrial_image');
+            delete_option('angola_b2b_product_industrial_image_id');
         }
     }
     
