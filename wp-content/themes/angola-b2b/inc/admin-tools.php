@@ -1195,10 +1195,36 @@ function angola_b2b_homepage_images_page() {
     
     <style>
         .postbox { padding: 20px; margin-bottom: 20px; }
-        .image-preview { margin-bottom: 15px; min-height: 50px; }
-        .image-preview img { display: block; margin-bottom: 10px; }
-        .remove-image-button { margin-left: 10px; color: #b32d2e; }
-        .remove-image-button:hover { color: #dc3232; }
+        .image-preview { 
+            margin-bottom: 15px; 
+            min-height: 50px; 
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .image-preview img { 
+            display: block; 
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-preview p {
+            margin: 0;
+            padding: 20px 0;
+            font-style: italic;
+        }
+        .remove-image-button { 
+            margin-left: 10px; 
+            color: #b32d2e;
+            border-color: #b32d2e;
+        }
+        .remove-image-button:hover { 
+            color: #fff;
+            background: #dc3232;
+            border-color: #dc3232;
+        }
+        .upload-image-button {
+            margin-right: 5px;
+        }
     </style>
     
     <script>
@@ -1230,9 +1256,12 @@ function angola_b2b_homepage_images_page() {
             mediaUploader.on('select', function() {
                 var attachment = mediaUploader.state().get('selection').first().toJSON();
                 
-                // Update preview
+                // Determine image preview size based on target
+                var imageWidth = (currentTarget === 'hero_bg') ? '400px' : '300px';
+                
+                // Update preview with image
                 $('#' + currentTarget + '-preview').html(
-                    '<img src="' + attachment.url + '" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;"><br><br>'
+                    '<img src="' + attachment.url + '" style="max-width: ' + imageWidth + '; height: auto; border: 1px solid #ddd; border-radius: 4px;"><br><br>'
                 );
                 
                 // Update hidden field
@@ -1245,6 +1274,13 @@ function angola_b2b_homepage_images_page() {
                 if (!$button.next('.remove-image-button').length) {
                     $button.after('<button type="button" class="button remove-image-button" data-target="' + currentTarget + '">移除图片</button>');
                 }
+                
+                // Show success message
+                var $successMsg = $('<div class="notice notice-success inline" style="margin: 10px 0; padding: 8px 12px;"><p>✅ 图片已选择，请点击页面底部"保存所有更改"按钮以保存</p></div>');
+                $('#' + currentTarget + '-preview').after($successMsg);
+                setTimeout(function() {
+                    $successMsg.fadeOut(function() { $(this).remove(); });
+                }, 3000);
             });
             
             mediaUploader.open();
@@ -1255,8 +1291,16 @@ function angola_b2b_homepage_images_page() {
             e.preventDefault();
             var target = $(this).data('target');
             
+            // Determine placeholder text based on target
+            var placeholderText = '暂无图片';
+            if (target.includes('default')) {
+                placeholderText = '使用MSC默认图片';
+            } else if (target === 'cta_bg') {
+                placeholderText = '暂无背景图';
+            }
+            
             // Clear preview
-            $('#' + target + '-preview').html('<p style="color: #999;">暂无图片</p>');
+            $('#' + target + '-preview').html('<p style="color: #999;">' + placeholderText + '</p>');
             
             // Clear hidden field
             $('#' + target + '_id').val('');
