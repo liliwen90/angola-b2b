@@ -89,19 +89,18 @@ function angola_b2b_get_main_categories_with_children() {
  * Uses MSC website images as placeholders
  */
 function angola_b2b_get_category_placeholder_image($category_slug) {
-    // Map category slugs to MSC placeholder images
-    // Using actual MSC.com image URLs from their website
+    // Map category slugs to placeholder images (using Unsplash)
     $placeholder_images = array(
         // English slugs
-        'construction-engineering' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=400',
-        'building-materials' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=400',
-        'agricultural-machinery' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=400',
-        'industrial-equipment' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=400',
+        'construction-engineering' => 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop',
+        'building-materials' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop',
+        'agricultural-machinery' => 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop',
+        'industrial-equipment' => 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop',
         // Chinese slugs (fallback)
-        '建筑工程' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=400',
-        '建筑材料' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=400',
-        '农机农具' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=400',
-        '工业设备' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=400',
+        '建筑工程' => 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop',
+        '建筑材料' => 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop',
+        '农机农具' => 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop',
+        '工业设备' => 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop',
     );
     
     // Try exact match first
@@ -133,7 +132,7 @@ function angola_b2b_get_category_placeholder_image($category_slug) {
     }
     
     // Default placeholder
-    return 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=400';
+    return 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=400&h=300&fit=crop';
 }
 
 /**

@@ -15,7 +15,7 @@ get_header();
     // 1. Hero区域（MSC风格全宽Hero，背景图片+标题+Quick Actions）
     angola_b2b_display_hero_section(array(
         'height' => 'full',
-        'background_image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/hero-ship-at-sunset.jpg?w=1920',
+        'background_image' => 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&h=1080&fit=crop',
         'overlay_opacity' => 0.5,
     ));
     

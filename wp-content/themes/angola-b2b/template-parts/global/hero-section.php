@@ -130,13 +130,13 @@ if (empty($args['title'])) {
         
         // Fallback: use MSC placeholder image
         if (empty($args['background_image'])) {
-            $args['background_image'] = 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=1920';
+            $args['background_image'] = 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&h=1080&fit=crop';
         }
     } elseif (is_post_type_archive('product')) {
         // Product archive page (not category)
         $args['title'] = esc_html__('Products', 'angola-b2b');
         if (empty($args['background_image'])) {
-            $args['background_image'] = 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=1920';
+            $args['background_image'] = 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&h=1080&fit=crop';
         }
     }
 }
