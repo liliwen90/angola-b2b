@@ -72,9 +72,9 @@ if (empty($services)) {
 <section class="services-showcase-section section-padding bg-light" data-animate="fade-up">
     <div class="container">
         <div class="section-header text-center">
-            <h2 class="section-title"><?php esc_html_e('Our Solutions', 'angola-b2b'); ?></h2>
+            <h2 class="section-title"><?php esc_html_e('Our Services', 'angola-b2b'); ?></h2>
             <p class="section-subtitle">
-                <?php esc_html_e('As well as being a global leader in container shipping, our worldwide teams of industry specific experts mean we can offer our customers round-the-clock personalised service.', 'angola-b2b'); ?>
+                <?php esc_html_e('Beyond supplying quality products, we provide comprehensive trade services including logistics coordination, customs clearance support, and after-sales service to ensure smooth business operations between China and Angola.', 'angola-b2b'); ?>
             </p>
         </div>
         

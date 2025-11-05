@@ -19,10 +19,13 @@ get_header();
         'overlay_opacity' => 0.5,
     ));
     
-    // 2. 解决方案横向轮播（MSC风格Solutions轮播）
+    // 2. 产品大分类展示（Our Products - 4个大卡片：建筑工程、建筑材料、农机农具、工业设备）
+    get_template_part('template-parts/homepage/product-categories-showcase');
+    
+    // 3. 服务展示横向轮播（Our Services - 贸易服务）
     get_template_part('template-parts/homepage/services-showcase');
     
-    // 3. 网络展示轮播（Network轮播 - 使用Category Showcase改造）
+    // 4. 网络展示轮播（Network轮播）
     get_template_part('template-parts/homepage/category-showcase');
     
     // 4. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
