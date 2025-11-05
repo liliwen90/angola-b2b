@@ -1,7 +1,7 @@
 <?php
 /**
- * Services Showcase Section
- * MSC-style service/solution tabs with image and description
+ * Services Showcase Section - Carousel Version
+ * MSC-style horizontal carousel with service/solution cards
  * 
  * @package Angola_B2B
  */
@@ -14,37 +14,39 @@ if (!defined('ABSPATH')) {
 // Define services (can be customized via ACF later)
 $services = array(
     array(
-        'id' => 'construction',
-        'title' => __('Construction & Engineering', 'angola-b2b'),
-        'description' => __('Comprehensive solutions for construction projects, from heavy machinery to building materials. We provide reliable equipment and materials that meet international standards.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/dry-cargo/msc-dry-cargo-shipping-solutions-hero.jpg?w=800',
-        'features' => array(
-            __('Heavy Equipment', 'angola-b2b'),
-            __('Building Materials', 'angola-b2b'),
-            __('Safety Equipment', 'angola-b2b'),
-        ),
+        'id' => 'shipping-solutions',
+        'title' => __('Shipping Solutions', 'angola-b2b'),
+        'description' => __('Comprehensive shipping solutions for all your cargo needs. From dry containers to specialized transport, we ensure your goods reach their destination safely.', 'angola-b2b'),
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/solutions-carousel/MSC-Isabella.jpg?w=600',
+        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18h18M3 6h18M5 6v12M19 6v12M9 6v12M15 6v12"/></svg>',
     ),
     array(
-        'id' => 'agriculture',
-        'title' => __('Agricultural Equipment', 'angola-b2b'),
-        'description' => __('Modern agricultural machinery and equipment designed to improve farm productivity. From tractors to irrigation systems, we have everything you need for efficient farming.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
-        'features' => array(
-            __('Tractors & Machinery', 'angola-b2b'),
-            __('Irrigation Systems', 'angola-b2b'),
-            __('Harvesting Equipment', 'angola-b2b'),
-        ),
+        'id' => 'inland-transportation',
+        'title' => __('Inland Transportation & Logistics', 'angola-b2b'),
+        'description' => __('Seamless inland transportation and logistics services. Door-to-door delivery solutions that keep your supply chain moving efficiently.', 'angola-b2b'),
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/solutions-carousel/MSC17010613.jpg?w=600',
+        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h15v9H1V6zM16 8h5l3 3v4h-3M5.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 18a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>',
     ),
     array(
-        'id' => 'industrial',
-        'title' => __('Industrial Equipment', 'angola-b2b'),
-        'description' => __('Professional-grade industrial equipment for manufacturing and production. High-quality machines that deliver consistent performance and reliability.', 'angola-b2b'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=800',
-        'features' => array(
-            __('Power Generation', 'angola-b2b'),
-            __('Manufacturing Tools', 'angola-b2b'),
-            __('Quality Control', 'angola-b2b'),
-        ),
+        'id' => 'air-cargo',
+        'title' => __('Air Cargo Solutions', 'angola-b2b'),
+        'description' => __('Fast and reliable air cargo services for time-sensitive shipments. Global reach with express delivery options for urgent needs.', 'angola-b2b'),
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/solutions-carousel/MSC22013343.jpg?w=600',
+        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>',
+    ),
+    array(
+        'id' => 'digital-solutions',
+        'title' => __('Digital Business Solutions', 'angola-b2b'),
+        'description' => __('Advanced digital tools and platforms to streamline your operations. Real-time tracking, automated documentation, and seamless integration.', 'angola-b2b'),
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/solutions-carousel/digital-interface.jpg?w=600',
+        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    ),
+    array(
+        'id' => 'cargo-protection',
+        'title' => __('Cargo Cover Solutions', 'angola-b2b'),
+        'description' => __('Comprehensive insurance and protection plans for your valuable cargo. Peace of mind with every shipment, backed by trusted coverage.', 'angola-b2b'),
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/solutions-carousel/containers-stacked.jpg?w=600',
+        'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
     ),
 );
 
@@ -55,74 +57,78 @@ if (empty($services)) {
 }
 ?>
 
-<section class="services-showcase-section" data-animate="fade-up">
+<section class="services-showcase-section section-padding bg-light" data-animate="fade-up">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header text-center">
             <h2 class="section-title"><?php esc_html_e('Our Solutions', 'angola-b2b'); ?></h2>
             <p class="section-subtitle">
-                <?php esc_html_e('Comprehensive products and services tailored to your business needs', 'angola-b2b'); ?>
+                <?php esc_html_e('As well as being a global leader in container shipping, our worldwide teams of industry specific experts mean we can offer our customers round-the-clock personalised service.', 'angola-b2b'); ?>
             </p>
         </div>
         
-        <div class="services-tabs-wrapper">
-            <!-- Tab Navigation -->
-            <div class="services-tabs">
-                <?php foreach ($services as $index => $service) : ?>
-                    <button class="service-tab <?php echo $index === 0 ? 'active' : ''; ?>" 
-                            data-tab="service-<?php echo esc_attr($service['id']); ?>">
-                        <span class="tab-number">0<?php echo esc_html($index + 1); ?></span>
-                        <span class="tab-title"><?php echo esc_html($service['title']); ?></span>
-                    </button>
-                <?php endforeach; ?>
-            </div>
-            
-            <!-- Tab Content -->
-            <div class="services-content">
-                <?php foreach ($services as $index => $service) : ?>
-                    <div class="service-panel <?php echo $index === 0 ? 'active' : ''; ?>" 
-                         data-panel="service-<?php echo esc_attr($service['id']); ?>">
-                        <div class="service-grid">
-                            <div class="service-image-wrapper">
-                                <img src="<?php echo esc_url($service['image']); ?>" 
-                                     alt="<?php echo esc_attr($service['title']); ?>"
-                                     class="service-image"
-                                     loading="lazy">
-                                <div class="image-overlay"></div>
-                            </div>
-                            
-                            <div class="service-text">
-                                <h3 class="service-title"><?php echo esc_html($service['title']); ?></h3>
-                                <p class="service-description"><?php echo esc_html($service['description']); ?></p>
-                                
-                                <?php if (!empty($service['features'])) : ?>
-                                    <ul class="service-features">
-                                        <?php foreach ($service['features'] as $feature) : ?>
-                                            <li class="feature-item">
-                                                <svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                    <polyline points="20 6 9 17 4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <div class="services-carousel-wrapper">
+            <!-- Swiper -->
+            <div class="swiper services-swiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($services as $service) : ?>
+                        <div class="swiper-slide">
+                            <div class="service-card">
+                                <div class="service-card-inner">
+                                    <!-- Service Image -->
+                                    <div class="service-image-wrapper">
+                                        <img src="<?php echo esc_url($service['image']); ?>" 
+                                             alt="<?php echo esc_attr($service['title']); ?>"
+                                             loading="lazy">
+                                        <div class="service-image-overlay"></div>
+                                    </div>
+                                    
+                                    <!-- Service Content -->
+                                    <div class="service-content">
+                                        <div class="service-icon">
+                                            <?php echo $service['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                        </div>
+                                        <h3 class="service-title"><?php echo esc_html($service['title']); ?></h3>
+                                        <p class="service-description"><?php echo esc_html($service['description']); ?></p>
+                                        <div class="service-link">
+                                            <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" class="btn-link">
+                                                <?php esc_html_e('Learn More', 'angola-b2b'); ?>
+                                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
-                                                <span><?php echo esc_html($feature); ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                <?php endif; ?>
-                                
-                                <div class="service-cta">
-                                    <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" 
-                                       class="btn btn-primary btn-lg">
-                                        <?php esc_html_e('Explore Products', 'angola-b2b'); ?>
-                                        <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                            <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <polyline points="12 5 19 12 12 19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </a>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="swiper-button-prev services-prev">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="15 18 9 12 15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="swiper-button-next services-next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="9 18 15 12 9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination services-pagination"></div>
+            </div>
+            
+            <!-- View All Link -->
+            <div class="services-view-all">
+                <a href="<?php echo esc_url(get_post_type_archive_link('product')); ?>" class="btn btn-outline-primary btn-lg">
+                    <?php esc_html_e('See All Solutions', 'angola-b2b'); ?>
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
 </section>
-

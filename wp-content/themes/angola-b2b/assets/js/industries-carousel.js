@@ -1,20 +1,20 @@
 /**
- * Services Showcase Carousel
- * Initialize Swiper for MSC-style services carousel
+ * Industries Carousel
+ * Initialize Swiper for MSC-style industries carousel
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const servicesSwiper = document.querySelector('.services-swiper');
+    const industriesSwiper = document.querySelector('.industries-swiper');
     
-    if (!servicesSwiper) {
+    if (!industriesSwiper) {
         return;
     }
 
     // Initialize Swiper
-    new Swiper('.services-swiper', {
+    new Swiper('.industries-swiper', {
         slidesPerView: 1,
         spaceBetween: 30,
-        loop: false,
+        loop: true,
         grabCursor: true,
         
         // Responsive breakpoints
@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Navigation arrows
         navigation: {
-            nextEl: '.services-next',
-            prevEl: '.services-prev',
+            nextEl: '.industries-next',
+            prevEl: '.industries-prev',
         },
         
         // Pagination
         pagination: {
-            el: '.services-pagination',
+            el: '.industries-pagination',
             clickable: true,
             dynamicBullets: false,
         },
@@ -51,6 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Smooth scrolling
         speed: 600,
+        
+        // Autoplay
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
         
         // Keyboard control
         keyboard: {
@@ -62,8 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         a11y: {
             prevSlideMessage: 'Previous slide',
             nextSlideMessage: 'Next slide',
-            firstSlideMessage: 'This is the first slide',
-            lastSlideMessage: 'This is the last slide',
         },
     });
 });
+

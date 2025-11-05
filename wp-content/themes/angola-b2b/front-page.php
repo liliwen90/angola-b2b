@@ -19,19 +19,28 @@ get_header();
         'overlay_opacity' => 0.5,
     ));
     
-    // 2. 统计数字展示区域（公司实力）
-    get_template_part('template-parts/homepage/statistics');
-    
-    // 3. 大分类展示区域（MSC风格卡片式布局）
-    get_template_part('template-parts/homepage/category-showcase');
-    
-    // 4. 服务/解决方案展示区（MSC风格Tabs）
+    // 2. 解决方案横向轮播（MSC风格Solutions轮播）
     get_template_part('template-parts/homepage/services-showcase');
     
-    // 5. 核心优势区域（建立信任）
+    // 3. 网络展示轮播（Network轮播 - 使用Category Showcase改造）
+    get_template_part('template-parts/homepage/category-showcase');
+    
+    // 4. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
+    get_template_part('template-parts/homepage/industries-carousel');
+    
+    // 5. 统计数字展示区域（Moving the World, Together - 公司实力数据）
+    get_template_part('template-parts/homepage/statistics');
+    
+    // 6. 新闻轮播区（Discover the Latest News）
+    get_template_part('template-parts/homepage/news-carousel');
+    
+    // 7. 客户公告列表（CUSTOMER ADVISORIES）
+    get_template_part('template-parts/homepage/customer-advisories');
+    
+    // 8. 核心优势区域（建立信任）
     get_template_part('template-parts/homepage/advantages');
     
-    // 6. CTA联系我们区域（行动号召）
+    // 9. CTA联系我们区域（行动号召）
     get_template_part('template-parts/homepage/cta-section');
     ?>
 

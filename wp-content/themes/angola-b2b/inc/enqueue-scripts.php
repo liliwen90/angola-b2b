@@ -136,6 +136,30 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
     
+    // Industries carousel styles
+    wp_enqueue_style(
+        'angola-b2b-industries-carousel',
+        ANGOLA_B2B_THEME_URI . '/assets/css/industries-carousel.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
+    // News carousel styles
+    wp_enqueue_style(
+        'angola-b2b-news-carousel',
+        ANGOLA_B2B_THEME_URI . '/assets/css/news-carousel.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
+    // Customer advisories styles
+    wp_enqueue_style(
+        'angola-b2b-customer-advisories',
+        ANGOLA_B2B_THEME_URI . '/assets/css/customer-advisories.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
     // Homepage specific styles
     wp_enqueue_style(
         'angola-b2b-homepage',
@@ -273,11 +297,38 @@ function angola_b2b_enqueue_scripts() {
         true
     );
     
-    // Services showcase tab switcher script
+    // Category showcase / network carousel script
+    wp_enqueue_script(
+        'angola-b2b-category-showcase',
+        ANGOLA_B2B_THEME_URI . '/assets/js/category-showcase.js',
+        array('swiper-js'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // Services showcase carousel script
     wp_enqueue_script(
         'angola-b2b-services-showcase',
         ANGOLA_B2B_THEME_URI . '/assets/js/services-showcase.js',
-        array(),
+        array('swiper-js'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // Industries carousel script
+    wp_enqueue_script(
+        'angola-b2b-industries-carousel',
+        ANGOLA_B2B_THEME_URI . '/assets/js/industries-carousel.js',
+        array('swiper-js'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // News carousel script
+    wp_enqueue_script(
+        'angola-b2b-news-carousel',
+        ANGOLA_B2B_THEME_URI . '/assets/js/news-carousel.js',
+        array('swiper-js'),
         ANGOLA_B2B_VERSION,
         true
     );

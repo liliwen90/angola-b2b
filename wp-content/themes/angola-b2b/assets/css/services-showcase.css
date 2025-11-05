@@ -1,341 +1,307 @@
-/**
- * Services Showcase Section Styles
- * MSC-style tabbed service presentation
- * 
- * @package Angola_B2B
- */
-
 /* ============================================
-   Services Showcase Section
+   Services Showcase Section - Carousel Version
+   MSC-style horizontal carousel
    ============================================ */
 
 .services-showcase-section {
-    padding: var(--space-24) 0;
+    padding: var(--space-20) 0;
+    background-color: var(--color-bg-secondary);
+    overflow: hidden;
+}
+
+.services-carousel-wrapper {
+    margin-top: var(--space-12);
+    position: relative;
+}
+
+/* Swiper Container */
+.services-swiper {
+    padding-bottom: var(--space-16);
+    overflow: visible;
+}
+
+.services-swiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+.services-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+}
+
+/* Service Card */
+.service-card {
+    height: 100%;
     background: var(--color-white);
-    position: relative;
-}
-
-.services-showcase-section .section-header {
-    text-align: center;
-    margin-bottom: var(--space-16);
-}
-
-.services-showcase-section .section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-4);
-    letter-spacing: -0.02em;
-}
-
-.services-showcase-section .section-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--color-text-secondary);
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-/* ============================================
-   Tabs Navigation
-   ============================================ */
-
-.services-tabs-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.services-tabs {
-    display: flex;
-    gap: var(--space-4);
-    margin-bottom: var(--space-12);
-    border-bottom: 2px solid var(--color-border-primary);
-    overflow-x: auto;
-    scrollbar-width: thin;
-}
-
-.service-tab {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-    padding: var(--space-5) var(--space-6);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    text-align: left;
-    white-space: nowrap;
-}
-
-.service-tab::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #002B63 100%);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.service-tab.active::after {
-    transform: scaleX(1);
-}
-
-.service-tab:hover {
-    background: rgba(0, 74, 173, 0.05);
-}
-
-.tab-number {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-primary);
-    opacity: 0.6;
-    letter-spacing: 0.1em;
-}
-
-.service-tab.active .tab-number {
-    opacity: 1;
-}
-
-.tab-title {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-secondary);
-    transition: color 0.3s ease;
-}
-
-.service-tab.active .tab-title {
-    color: var(--color-primary);
-}
-
-/* ============================================
-   Tab Content
-   ============================================ */
-
-.services-content {
-    position: relative;
-    min-height: 500px;
-}
-
-.service-panel {
-    display: none;
-    opacity: 0;
-}
-
-.service-panel.active {
-    display: block;
-    animation: fadeInScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* ============================================
-   Service Grid Layout
-   ============================================ */
-
-.service-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-}
-
-@media (max-width: 1024px) {
-    .service-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-8);
-    }
-}
-
-/* ============================================
-   Service Image
-   ============================================ */
-
-.service-image-wrapper {
-    position: relative;
     border-radius: var(--radius-xl);
     overflow: hidden;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
-    aspect-ratio: 16 / 10;
+    box-shadow: var(--shadow-md);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
 }
 
-.service-image {
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.service-card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Service Image */
+.service-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.service-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.service-panel.active .service-image {
-    animation: zoomIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+.service-card:hover .service-image-wrapper img {
+    transform: scale(1.1);
 }
 
-@keyframes zoomIn {
-    from {
-        transform: scale(1.2);
-    }
-    to {
-        transform: scale(1);
-    }
-}
-
-.service-image-wrapper:hover .service-image {
-    transform: scale(1.05);
-}
-
-.image-overlay {
+.service-image-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 74, 173, 0.1) 0%, rgba(0, 43, 99, 0.2) 100%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
-.service-image-wrapper:hover .image-overlay {
+.service-card:hover .service-image-overlay {
     opacity: 1;
 }
 
-/* ============================================
-   Service Text
-   ============================================ */
-
-.service-text {
+/* Service Content */
+.service-content {
     padding: var(--space-8);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--space-4);
+    color: var(--color-primary);
+    opacity: 0.9;
+}
+
+.service-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .service-title {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
-    margin-bottom: var(--space-6);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    margin-bottom: var(--space-3);
+    line-height: 1.3;
 }
 
 .service-description {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-    margin-bottom: var(--space-8);
-}
-
-/* ============================================
-   Service Features
-   ============================================ */
-
-.service-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-8) 0;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3) 0;
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+    flex-grow: 1;
 }
 
-.feature-item:last-child {
-    border-bottom: none;
+.service-link {
+    margin-top: auto;
 }
 
-.feature-icon {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    color: var(--color-primary);
-    background: rgba(0, 74, 173, 0.1);
-    padding: var(--space-1);
-    border-radius: 50%;
-}
-
-/* ============================================
-   Service CTA
-   ============================================ */
-
-.service-cta {
-    margin-top: var(--space-8);
-}
-
-.service-cta .btn {
+.service-link .btn-link {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.btn-icon {
+.service-link .btn-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.service-link .btn-link:hover {
+    color: var(--color-primary-dark);
+    gap: var(--space-3);
+}
+
+.service-link .btn-link:hover::before {
+    width: calc(100% - 28px);
+}
+
+.service-link .icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
     transition: transform 0.3s ease;
 }
 
-.btn:hover .btn-icon {
+.service-link .btn-link:hover .icon {
     transform: translateX(4px);
 }
 
-/* ============================================
-   Responsive Design
-   ============================================ */
+/* Navigation Buttons */
+.services-swiper .swiper-button-prev,
+.services-swiper .swiper-button-next {
+    width: 56px;
+    height: 56px;
+    background: var(--color-white);
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+}
+
+.services-swiper .swiper-button-prev {
+    left: -28px;
+}
+
+.services-swiper .swiper-button-next {
+    right: -28px;
+}
+
+.services-swiper .swiper-button-prev:hover,
+.services-swiper .swiper-button-next:hover {
+    background: var(--color-primary);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.services-swiper .swiper-button-prev svg,
+.services-swiper .swiper-button-next svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-primary);
+    stroke-width: 2;
+    transition: stroke 0.3s ease;
+}
+
+.services-swiper .swiper-button-prev:hover svg,
+.services-swiper .swiper-button-next:hover svg {
+    stroke: var(--color-white);
+}
+
+.services-swiper .swiper-button-prev::after,
+.services-swiper .swiper-button-next::after {
+    display: none;
+}
+
+.services-swiper .swiper-button-prev.swiper-button-disabled,
+.services-swiper .swiper-button-next.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Pagination */
+.services-swiper .swiper-pagination {
+    bottom: 0;
+}
+
+.services-swiper .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: var(--color-gray-300);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.services-swiper .swiper-pagination-bullet-active {
+    background: var(--color-primary);
+    width: 32px;
+    border-radius: 6px;
+}
+
+/* View All Link */
+.services-view-all {
+    text-align: center;
+    margin-top: var(--space-12);
+}
+
+.services-view-all .btn {
+    min-width: 200px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .services-swiper .swiper-button-prev,
+    .services-swiper .swiper-button-next {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .services-swiper .swiper-button-prev {
+        left: 10px;
+    }
+    
+    .services-swiper .swiper-button-next {
+        right: 10px;
+    }
+}
 
 @media (max-width: 768px) {
     .services-showcase-section {
         padding: var(--space-16) 0;
     }
     
-    .services-tabs {
-        gap: var(--space-2);
-        margin-bottom: var(--space-8);
+    .service-image-wrapper {
+        height: 220px;
     }
     
-    .service-tab {
-        padding: var(--space-4);
-        min-width: 150px;
+    .service-content {
+        padding: var(--space-6);
     }
     
-    .tab-number {
-        font-size: var(--font-size-xs);
+    .service-title {
+        font-size: var(--font-size-xl);
     }
     
-    .tab-title {
-        font-size: var(--font-size-sm);
+    .service-icon {
+        width: 48px;
+        height: 48px;
     }
     
-    .service-text {
-        padding: var(--space-4) 0;
+    .services-swiper .swiper-button-prev,
+    .services-swiper .swiper-button-next {
+        width: 40px;
+        height: 40px;
     }
     
-    .services-content {
-        min-height: auto;
+    .services-swiper .swiper-button-prev svg,
+    .services-swiper .swiper-button-next svg {
+        width: 20px;
+        height: 20px;
     }
 }
-
-@media (max-width: 480px) {
-    .service-tab {
-        min-width: 120px;
-        padding: var(--space-3);
-    }
-    
-    .tab-title {
-        font-size: var(--font-size-xs);
-    }
-}
-
