@@ -19,7 +19,7 @@ $news_items = array(
         'date' => '05/11/2025',
         'title' => __('Angola B2B Participates in International Trade Fair 2025', 'angola-b2b'),
         'excerpt' => __('Angola B2B showcases its comprehensive range of construction and industrial equipment at the 2025 International Trade Fair in Luanda.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/news/msc-news-default.jpg?w=800',
         'link' => '#',
     ),
     array(
@@ -28,7 +28,7 @@ $news_items = array(
         'date' => '27/10/2025',
         'title' => __('New Agricultural Equipment Showcase at Farming Expo', 'angola-b2b'),
         'excerpt' => __('Visit our booth to discover the latest agricultural machinery and equipment designed to improve farm productivity.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
@@ -37,7 +37,7 @@ $news_items = array(
         'date' => '20/10/2025',
         'title' => __('Angola B2B Expands Warehouse Facilities', 'angola-b2b'),
         'excerpt' => __('New 10,000 sq ft warehouse in Luanda strengthens our commitment to serving customers with faster delivery times.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/inland-services/msc-inland-services-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
@@ -46,7 +46,7 @@ $news_items = array(
         'date' => '15/10/2025',
         'title' => __('Green Equipment Initiative: Eco-Friendly Solutions', 'angola-b2b'),
         'excerpt' => __('Angola B2B introduces new line of environmentally friendly equipment with reduced emissions and improved efficiency.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/hero-ship-at-sunset.jpg?w=800',
         'link' => '#',
     ),
     array(
@@ -55,7 +55,7 @@ $news_items = array(
         'date' => '10/10/2025',
         'title' => __('Introducing 24/7 Technical Support Service', 'angola-b2b'),
         'excerpt' => __('Our new round-the-clock technical support ensures your operations never stop, with expert assistance available anytime.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/digital/msc-digital-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
@@ -64,7 +64,7 @@ $news_items = array(
         'date' => '05/10/2025',
         'title' => __('Strategic Partnership with Leading Manufacturer', 'angola-b2b'),
         'excerpt' => __('Angola B2B forms exclusive partnership to bring world-class industrial equipment to the Angolan market.', 'angola-b2b'),
-        'image' => 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&h=400&fit=crop',
+        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
 );
