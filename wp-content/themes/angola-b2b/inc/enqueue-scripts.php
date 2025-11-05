@@ -120,6 +120,14 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
     
+    // Category Showcase styles
+    wp_enqueue_style(
+        'angola-b2b-category-showcase',
+        ANGOLA_B2B_THEME_URI . '/assets/css/category-showcase.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
+    
     // Services showcase styles
     wp_enqueue_style(
         'angola-b2b-services-showcase',
