@@ -122,7 +122,7 @@ if (empty($args['title'])) {
         
         // Fallback: use default content if ACF fields are empty
         if (empty($args['title'])) {
-            $args['title'] = esc_html__('Welcome to Angola B2B', 'angola-b2b');
+            $args['title'] = esc_html__('Welcome to Unibro', 'unibro');
         }
         if (empty($args['subtitle'])) {
             $args['subtitle'] = esc_html__('Your trusted partner for quality products and reliable service', 'angola-b2b');
@@ -209,41 +209,17 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                 <!-- MSC-Style Quick Action Tabs -->
                 <div class="hero-quick-actions">
                     <div class="quick-action-tabs">
-                        <button class="quick-action-tab active" data-tab="tracking">
-                            <span><?php esc_html_e('TRACKING', 'angola-b2b'); ?></span>
-                        </button>
-                        <button class="quick-action-tab" data-tab="quote">
-                            <span><?php esc_html_e('GET QUOTE', 'angola-b2b'); ?></span>
+                        <button class="quick-action-tab active" data-tab="quote">
+                            <span><?php esc_html_e('GET QUOTE', 'unibro'); ?></span>
                         </button>
                         <button class="quick-action-tab" data-tab="contact">
-                            <span><?php esc_html_e('CONTACTS', 'angola-b2b'); ?></span>
+                            <span><?php esc_html_e('CONTACTS', 'unibro'); ?></span>
                         </button>
                     </div>
                     
                     <div class="quick-action-content">
-                        <!-- Tracking Tab Content -->
-                        <div class="action-panel active" data-panel="tracking">
-                            <form class="tracking-form" action="<?php echo esc_url(home_url('/tracking')); ?>" method="get">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                               name="tracking_number" 
-                                               class="form-control form-control-lg" 
-                                               placeholder="<?php esc_attr_e('Container / Order Number', 'angola-b2b'); ?>"
-                                               required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-lg">
-                                        <span><?php esc_html_e('Track', 'angola-b2b'); ?></span>
-                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                            <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        
                         <!-- Quote Tab Content -->
-                        <div class="action-panel" data-panel="quote">
+                        <div class="action-panel active" data-panel="quote">
                             <form class="quote-form" action="<?php echo esc_url(home_url('/request-quote')); ?>" method="get">
                                 <div class="form-row">
                                     <div class="form-group">
