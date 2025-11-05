@@ -23,7 +23,7 @@ $product_categories = array(
         'id' => 'construction-engineering',
         'title' => pll__('建筑工程'),
         'title_en' => 'Construction Engineering',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="-4 -4 32 32" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M3 7v1a3 3 0 0 0 3 3h1m0-4v4m0 0v11m0-11h5m0 0v11m0-11v-4l3 3m-3-3l3-3m2 18v-8a2 2 0 0 1 2-2h1"/></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="32" width="32" height="12"/><rect x="16" y="20" width="16" height="12"/><rect x="20" y="8" width="8" height="12"/><line x1="4" y1="44" x2="44" y2="44"/></svg>',
         'image' => $construction_image,
         'link' => '#',
         'description' => '土方设备、混凝土设备、脚手架系统、起重设备'
@@ -32,7 +32,7 @@ $product_categories = array(
         'id' => 'building-materials',
         'title' => pll__('建筑材料'),
         'title_en' => 'Building Materials',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="-4 -4 32 32" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1"/><rect x="22" y="6" width="12" height="12" rx="1"/><rect x="38" y="6" width="4" height="12" rx="1"/><rect x="6" y="22" width="12" height="12" rx="1"/><rect x="22" y="22" width="12" height="12" rx="1"/><rect x="38" y="22" width="4" height="12" rx="1"/><rect x="6" y="38" width="12" height="4" rx="1"/><rect x="22" y="38" width="12" height="4" rx="1"/><rect x="38" y="38" width="4" height="4" rx="1"/></svg>',
         'image' => $materials_image,
         'link' => '#',
         'description' => '钢材、水泥、木材、装饰材料'
@@ -41,7 +41,7 @@ $product_categories = array(
         'id' => 'agricultural-machinery',
         'title' => pll__('农机农具'),
         'title_en' => 'Agricultural Machinery',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="-4 -4 32 32" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="17" r="4"/><path d="M11 17h4m4 0a4 4 0 0 1-4-4V7m0 0V5a2 2 0 0 1 2-2h2m-4 2h4"/></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="36" r="6"/><circle cx="38" cy="36" r="6"/><path d="M20 36h12"/><rect x="16" y="12" width="20" height="16" rx="2"/><path d="M36 20h6v8h-6"/><line x1="8" y1="36" x2="4" y2="36"/><line x1="44" y1="36" x2="42" y2="36"/></svg>',
         'image' => $agricultural_image,
         'link' => '#',
         'description' => '动力机械、播种设备、收获设备、灌溉设备'
@@ -50,7 +50,7 @@ $product_categories = array(
         'id' => 'industrial-equipment',
         'title' => pll__('工业设备'),
         'title_en' => 'Industrial Equipment',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="-4 -4 32 32" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 6.5V8m0 8v1.5m4.5-4.5H18m-12 0H4.5M7.757 7.757l-.707-.707m9.9 9.9l.707.707m0-9.9l.707-.707m-9.9 9.9l-.707.707M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="8"/><circle cx="24" cy="24" r="3"/><line x1="24" y1="4" x2="24" y2="10"/><line x1="24" y1="38" x2="24" y2="44"/><line x1="44" y1="24" x2="38" y2="24"/><line x1="10" y1="24" x2="4" y2="24"/><line x1="38.5" y1="9.5" x2="34.5" y2="13.5"/><line x1="13.5" y1="34.5" x2="9.5" y2="38.5"/><line x1="38.5" y1="38.5" x2="34.5" y2="34.5"/><line x1="13.5" y1="13.5" x2="9.5" y2="9.5"/></svg>',
         'image' => $industrial_image,
         'link' => '#',
         'description' => '加工设备、电力设备、自动化设备、检测设备'
