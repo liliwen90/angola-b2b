@@ -418,59 +418,56 @@
 
 .form-row {
     display: flex;
-    gap: var(--space-3);
+    gap: 16px;
     align-items: center;
 }
 
 .form-group {
     flex: 1;
-    max-width: calc(100% - 180px);
 }
 
 .form-control {
     width: 100%;
-    padding: var(--space-4) var(--space-4);
-    border: 2px solid var(--color-gray-300);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    transition: var(--transition-base);
-    background: var(--color-white);
+    padding: 18px 24px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #ffffff;
 }
 
 .form-control:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: #004AAD;
     box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
 }
 
 .form-control-lg {
-    padding: var(--space-5) var(--space-5);
-    font-size: var(--font-size-lg);
+    padding: 18px 24px;
+    font-size: 18px;
     height: 64px;
-    line-height: 1.5;
 }
 
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
+    padding: 16px 32px;
     border: none;
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: var(--transition-base);
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .btn-lg {
-    padding: var(--space-5) calc(var(--space-7) + 14px);
-    font-size: var(--font-size-lg);
+    padding: 18px 48px;
+    font-size: 18px;
     height: 64px;
-    transform: translateY(-12px);
+    min-width: 160px;
 }
 
 .btn-primary {
@@ -479,9 +476,9 @@
 }
 
 .btn-primary:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-14px);
-    box-shadow: 0 6px 20px rgba(0, 74, 173, 0.3);
+    background: #003580;
+    box-shadow: 0 4px 12px rgba(0, 74, 173, 0.3);
+    transform: translateY(-2px);
 }
 
 .btn .icon {
