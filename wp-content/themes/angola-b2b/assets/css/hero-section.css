@@ -419,7 +419,7 @@
 .form-row {
     display: flex;
     gap: var(--space-3);
-    align-items: stretch;
+    align-items: center;
 }
 
 .form-group {

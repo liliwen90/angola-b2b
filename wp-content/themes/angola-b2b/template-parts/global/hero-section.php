@@ -210,7 +210,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                 <div class="hero-quick-actions">
                     <div class="quick-action-tabs">
                         <button class="quick-action-tab active" data-tab="quote">
-                            <span><?php esc_html_e('GET QUOTE', 'unibro'); ?></span>
+                            <span><?php esc_html_e('SEARCH', 'unibro'); ?></span>
                         </button>
                         <button class="quick-action-tab" data-tab="contact">
                             <span><?php esc_html_e('CONTACTS', 'unibro'); ?></span>
@@ -218,7 +218,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                     </div>
                     
                     <div class="quick-action-content">
-                        <!-- Quote Tab Content -->
+                        <!-- Search Tab Content -->
                         <div class="action-panel active" data-panel="quote">
                             <form class="quote-form" action="<?php echo esc_url(home_url('/request-quote')); ?>" method="get">
                                 <div class="form-row">
@@ -230,7 +230,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                                                required>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-lg">
-                                        <span><?php esc_html_e('Get Quote', 'angola-b2b'); ?></span>
+                                        <span><?php esc_html_e('Search', 'angola-b2b'); ?></span>
                                         <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                             <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
