@@ -445,6 +445,8 @@
 .form-control-lg {
     padding: var(--space-5) var(--space-5);
     font-size: var(--font-size-lg);
+    height: 64px;
+    line-height: 1.5;
 }
 
 .btn {
@@ -466,6 +468,7 @@
 .btn-lg {
     padding: var(--space-5) var(--space-7);
     font-size: var(--font-size-lg);
+    height: 64px;
 }
 
 .btn-primary {
