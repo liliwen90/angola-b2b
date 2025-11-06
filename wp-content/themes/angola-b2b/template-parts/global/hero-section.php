@@ -230,10 +230,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                                                required>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-lg">
-                                        <span><?php esc_html_e('Search', 'angola-b2b'); ?></span>
-                                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                            <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
+                                        <?php esc_html_e('Search', 'angola-b2b'); ?>
                                     </button>
                                 </div>
                             </form>
