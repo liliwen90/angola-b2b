@@ -424,6 +424,7 @@
 
 .form-group {
     flex: 1;
+    max-width: calc(100% - 180px);
 }
 
 .form-control {
@@ -466,7 +467,7 @@
 }
 
 .btn-lg {
-    padding: var(--space-5) calc(var(--space-7) + 9px);
+    padding: var(--space-5) calc(var(--space-7) + 14px);
     font-size: var(--font-size-lg);
     height: 64px;
     transform: translateY(-12px);
