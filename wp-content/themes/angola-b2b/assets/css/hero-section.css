@@ -135,14 +135,15 @@
     font-weight: var(--font-weight-bold);
     display: block;
     background: linear-gradient(135deg, 
-        #ff6b6b 0%,      /* 红色 */
-        #ffa500 15%,     /* 橙色 */
-        #ffd700 30%,     /* 金黄色 */
-        #90ee90 45%,     /* 浅绿色 */
-        #4ecdc4 60%,     /* 青色 */
-        #6a5acd 75%,     /* 紫色 */
-        #ff69b4 90%,     /* 粉红色 */
-        #ff6b6b 100%     /* 回到红色 */
+        #ffb3ba 0%,      /* 浅粉红 */
+        #ffcc99 12%,     /* 浅橙 */
+        #ffffba 24%,     /* 浅黄 */
+        #baffc9 36%,     /* 浅绿 */
+        #bae1ff 48%,     /* 浅蓝 */
+        #c9baff 60%,     /* 浅紫 */
+        #ffb3f7 72%,     /* 浅粉紫 */
+        #ffc9de 84%,     /* 浅玫瑰 */
+        #ffb3ba 100%     /* 回到浅粉红 */
     );
     -webkit-background-clip: text;
     background-clip: text;
