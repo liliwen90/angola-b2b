@@ -447,6 +447,7 @@
     font-size: var(--font-size-lg);
     height: 64px;
     line-height: 1.5;
+    box-sizing: border-box;
 }
 
 .btn {
@@ -463,12 +464,14 @@
     cursor: pointer;
     transition: var(--transition-base);
     white-space: nowrap;
+    box-sizing: border-box;
 }
 
 .btn-lg {
-    padding: var(--space-5) var(--space-7);
+    padding: var(--space-5) var(--space-8);
     font-size: var(--font-size-lg);
     height: 64px;
+    min-width: 180px;
 }
 
 .btn-primary {
