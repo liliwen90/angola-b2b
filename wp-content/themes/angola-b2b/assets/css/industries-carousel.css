@@ -4,7 +4,7 @@
    ============================================ */
 
 .industries-carousel-section {
-    padding: var(--space-20) 0;
+    padding: var(--space-8) 0 var(--space-20) 0; /* 减少顶部间距，避免与上方模块间距过大 */
     background-color: var(--color-white);
     overflow: hidden;
 }
