@@ -194,7 +194,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
         <div class="hero-container">
             <?php if ($args['title']) : ?>
                 <h1 class="hero-title">
-                    <span class="hero-title-line1">LEADER IN</span>
+                    <span class="hero-title-line1">Leader in Sino-Ao B2B</span>
                     <span class="hero-title-line2"><?php echo esc_html($args['title']); ?></span>
                 </h1>
             <?php endif; ?>
