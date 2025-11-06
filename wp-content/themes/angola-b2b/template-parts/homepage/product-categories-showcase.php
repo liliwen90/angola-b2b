@@ -51,7 +51,7 @@ $product_categories = array(
         'id' => 'industrial-equipment',
         'title' => pll__('工业设备'),
         'title_en' => 'Industrial Equipment',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="8"/><circle cx="24" cy="24" r="3"/><line x1="24" y1="4" x2="24" y2="10"/><line x1="24" y1="38" x2="24" y2="44"/><line x1="44" y1="24" x2="38" y2="24"/><line x1="10" y1="24" x2="4" y2="24"/><line x1="38.5" y1="9.5" x2="34.5" y2="13.5"/><line x1="13.5" y1="34.5" x2="9.5" y2="38.5"/><line x1="38.5" y1="38.5" x2="34.5" y2="34.5"/><line x1="13.5" y1="13.5" x2="9.5" y2="9.5"/></svg>',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="20" width="18" height="24" rx="1"/><rect x="26" y="14" width="18" height="30" rx="1"/><line x1="8" y1="20" x2="8" y2="12"/><line x1="18" y1="20" x2="18" y2="16"/><circle cx="8" cy="10" r="2" fill="currentColor"/><circle cx="18" cy="14" r="2" fill="currentColor"/><rect x="8" y="26" width="4" height="6"/><rect x="14" y="26" width="4" height="6"/><rect x="8" y="34" width="4" height="6"/><rect x="14" y="34" width="4" height="6"/><rect x="30" y="20" width="4" height="6"/><rect x="36" y="20" width="4" height="6"/><rect x="30" y="28" width="4" height="6"/><rect x="36" y="28" width="4" height="6"/><rect x="30" y="36" width="4" height="6"/><rect x="36" y="36" width="4" height="6"/></svg>',
         'image' => $industrial_image,
         'link' => '#',
         'description' => '加工设备、电力设备、自动化设备、检测设备'
