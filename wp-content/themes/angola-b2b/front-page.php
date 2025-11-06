@@ -25,25 +25,25 @@ get_header();
     // 3. 服务展示横向轮播（Our Services - 贸易服务）
     get_template_part('template-parts/homepage/services-showcase');
     
-    // 4. 网络展示轮播（Network轮播）
-    get_template_part('template-parts/homepage/category-showcase');
+    // 4. 网络展示轮播（Network轮播）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/category-showcase');
     
-    // 4. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
+    // 5. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
     get_template_part('template-parts/homepage/industries-carousel');
     
-    // 5. 统计数字展示区域（Moving the World, Together - 公司实力数据）
+    // 6. 统计数字展示区域（Moving the World, Together - 公司实力数据）
     get_template_part('template-parts/homepage/statistics');
     
-    // 6. 新闻轮播区（Discover the Latest News）
+    // 7. 新闻轮播区（Discover the Latest News）
     get_template_part('template-parts/homepage/news-carousel');
     
-    // 7. 客户公告列表（CUSTOMER ADVISORIES）
+    // 8. 客户公告列表（CUSTOMER ADVISORIES）
     get_template_part('template-parts/homepage/customer-advisories');
     
-    // 8. 核心优势区域（建立信任）
+    // 9. 核心优势区域（建立信任）
     get_template_part('template-parts/homepage/advantages');
     
-    // 9. CTA联系我们区域（行动号召）
+    // 10. CTA联系我们区域（行动号召）
     get_template_part('template-parts/homepage/cta-section');
     ?>
 
