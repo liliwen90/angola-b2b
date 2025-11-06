@@ -16,8 +16,9 @@ $construction_image = get_option('angola_b2b_product_construction_image', 'https
 $materials_image = get_option('angola_b2b_product_materials_image', 'https://assets.msc.com/msc-p-001/msc-p-001/media/homepage/solutions/msc-inland-transportation-solutions.jpg?w=600');
 $agricultural_image = get_option('angola_b2b_product_agricultural_image', 'https://assets.msc.com/msc-p-001/msc-p-001/media/homepage/solutions/msc-air-cargo-solutions.jpg?w=600');
 $industrial_image = get_option('angola_b2b_product_industrial_image', 'https://assets.msc.com/msc-p-001/msc-p-001/media/homepage/solutions/msc-digital-business-solutions.jpg?w=600');
+$logistics_image = get_option('angola_b2b_product_logistics_image', 'https://assets.msc.com/msc-p-001/msc-p-001/media/homepage/solutions/msc-shipping-solutions-general.jpg?w=600');
 
-// Define product categories - matching the site's 4 main categories
+// Define product categories - matching the site's 5 main categories
 $product_categories = array(
     array(
         'id' => 'construction-engineering',
@@ -54,6 +55,15 @@ $product_categories = array(
         'image' => $industrial_image,
         'link' => '#',
         'description' => '加工设备、电力设备、自动化设备、检测设备'
+    ),
+    array(
+        'id' => 'logistics-customs',
+        'title' => pll__('物流清关'),
+        'title_en' => 'Logistics & Customs',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="18" width="28" height="20" rx="2"/><path d="M10 24h28M10 30h28"/><circle cx="16" cy="38" r="2" fill="currentColor"/><circle cx="32" cy="38" r="2" fill="currentColor"/><path d="M24 18V10l-6 4h12l-6-4z"/><line x1="18" y1="10" x2="30" y2="10"/></svg>',
+        'image' => $logistics_image,
+        'link' => '#',
+        'description' => '国际运输、清关服务、仓储配送、供应链管理'
     ),
 );
 

@@ -1140,7 +1140,7 @@ function angola_b2b_homepage_images_page() {
             <div class="postbox">
                 <div class="inside">
                     <h2 style="margin-top: 0;">📦 产品大分类背景图</h2>
-                    <p class="description">首页"Our Products"区域的4个产品大分类卡片背景图</p>
+                    <p class="description">首页"Our Products"区域的5个产品大分类卡片背景图</p>
                     
                     <table class="form-table">
                         <tr>
@@ -1244,6 +1244,32 @@ function angola_b2b_homepage_images_page() {
                                     <button type="button" class="button remove-image-button" data-target="product_industrial">移除图片</button>
                                 <?php endif; ?>
                                 <p class="description">建议尺寸：600x500px（加工设备、电力设备、自动化设备、检测设备）</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th scope="row"><label>物流清关</label></th>
+                            <td>
+                                <?php 
+                                $logistics_bg = get_option('angola_b2b_product_logistics_image', '');
+                                $logistics_bg_id = get_option('angola_b2b_product_logistics_image_id', 0);
+                                ?>
+                                <div class="image-preview" id="product_logistics-preview">
+                                    <?php if ($logistics_bg) : ?>
+                                        <img src="<?php echo esc_url($logistics_bg); ?>" style="max-width: 300px; height: auto; border: 1px solid #ddd; border-radius: 4px;">
+                                        <br><br>
+                                    <?php else : ?>
+                                        <p style="color: #999;">使用默认占位图</p>
+                                    <?php endif; ?>
+                                </div>
+                                <input type="hidden" id="product_logistics_id" name="product_logistics_id" value="<?php echo esc_attr($logistics_bg_id); ?>">
+                                <button type="button" class="button button-primary upload-image-button" data-target="product_logistics">
+                                    <?php echo $logistics_bg ? '更换图片' : '上传图片'; ?>
+                                </button>
+                                <?php if ($logistics_bg) : ?>
+                                    <button type="button" class="button remove-image-button" data-target="product_logistics">移除图片</button>
+                                <?php endif; ?>
+                                <p class="description">建议尺寸：600x500px（国际运输、清关服务、仓储配送、供应链管理）</p>
                             </td>
                         </tr>
                     </table>
@@ -1547,6 +1573,19 @@ function angola_b2b_save_homepage_images() {
         } else {
             delete_option('angola_b2b_product_industrial_image');
             delete_option('angola_b2b_product_industrial_image_id');
+        }
+    }
+    
+    // Save Product Category: Logistics & Customs
+    if (isset($_POST['product_logistics_id'])) {
+        $product_logistics_id = intval($_POST['product_logistics_id']);
+        if ($product_logistics_id) {
+            $image_url = wp_get_attachment_url($product_logistics_id);
+            update_option('angola_b2b_product_logistics_image', $image_url);
+            update_option('angola_b2b_product_logistics_image_id', $product_logistics_id);
+        } else {
+            delete_option('angola_b2b_product_logistics_image');
+            delete_option('angola_b2b_product_logistics_image_id');
         }
     }
     
