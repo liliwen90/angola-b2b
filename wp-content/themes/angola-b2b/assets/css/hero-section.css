@@ -15,9 +15,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    background-color: var(--color-gray-900);
+    padding: 0 var(--space-4); /* 添加左右padding作为外框 */
+    background-color: transparent;
 }
+
 
 /* Height Variations */
 .hero-section.hero-height-small {
@@ -47,12 +48,15 @@
 .hero-background {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
     width: 100%;
-    max-width: var(--container-xl); /* 限制背景图片最大宽度 */
+    max-width: var(--container-xl);
     height: 100%;
+    margin: 0 auto; /* 居中 */
     z-index: 1;
+    border-radius: 12px; /* 圆角 */
+    overflow: hidden;
 }
 
 .hero-image-wrapper {
@@ -61,8 +65,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 12px; /* 添加圆角 */
-    overflow: hidden;
 }
 
 .hero-image {
@@ -103,7 +105,7 @@
     position: relative;
     z-index: 3;
     width: 100%;
-    padding: var(--space-8) var(--space-4);
+    padding: var(--space-8) 0; /* 移除左右padding，因为外层已有 */
     text-align: center;
     color: var(--color-white);
 }
@@ -112,8 +114,8 @@
     width: 100%;
     max-width: var(--container-xl);
     margin: 0 auto;
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .hero-title {
