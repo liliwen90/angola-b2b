@@ -66,13 +66,14 @@ function angola_b2b_setup() {
 
     // Register custom image sizes for product showcase
     // 所有尺寸都使用hard crop (true) 确保固定尺寸
-    add_image_size('product-card', 300, 300, true); // 首页产品卡片固定尺寸（正方形）
-    add_image_size('product-thumbnail', 400, 400, true); // 产品列表缩略图
-    add_image_size('product-medium', 600, 600, true); // 产品中等尺寸
-    add_image_size('product-large', 1200, 1200, true); // 产品详情页大图
+    // 产品卡片使用4:3比例以匹配CSS aspect-ratio设置
+    add_image_size('product-card', 800, 600, true); // 产品卡片（4:3高清） - 用于列表页
+    add_image_size('product-thumbnail', 600, 450, true); // 产品缩略图（4:3）
+    add_image_size('product-medium', 1200, 900, true); // 产品中等尺寸（4:3）
+    add_image_size('product-large', 1600, 1200, true); // 产品详情页大图（4:3）
     add_image_size('homepage-banner', 1100, 400, true); // Banner轮播固定尺寸（1100x400）
-    add_image_size('product-360', 600, 600, true);
-    add_image_size('hero-banner', 1920, 800, true);
+    add_image_size('product-360', 600, 600, true); // 360度展示（正方形）
+    add_image_size('hero-banner', 1920, 800, true); // Hero横幅（16:6.67）
 }
 add_action('after_setup_theme', 'angola_b2b_setup');
 

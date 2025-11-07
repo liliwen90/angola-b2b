@@ -45,8 +45,6 @@ $short_description = get_the_excerpt();
                     <img src="<?php echo esc_url($thumbnail); ?>" 
                          alt="<?php echo esc_attr(get_the_title()); ?>"
                          loading="lazy"
-                         width="300"
-                         height="300"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="product-placeholder" style="display:none;">
                         <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>
