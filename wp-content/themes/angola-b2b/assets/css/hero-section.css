@@ -248,6 +248,14 @@
    Responsive Design
    ============================================ */
 
+/* 与 .container 的padding保持一致 */
+@media (min-width: 640px) {
+    .hero-section {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+    }
+}
+
 @media (max-width: 1024px) {
     .hero-section.hero-height-large {
         min-height: 60vh;
