@@ -10,17 +10,31 @@ get_header();
 ?>
 
 <main id="primary" class="site-main product-archive">
-    <?php
-    // Hero Section for category archives
-    if (is_tax('product_category')) {
-        $term = get_queried_object();
-        angola_b2b_display_hero_section(array(
-            'height' => 'large',
-        ));
-    }
-    ?>
-    
     <div class="container">
+        <?php 
+        // Temporary debug info - remove after testing
+        if (current_user_can('manage_options') && isset($_GET['debug'])) {
+            echo '<div style="position: fixed; top: 100px; right: 20px; background: #0073aa; color: white; padding: 15px; border-radius: 8px; z-index: 9999; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">';
+            echo '<strong>调试信息：</strong><br>';
+            echo '<span id="screen-width-debug">屏幕宽度: <span id="current-width"></span>px</span><br>';
+            echo '<span id="columns-debug">应该显示: <span id="expected-columns"></span>列</span>';
+            echo '<script>
+                function updateDebugInfo() {
+                    var width = window.innerWidth;
+                    document.getElementById("current-width").textContent = width;
+                    var columns = 1;
+                    if (width >= 1280) columns = 4;
+                    else if (width >= 1024) columns = 3;
+                    else if (width >= 640) columns = 2;
+                    document.getElementById("expected-columns").textContent = columns;
+                    document.getElementById("expected-columns").style.color = columns === 4 ? "#90EE90" : "#FFD700";
+                }
+                updateDebugInfo();
+                window.addEventListener("resize", updateDebugInfo);
+            </script>';
+            echo '</div>';
+        }
+        ?>
         <?php angola_b2b_display_breadcrumbs(); ?>
         
         <?php if (is_tax('product_category')) : 
