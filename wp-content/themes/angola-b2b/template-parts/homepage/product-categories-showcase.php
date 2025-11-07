@@ -21,13 +21,13 @@ $logistics_image = get_option('angola_b2b_product_logistics_image', 'https://ass
 // Define product categories - matching the site's 5 main categories
 $product_categories = array(
     array(
-        'id' => 'construction-engineering',
-        'title' => pll__('建筑工程'),
-        'title_en' => 'Construction Engineering',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="32" width="32" height="12"/><rect x="16" y="20" width="16" height="12"/><rect x="20" y="8" width="8" height="12"/><line x1="4" y1="44" x2="44" y2="44"/></svg>',
-        'image' => $construction_image,
+        'id' => 'logistics-customs',
+        'title' => pll__('物流清关'),
+        'title_en' => 'Logistics & Customs',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="18" width="28" height="20" rx="2"/><path d="M10 24h28M10 30h28"/><circle cx="16" cy="38" r="2" fill="currentColor"/><circle cx="32" cy="38" r="2" fill="currentColor"/><path d="M24 18V10l-6 4h12l-6-4z"/><line x1="18" y1="10" x2="30" y2="10"/></svg>',
+        'image' => $logistics_image,
         'link' => '#',
-        'description' => '土方设备、混凝土设备、脚手架系统、起重设备'
+        'description' => '国际运输、清关服务、仓储配送、供应链管理'
     ),
     array(
         'id' => 'building-materials',
@@ -57,13 +57,13 @@ $product_categories = array(
         'description' => '加工设备、电力设备、自动化设备、检测设备'
     ),
     array(
-        'id' => 'logistics-customs',
-        'title' => pll__('物流清关'),
-        'title_en' => 'Logistics & Customs',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="18" width="28" height="20" rx="2"/><path d="M10 24h28M10 30h28"/><circle cx="16" cy="38" r="2" fill="currentColor"/><circle cx="32" cy="38" r="2" fill="currentColor"/><path d="M24 18V10l-6 4h12l-6-4z"/><line x1="18" y1="10" x2="30" y2="10"/></svg>',
-        'image' => $logistics_image,
+        'id' => 'construction-engineering',
+        'title' => pll__('建筑工程'),
+        'title_en' => 'Construction Engineering',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="32" width="32" height="12"/><rect x="16" y="20" width="16" height="12"/><rect x="20" y="8" width="8" height="12"/><line x1="4" y1="44" x2="44" y2="44"/></svg>',
+        'image' => $construction_image,
         'link' => '#',
-        'description' => '国际运输、清关服务、仓储配送、供应链管理'
+        'description' => '土方设备、混凝土设备、脚手架系统、起重设备'
     ),
 );
 
