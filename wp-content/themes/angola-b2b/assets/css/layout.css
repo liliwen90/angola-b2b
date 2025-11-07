@@ -271,7 +271,10 @@
     padding: 1.5rem 0;
 }
 
-.core-advantages,
+.core-advantages {
+    padding: var(--space-8) 0 var(--space-16) 0; /* 减少顶部间距 */
+}
+
 .cta-section {
     padding: var(--space-16) 0;
 }

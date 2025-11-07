@@ -37,8 +37,8 @@ get_header();
     // 7. 新闻轮播区（Discover the Latest News）
     get_template_part('template-parts/homepage/news-carousel');
     
-    // 8. 客户公告列表（CUSTOMER ADVISORIES）
-    get_template_part('template-parts/homepage/customer-advisories');
+    // 8. 客户公告列表（CUSTOMER ADVISORIES）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/customer-advisories');
     
     // 9. 核心优势区域（建立信任）
     get_template_part('template-parts/homepage/advantages');
