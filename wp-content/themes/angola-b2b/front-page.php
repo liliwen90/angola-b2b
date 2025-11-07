@@ -43,8 +43,8 @@ get_header();
     // 9. 核心优势区域（建立信任）- 暂时隐藏，保留以备将来使用
     // get_template_part('template-parts/homepage/advantages');
     
-    // 10. CTA联系我们区域（行动号召）
-    get_template_part('template-parts/homepage/cta-section');
+    // 10. CTA联系我们区域（行动号召）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/cta-section');
     ?>
 
 </main>
