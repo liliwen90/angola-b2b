@@ -22,14 +22,14 @@ get_header();
     // 2. 产品大分类展示（Our Products - 4个大卡片：建筑工程、建筑材料、农机农具、工业设备）
     get_template_part('template-parts/homepage/product-categories-showcase');
     
-    // 3. 服务展示横向轮播（Our Services - 贸易服务）
-    get_template_part('template-parts/homepage/services-showcase');
+    // 3. 服务展示横向轮播（Our Services - 贸易服务）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/services-showcase');
     
     // 4. 网络展示轮播（Network轮播）- 暂时隐藏，保留以备将来使用
     // get_template_part('template-parts/homepage/category-showcase');
     
-    // 5. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
-    get_template_part('template-parts/homepage/industries-carousel');
+    // 5. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/industries-carousel');
     
     // 6. 统计数字展示区域（Moving the World, Together - 公司实力数据）- 暂时隐藏，保留以备将来使用
     // get_template_part('template-parts/homepage/statistics');
@@ -40,8 +40,8 @@ get_header();
     // 8. 客户公告列表（CUSTOMER ADVISORIES）- 暂时隐藏，保留以备将来使用
     // get_template_part('template-parts/homepage/customer-advisories');
     
-    // 9. 核心优势区域（建立信任）
-    get_template_part('template-parts/homepage/advantages');
+    // 9. 核心优势区域（建立信任）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/advantages');
     
     // 10. CTA联系我们区域（行动号召）
     get_template_part('template-parts/homepage/cta-section');

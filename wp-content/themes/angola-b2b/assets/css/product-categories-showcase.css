@@ -6,6 +6,7 @@
 .product-categories-showcase {
     position: relative;
     overflow: hidden;
+    padding: 80px 0; /* 添加上下间距 */
 }
 
 .product-categories-showcase .section-header {
