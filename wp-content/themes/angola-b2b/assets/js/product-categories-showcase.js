@@ -21,9 +21,9 @@
         }
 
         init() {
-            // Set initial active category (first one)
-            const firstCard = this.$cards.first();
-            this.activeCategory = firstCard.data('category');
+            // Set initial active category (last one - logistics)
+            const lastCard = this.$cards.last();
+            this.activeCategory = lastCard.data('category');
             
             // Bind hover events
             this.bindEvents();
@@ -38,10 +38,10 @@
                 self.switchBackground(categoryId);
             });
             
-            // Mouse leave event - revert to first category
+            // Mouse leave event - revert to last category (logistics)
             this.$wrapper.on('mouseleave', function() {
-                const firstCategoryId = self.$cards.first().data('category');
-                self.switchBackground(firstCategoryId);
+                const lastCategoryId = self.$cards.last().data('category');
+                self.switchBackground(lastCategoryId);
             });
         }
 
