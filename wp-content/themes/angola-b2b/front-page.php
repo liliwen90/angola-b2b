@@ -31,8 +31,8 @@ get_header();
     // 5. 行业展示轮播（Your Shipping Needs Met - 10个行业卡片）
     get_template_part('template-parts/homepage/industries-carousel');
     
-    // 6. 统计数字展示区域（Moving the World, Together - 公司实力数据）
-    get_template_part('template-parts/homepage/statistics');
+    // 6. 统计数字展示区域（Moving the World, Together - 公司实力数据）- 暂时隐藏，保留以备将来使用
+    // get_template_part('template-parts/homepage/statistics');
     
     // 7. 新闻轮播区（Discover the Latest News）
     get_template_part('template-parts/homepage/news-carousel');
