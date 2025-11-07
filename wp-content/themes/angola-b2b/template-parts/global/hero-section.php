@@ -35,54 +35,9 @@ $args = wp_parse_args($custom_args, array(
 
 // If no title provided, try to get from context
 if (empty($args['title'])) {
-    if (is_tax('product_category')) {
-        $term = get_queried_object();
-        $args['title'] = $term->name ?? '';
-        $args['subtitle'] = term_description() ?: '';
-        
-        // Try to get background image from ACF
-        if (function_exists('get_field')) {
-            $category_hero_image = get_field('category_hero_image', $term);
-            if ($category_hero_image) {
-                // ACF returns array with 'url' key, or just URL string
-                if (is_array($category_hero_image) && isset($category_hero_image['url'])) {
-                    $args['background_image'] = $category_hero_image['url'];
-                } elseif (is_string($category_hero_image)) {
-                    $args['background_image'] = $category_hero_image;
-                } elseif (is_numeric($category_hero_image)) {
-                    $args['background_image'] = wp_get_attachment_image_url($category_hero_image, 'hero-banner');
-                }
-            }
-        }
-        
-        // Fallback: use category placeholder image
-        if (empty($args['background_image']) && isset($term->slug)) {
-            $args['background_image'] = angola_b2b_get_category_placeholder_image($term->slug);
-        }
-    } elseif (is_singular('product')) {
-        $args['title'] = get_the_title();
-        $args['subtitle'] = get_the_excerpt() ?: '';
-        
-        // Try to get background image from ACF
-        if (function_exists('get_field')) {
-            $product_hero_image = get_field('product_hero_image', get_the_ID());
-            if ($product_hero_image) {
-                // ACF returns array with 'url' key, or just URL string
-                if (is_array($product_hero_image) && isset($product_hero_image['url'])) {
-                    $args['background_image'] = $product_hero_image['url'];
-                } elseif (is_string($product_hero_image)) {
-                    $args['background_image'] = $product_hero_image;
-                } elseif (is_numeric($product_hero_image)) {
-                    $args['background_image'] = wp_get_attachment_image_url($product_hero_image, 'hero-banner');
-                }
-            }
-        }
-        
-        // Fallback: use product featured image
-        if (empty($args['background_image'])) {
-            $args['background_image'] = get_the_post_thumbnail_url(get_the_ID(), 'hero-banner') ?: '';
-        }
-    } elseif (is_front_page()) {
+    // Note: Hero section removed from product category pages and single product pages
+    // Only show hero on homepage and other pages that explicitly call it
+    if (is_front_page()) {
         // Homepage: get from ACF settings (page ID 45)
         if (function_exists('get_field')) {
             $args['title'] = get_field('hero_title', 45) ?: get_field('hero_title') ?: '';
