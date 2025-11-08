@@ -138,7 +138,7 @@ function angola_b2b_get_language_switcher($args = array()) {
     ob_start();
     ?>
     <div class="<?php echo esc_attr($args['class']); ?>">
-        <select name="language" class="language-select" onchange="window.location.href=this.value;">
+        <select name="language" class="language-select-dropdown" onchange="window.location.href=this.value;">
             <?php foreach (ANGOLA_B2B_SUPPORTED_LANGS as $code => $lang_data) : 
                 $switch_url = add_query_arg('lang', $code, home_url('/'));
                 $selected = ($code === $current_lang) ? 'selected' : '';
@@ -247,38 +247,6 @@ function angola_b2b_init_multilingual() {
 }
 
 /**
- * 添加语言切换CSS
+ * 语言切换样式已移至 assets/css/layout.css 中的 .language-select-dropdown
  */
-add_action('wp_head', 'angola_b2b_multilingual_inline_css');
-function angola_b2b_multilingual_inline_css() {
-    ?>
-    <style>
-        .language-switcher {
-            display: inline-block;
-        }
-        
-        .language-select {
-            padding: 8px 12px;
-            font-size: 14px;
-            border: 1px solid var(--primary-color, #003d82);
-            border-radius: 4px;
-            background-color: #fff;
-            color: var(--text-color, #333);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .language-select:hover {
-            border-color: var(--primary-color, #003d82);
-            box-shadow: 0 2px 4px rgba(0,61,130,0.1);
-        }
-        
-        .language-select:focus {
-            outline: none;
-            border-color: var(--primary-color, #003d82);
-            box-shadow: 0 0 0 3px rgba(0,61,130,0.1);
-        }
-    </style>
-    <?php
-}
 

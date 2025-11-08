@@ -151,6 +151,10 @@ function angola_b2b_get_translations() {
         
         // ========== SOCIAL SHARE ==========
         'share' => array('en' => 'Share', 'pt' => 'Compartilhar', 'zh' => '分享', 'zh-tw' => '分享'),
+        
+        // ========== CONTACT TOOLTIPS ==========
+        'send_email_to' => array('en' => 'Send email to: %s', 'pt' => 'Enviar e-mail para: %s', 'zh' => '发送邮件至：%s', 'zh-tw' => '發送郵件至：%s'),
+        'call_us' => array('en' => 'Call us: %s', 'pt' => 'Ligue para nós: %s', 'zh' => '致电：%s', 'zh-tw' => '致電：%s'),
     );
 }
 
