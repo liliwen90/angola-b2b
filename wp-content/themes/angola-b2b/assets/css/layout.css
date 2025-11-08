@@ -50,6 +50,7 @@
 /* Logo */
 .site-logo {
     flex-shrink: 0;
+    margin-right: auto;
 }
 
 .site-logo a {
