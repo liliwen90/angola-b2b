@@ -12,6 +12,58 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Create Homepage Settings Page if it doesn't exist
+ * 创建首页设置页面（如果不存在）
+ */
+function angola_b2b_create_homepage_settings_page() {
+    // Check if page with ID 45 exists
+    $page = get_post(45);
+    
+    // If page doesn't exist or was deleted, create it
+    if (!$page || $page->post_status === 'trash') {
+        // If a page exists but with different ID, find it by slug
+        $existing_page = get_page_by_path('homepage-settings', OBJECT, 'page');
+        
+        if (!$existing_page) {
+            // Create new page
+            $page_data = array(
+                'post_title'    => '首页设置',
+                'post_content'  => '<!-- wp:paragraph --><p>此页面用于存储首页的ACF设置字段。请勿删除此页面。</p><!-- /wp:paragraph -->',
+                'post_status'   => 'publish',
+                'post_type'     => 'page',
+                'post_author'   => 1,
+                'post_name'     => 'homepage-settings',
+                'comment_status' => 'closed',
+                'ping_status'   => 'closed',
+            );
+            
+            // Try to create page with ID 45
+            global $wpdb;
+            $wpdb->insert(
+                $wpdb->posts,
+                array(
+                    'ID' => 45,
+                    'post_author' => 1,
+                    'post_date' => current_time('mysql'),
+                    'post_date_gmt' => current_time('mysql', 1),
+                    'post_content' => $page_data['post_content'],
+                    'post_title' => $page_data['post_title'],
+                    'post_status' => 'publish',
+                    'post_name' => $page_data['post_name'],
+                    'post_type' => 'page',
+                    'comment_status' => 'closed',
+                    'ping_status' => 'closed',
+                    'post_modified' => current_time('mysql'),
+                    'post_modified_gmt' => current_time('mysql', 1),
+                ),
+                array('%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+            );
+        }
+    }
+}
+add_action('after_setup_theme', 'angola_b2b_create_homepage_settings_page', 5);
+
+/**
  * Set up theme defaults and register support for WordPress features
  */
 function angola_b2b_setup() {

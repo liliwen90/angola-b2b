@@ -266,18 +266,28 @@ add_action('admin_menu', 'angola_b2b_hide_unauthorized_menus_for_angola_staff', 
 
 /**
  * 优化"工具"菜单 - 只保留业务相关的工具
- * 将首页图片管理提升到顶级菜单（多语言支持）
+ * 将首页设置提升到顶级菜单（多语言支持）
  */
 function angola_b2b_reorganize_tools_menu() {
-    // === 创建简化的"首页设置"顶级菜单 ===
+    // === 创建"首页设置"顶级菜单 ===
     add_menu_page(
         angola_b2b_admin_translate('homepage_settings'),  // 页面标题
         angola_b2b_admin_translate('homepage_settings'),  // 菜单标题
-        'edit_posts',                        // 权限（编辑员工即可访问）
-        'admin.php?page=angola-homepage-images', // 菜单slug
-        '',                                  // 回调函数（使用现有页面）
+        'edit_pages',                        // 权限（管理员和产品经理可以访问）
+        'post.php?post=45&action=edit',      // 直接编辑ID为45的页面
+        '',                                  // 回调函数（使用WordPress内置编辑器）
         'dashicons-admin-home',              // 图标
         25                                   // 位置（在产品管理后面）
+    );
+    
+    // === 添加"首页图片"子菜单 ===
+    add_submenu_page(
+        'post.php?post=45&action=edit',      // 父菜单slug
+        '首页图片管理',                       // 页面标题
+        '🖼️ 首页图片',                       // 菜单标题
+        'edit_posts',                        // 权限
+        'angola-homepage-images',            // 菜单slug
+        'angola_b2b_homepage_images_page'    // 回调函数
     );
 }
 add_action('admin_menu', 'angola_b2b_reorganize_tools_menu', 9998);
