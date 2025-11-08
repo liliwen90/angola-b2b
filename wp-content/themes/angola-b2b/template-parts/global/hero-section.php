@@ -194,17 +194,22 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                         <!-- Contact Tab Content -->
                         <div class="action-panel" data-panel="contact">
                             <div class="contact-quick-info">
+                                <?php
+                                // Get contact info from ACF settings (page ID 45)
+                                $contact_email = get_field('contact_email', 45) ?: 'info@example.com';
+                                $contact_phone = get_field('contact_phone', 45) ?: '+1 234 567 8900';
+                                ?>
                                 <div class="contact-item">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                         <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <span>info@example.com</span>
+                                    <span><?php echo esc_html($contact_email); ?></span>
                                 </div>
                                 <div class="contact-item">
                                     <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                         <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <span>+1 234 567 8900</span>
+                                    <span><?php echo esc_html($contact_phone); ?></span>
                                 </div>
                                 <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-primary btn-lg">
                                     <?php esc_html_e('Contact Us', 'angola-b2b'); ?>

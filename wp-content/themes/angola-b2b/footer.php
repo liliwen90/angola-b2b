@@ -81,13 +81,18 @@
                     <div class="footer-column footer-contact">
                         <h4 class="footer-heading"><?php _et('contact_us'); ?></h4>
                         <div class="contact-info">
+                            <?php
+                            // Get contact info from ACF settings (page ID 45)
+                            $contact_email = get_field('contact_email', 45) ?: 'info@example.com';
+                            $contact_phone = get_field('contact_phone', 45) ?: '+1 234 567 8900';
+                            ?>
                             <div class="contact-item">
                                 <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <div>
                                     <span class="contact-label"><?php _et('email'); ?></span>
-                                    <a href="mailto:info@example.com">info@example.com</a>
+                                    <a href="mailto:<?php echo esc_attr($contact_email); ?>"><?php echo esc_html($contact_email); ?></a>
                                 </div>
                             </div>
                             <div class="contact-item">
@@ -96,7 +101,7 @@
                                 </svg>
                                 <div>
                                     <span class="contact-label"><?php _et('phone'); ?></span>
-                                    <a href="tel:+12345678900">+1 234 567 8900</a>
+                                    <a href="tel:<?php echo esc_attr(str_replace(' ', '', $contact_phone)); ?>"><?php echo esc_html($contact_phone); ?></a>
                                 </div>
                             </div>
                             <div class="contact-item">

@@ -157,6 +157,24 @@ function angola_b2b_register_homepage_settings_fields() {
                     ),
                 ),
             ),
+            array(
+                'key' => 'field_contact_email',
+                'label' => '联系邮箱',
+                'name' => 'contact_email',
+                'type' => 'email',
+                'instructions' => '网站联系邮箱（显示在首页和页脚）',
+                'default_value' => 'info@example.com',
+                'placeholder' => 'info@example.com',
+            ),
+            array(
+                'key' => 'field_contact_phone',
+                'label' => '联系电话',
+                'name' => 'contact_phone',
+                'type' => 'text',
+                'instructions' => '网站联系电话（显示在首页和页脚）',
+                'default_value' => '+1 234 567 8900',
+                'placeholder' => '+1 234 567 8900',
+            ),
             
             // Tab: Banner轮播
             array(
