@@ -541,21 +541,23 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    color: var(--color-gray-900);
-    font-size: var(--font-size-base);
-    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 600;
     white-space: nowrap;
 }
 
 .contact-item span {
     white-space: nowrap;
     overflow: visible;
+    color: #1a1a1a;
+    font-weight: 600;
 }
 
 /* Contact Item Link Styles */
 a.contact-item.contact-link {
     text-decoration: none;
-    color: var(--color-gray-900);
+    color: #1a1a1a;
     transition: all 0.3s ease;
     padding: var(--space-2) var(--space-3);
     border-radius: 8px;
