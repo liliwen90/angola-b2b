@@ -16,6 +16,38 @@ if (is_front_page()) {
     return;
 }
 
+/**
+ * Helper function to get translated category name
+ */
+function angola_b2b_get_translated_term_name($term) {
+    if (!$term) {
+        return '';
+    }
+    
+    $current_lang = angola_b2b_get_current_language();
+    $translated_name = $term->name; // Default to English name
+    
+    // Try to get translated name from ACF fields
+    if ($current_lang === 'pt' && function_exists('get_field')) {
+        $pt_name = get_field('name_pt', $term);
+        if (!empty($pt_name)) {
+            $translated_name = $pt_name;
+        }
+    } elseif ($current_lang === 'zh' && function_exists('get_field')) {
+        $zh_name = get_field('name_zh', $term);
+        if (!empty($zh_name)) {
+            $translated_name = $zh_name;
+        }
+    } elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
+        $zh_tw_name = get_field('name_zh_tw', $term);
+        if (!empty($zh_tw_name)) {
+            $translated_name = $zh_tw_name;
+        }
+    }
+    
+    return $translated_name;
+}
+
 $breadcrumbs = array();
 
 // Always start with home
@@ -54,7 +86,7 @@ if (is_singular('product')) {
             $term_link = get_term_link($parent_term);
             if (!is_wp_error($term_link)) {
                 $breadcrumbs[] = array(
-                    'title' => $parent_term->name,
+                    'title' => angola_b2b_get_translated_term_name($parent_term),
                     'url'   => $term_link,
                 );
             }
@@ -64,7 +96,7 @@ if (is_singular('product')) {
         $term_link = get_term_link($term);
         if (!is_wp_error($term_link)) {
             $breadcrumbs[] = array(
-                'title' => $term->name,
+                'title' => angola_b2b_get_translated_term_name($term),
                 'url'   => $term_link,
             );
         }
@@ -111,7 +143,7 @@ elseif (is_tax('product_category')) {
             $term_link = get_term_link($parent_term);
             if (!is_wp_error($term_link)) {
                 $breadcrumbs[] = array(
-                    'title' => $parent_term->name,
+                    'title' => angola_b2b_get_translated_term_name($parent_term),
                     'url'   => $term_link,
                 );
             }
@@ -121,7 +153,7 @@ elseif (is_tax('product_category')) {
     // Current category (no link)
     if ($term && isset($term->name)) {
         $breadcrumbs[] = array(
-            'title' => $term->name,
+            'title' => angola_b2b_get_translated_term_name($term),
             'url'   => '',
         );
     }
