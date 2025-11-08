@@ -31,7 +31,7 @@ wp_body_open();
 ?>
 
 <div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'angola-b2b'); ?></a>
+    <a class="skip-link screen-reader-text" href="#primary"><?php _et('skip_to_content'); ?></a>
 
     <header class="site-header" id="masthead">
         <div class="header-container">
@@ -67,27 +67,15 @@ wp_body_open();
             </nav>
             
             <!-- Language Switcher -->
-            <div class="language-switcher">
-                <?php
-                // Polylang language switcher - Show all languages even if no translation exists
-                if (function_exists('pll_the_languages')) {
-                    $languages = pll_the_languages(array(
-                        'raw' => 1,
-                        'hide_if_empty' => 0,           // Show all languages even if no content
-                        'hide_if_no_translation' => 0,  // Don't hide untranslated languages
-                        'force_home' => 1,              // Link to home if no translation exists
-                    ));
-                    if (!empty($languages) && is_array($languages)) {
-                        echo '<select id="language-select" class="language-select-dropdown" aria-label="' . esc_attr__('Select Language', 'angola-b2b') . '">';
-                        foreach ($languages as $lang) {
-                            $selected = ($lang['current_lang']) ? 'selected="selected"' : '';
-                            echo '<option value="' . esc_url($lang['url']) . '" ' . $selected . '>' . esc_html($lang['name']) . '</option>';
-                        }
-                        echo '</select>';
-                    }
-                }
-                ?>
-            </div>
+            <?php
+            // Custom language switcher - Site-wide language switch (always go to homepage)
+            // Using Cookie-based system, no plugin dependencies
+            angola_b2b_language_switcher(array(
+                'show_flag' => true,
+                'show_name' => true,
+                'class' => 'language-switcher',
+            ));
+            ?>
             
             <!-- CTA Button -->
             <div class="header-cta">
@@ -105,14 +93,14 @@ wp_body_open();
                 }
                 ?>
                 <a href="<?php echo esc_url($contact_url); ?>" class="cta-button">
-                    <?php esc_html_e('Request Quote', 'angola-b2b'); ?>
+                    <?php _et('request_quote'); ?>
                 </a>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle navigation menu', 'angola-b2b'); ?>">
+            <button class="mobile-menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php echo esc_attr(__t('toggle_menu')); ?>">
                 <span class="menu-toggle-icon"></span>
-                <span class="screen-reader-text"><?php esc_html_e('Menu', 'angola-b2b'); ?></span>
+                <span class="screen-reader-text"><?php _et('menu'); ?></span>
             </button>
         </div>
     </header>

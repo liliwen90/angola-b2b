@@ -6,6 +6,48 @@
  */
 
 $product_id = get_the_ID();
+
+// Get current language for multilingual content
+$current_lang = angola_b2b_get_current_language();
+
+// Get translated product title from ACF
+$product_title = get_the_title();
+if ($current_lang === 'pt' && function_exists('get_field')) {
+    $pt_title = get_field('title_pt', $product_id);
+    if (!empty($pt_title)) {
+        $product_title = $pt_title;
+    }
+} elseif ($current_lang === 'zh' && function_exists('get_field')) {
+    $zh_title = get_field('title_zh', $product_id);
+    if (!empty($zh_title)) {
+        $product_title = $zh_title;
+    }
+} elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
+    $zh_tw_title = get_field('title_zh_tw', $product_id);
+    if (!empty($zh_tw_title)) {
+        $product_title = $zh_tw_title;
+    }
+}
+
+// Get translated short description from ACF
+$short_description = get_the_excerpt();
+if ($current_lang === 'pt' && function_exists('get_field')) {
+    $pt_desc = get_field('short_description_pt', $product_id);
+    if (!empty($pt_desc)) {
+        $short_description = $pt_desc;
+    }
+} elseif ($current_lang === 'zh' && function_exists('get_field')) {
+    $zh_desc = get_field('short_description_zh', $product_id);
+    if (!empty($zh_desc)) {
+        $short_description = $zh_desc;
+    }
+} elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
+    $zh_tw_desc = get_field('short_description_zh_tw', $product_id);
+    if (!empty($zh_tw_desc)) {
+        $short_description = $zh_tw_desc;
+    }
+}
+
 // 调试：检查是否有特色图片
 $thumbnail_id = get_post_thumbnail_id($product_id);
 // 使用固定的产品卡片尺寸，但如果不存在则回退
@@ -32,7 +74,6 @@ if (!$thumbnail && $thumbnail_id) {
 }
 $is_featured = angola_b2b_is_featured_product($product_id);
 $categories = get_the_terms($product_id, 'product_category');
-$short_description = get_the_excerpt();
 ?>
 
 <article id="product-<?php the_ID(); ?>" <?php post_class('product-card'); ?>>
@@ -47,16 +88,16 @@ $short_description = get_the_excerpt();
                          loading="lazy"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                     <div class="product-placeholder" style="display:none;">
-                        <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>
+                        <span><?php _et('no_image'); ?></span>
                     </div>
                 <?php else : ?>
                     <div class="product-placeholder">
-                        <span><?php esc_html_e('No Image', 'angola-b2b'); ?></span>
+                        <span><?php _et('no_image'); ?></span>
                     </div>
                 <?php endif; ?>
                 
                 <?php if ($is_featured) : ?>
-                    <span class="featured-badge"><?php esc_html_e('推荐', 'angola-b2b'); ?></span>
+                    <span class="featured-badge"><?php _et('featured'); ?></span>
                 <?php endif; ?>
             </a>
         </div>
@@ -72,10 +113,30 @@ $short_description = get_the_excerpt();
                     foreach ($categories as $category) {
                         $term_link = get_term_link($category);
                         if (!is_wp_error($term_link)) {
+                            // Get translated category name from ACF fields
+                            $cat_name = $category->name; // Default to English name
+                            
+                            if ($current_lang === 'pt' && function_exists('get_field')) {
+                                $pt_name = get_field('name_pt', $category);
+                                if (!empty($pt_name)) {
+                                    $cat_name = $pt_name;
+                                }
+                            } elseif ($current_lang === 'zh' && function_exists('get_field')) {
+                                $zh_name = get_field('name_zh', $category);
+                                if (!empty($zh_name)) {
+                                    $cat_name = $zh_name;
+                                }
+                            } elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
+                                $zh_tw_name = get_field('name_zh_tw', $category);
+                                if (!empty($zh_tw_name)) {
+                                    $cat_name = $zh_tw_name;
+                                }
+                            }
+                            
                             $category_links[] = sprintf(
                                 '<a href="%s" class="product-category-link">%s</a>',
                                 esc_url($term_link),
-                                esc_html($category->name)
+                                esc_html($cat_name)
                             );
                         }
                     }
@@ -88,7 +149,7 @@ $short_description = get_the_excerpt();
             
             <!-- Title -->
             <h3 class="product-card-title">
-                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                <a href="<?php the_permalink(); ?>"><?php echo esc_html($product_title); ?></a>
             </h3>
             
             <!-- Excerpt -->
@@ -101,7 +162,7 @@ $short_description = get_the_excerpt();
             <!-- Action Buttons -->
             <div class="product-card-actions">
                 <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">
-                    <?php esc_html_e('查看详情', 'angola-b2b'); ?>
+                    <?php _et('view_details'); ?>
                 </a>
                 
                 <?php

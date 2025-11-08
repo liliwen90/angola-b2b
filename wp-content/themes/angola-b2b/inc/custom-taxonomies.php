@@ -55,7 +55,9 @@ function angola_b2b_register_product_category_taxonomy() {
 
     register_taxonomy('product_category', array('product'), $args);
 }
-add_action('init', 'angola_b2b_register_product_category_taxonomy', 0);
+// Priority 10 ensures Polylang is initialized before this taxonomy is registered
+// 优先级10确保Polylang在注册此分类法之前已初始化
+add_action('init', 'angola_b2b_register_product_category_taxonomy', 10);
 
 /**
  * Register Product Tag Taxonomy (Non-hierarchical)
@@ -101,5 +103,7 @@ function angola_b2b_register_product_tag_taxonomy() {
 
     register_taxonomy('product_tag', array('product'), $args);
 }
-add_action('init', 'angola_b2b_register_product_tag_taxonomy', 0);
+// Priority 10 ensures Polylang is initialized before this taxonomy is registered
+// 优先级10确保Polylang在注册此分类法之前已初始化
+add_action('init', 'angola_b2b_register_product_tag_taxonomy', 10);
 

@@ -48,6 +48,14 @@ function angola_b2b_add_tools_menu() {
     );
     
     add_management_page(
+        '批量创建多语言分类',
+        '批量创建多语言分类',
+        'manage_options',
+        'angola-b2b-create-multilingual-categories',
+        'angola_b2b_create_multilingual_categories_page'
+    );
+    
+    add_management_page(
         '删除所有产品和分类',
         '删除所有产品和分类',
         'manage_options',
@@ -1593,6 +1601,192 @@ function angola_b2b_save_homepage_images() {
     
     echo '<div class="notice notice-success is-dismissible" style="margin: 20px 0;">';
     echo '<p><strong>✅ 保存成功！</strong> 首页图片设置已更新。<a href="' . esc_url(home_url('/')) . '" target="_blank">查看首页效果</a></p>';
+    echo '</div>';
+}
+
+/**
+ * Batch Create Multilingual Product Categories Page
+ * 批量创建多语言产品分类页面
+ */
+function angola_b2b_create_multilingual_categories_page() {
+    ?>
+    <div class="wrap">
+        <h1>🌍 批量创建多语言产品分类</h1>
+        <p>此工具将自动创建英语、葡萄牙语、简体中文、繁体中文的所有产品分类。</p>
+        
+        <?php
+        // Handle form submission
+        if (isset($_POST['create_categories_nonce']) && wp_verify_nonce($_POST['create_categories_nonce'], 'create_multilingual_categories')) {
+            angola_b2b_batch_create_categories();
+        }
+        ?>
+        
+        <form method="post" style="margin: 30px 0;">
+            <?php wp_nonce_field('create_multilingual_categories', 'create_categories_nonce'); ?>
+            
+            <div class="card" style="max-width: 800px; padding: 20px; margin-bottom: 20px;">
+                <h2>📋 将创建以下分类：</h2>
+                
+                <h3>🇬🇧 英语 (EN) - 5个分类</h3>
+                <ul>
+                    <li>Logistics & Customs (logistics)</li>
+                    <li>Building Materials (building-materials)</li>
+                    <li>Agricultural Machinery (agricultural-machinery)</li>
+                    <li>Industrial Equipment (industrial-equipment)</li>
+                    <li>Construction Engineering (construction-engineering)</li>
+                </ul>
+                
+                <h3>🇵🇹 葡萄牙语 (PT) - 5个分类</h3>
+                <ul>
+                    <li>Logística e Alfândega (logistica-alfandega-pt)</li>
+                    <li>Materiais de Construção (materiais-construcao-pt)</li>
+                    <li>Máquinas Agrícolas (maquinas-agricolas-pt)</li>
+                    <li>Equipamento Industrial (equipamento-industrial-pt)</li>
+                    <li>Engenharia de Construção (engenharia-construcao-pt)</li>
+                </ul>
+                
+                <h3>🇨🇳 简体中文 (ZH) - 5个分类</h3>
+                <ul>
+                    <li>物流清关 (wuliu-qingguan-zh)</li>
+                    <li>建筑材料 (jianzhu-cailiao-zh)</li>
+                    <li>农机农具 (nongjijongju-zh)</li>
+                    <li>工业设备 (gongye-shebei-zh)</li>
+                    <li>建筑工程 (jianzhu-gongcheng-zh)</li>
+                </ul>
+                
+                <h3>🇹🇼 繁体中文 (ZH-TW) - 5个分类</h3>
+                <ul>
+                    <li>物流清關 (wuliu-qingguan-zh-tw)</li>
+                    <li>建築材料 (jianzhu-cailiao-zh-tw)</li>
+                    <li>農機農具 (nongjijongju-zh-tw)</li>
+                    <li>工業設備 (gongye-shebei-zh-tw)</li>
+                    <li>建築工程 (jianzhu-gongcheng-zh-tw)</li>
+                </ul>
+                
+                <p><strong>总计：20个分类</strong></p>
+            </div>
+            
+            <p class="submit">
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="🚀 开始批量创建">
+            </p>
+        </form>
+        
+        <div class="card" style="max-width: 800px; padding: 20px; background: #fff3cd; border-left: 4px solid #ffc107;">
+            <h3>⚠️ 注意事项：</h3>
+            <ul>
+                <li>如果分类已存在，将自动跳过</li>
+                <li>创建完成后，需要在Polylang中手动关联不同语言的相同概念分类</li>
+                <li>建议在创建前备份数据库</li>
+            </ul>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Batch create multilingual categories
+ * 批量创建多语言分类
+ */
+function angola_b2b_batch_create_categories() {
+    // 定义所有语言的分类数据
+    $categories_data = array(
+        // 英语分类（默认语言）
+        'en' => array(
+            array('name' => 'Logistics & Customs', 'slug' => 'logistics'),
+            array('name' => 'Building Materials', 'slug' => 'building-materials'),
+            array('name' => 'Agricultural Machinery', 'slug' => 'agricultural-machinery'),
+            array('name' => 'Industrial Equipment', 'slug' => 'industrial-equipment'),
+            array('name' => 'Construction Engineering', 'slug' => 'construction-engineering'),
+        ),
+        // 葡萄牙语分类
+        'pt' => array(
+            array('name' => 'Logística e Alfândega', 'slug' => 'logistica-alfandega-pt'),
+            array('name' => 'Materiais de Construção', 'slug' => 'materiais-construcao-pt'),
+            array('name' => 'Máquinas Agrícolas', 'slug' => 'maquinas-agricolas-pt'),
+            array('name' => 'Equipamento Industrial', 'slug' => 'equipamento-industrial-pt'),
+            array('name' => 'Engenharia de Construção', 'slug' => 'engenharia-construcao-pt'),
+        ),
+        // 简体中文分类
+        'zh' => array(
+            array('name' => '物流清关', 'slug' => 'wuliu-qingguan-zh'),
+            array('name' => '建筑材料', 'slug' => 'jianzhu-cailiao-zh'),
+            array('name' => '农机农具', 'slug' => 'nongjijongju-zh'),
+            array('name' => '工业设备', 'slug' => 'gongye-shebei-zh'),
+            array('name' => '建筑工程', 'slug' => 'jianzhu-gongcheng-zh'),
+        ),
+        // 繁体中文分类
+        'zh-tw' => array(
+            array('name' => '物流清關', 'slug' => 'wuliu-qingguan-zh-tw'),
+            array('name' => '建築材料', 'slug' => 'jianzhu-cailiao-zh-tw'),
+            array('name' => '農機農具', 'slug' => 'nongjijongju-zh-tw'),
+            array('name' => '工業設備', 'slug' => 'gongye-shebei-zh-tw'),
+            array('name' => '建築工程', 'slug' => 'jianzhu-gongcheng-zh-tw'),
+        ),
+    );
+    
+    // 统计数据
+    $stats = array(
+        'success' => 0,
+        'skip' => 0,
+        'error' => 0,
+    );
+    
+    echo '<div class="notice notice-info"><p><strong>📋 开始创建分类...</strong></p></div>';
+    
+    // 遍历每种语言
+    foreach ($categories_data as $lang_code => $categories) {
+        echo '<h2>🔵 ' . strtoupper($lang_code) . ' 语言分类</h2>';
+        
+        // 遍历该语言的所有分类
+        foreach ($categories as $category) {
+            $name = $category['name'];
+            $slug = $category['slug'];
+            
+            // 检查分类是否已存在
+            $existing_term = term_exists($slug, 'product_category');
+            
+            if ($existing_term !== 0 && $existing_term !== null) {
+                echo '<div class="notice notice-warning inline"><p>⚠️ <strong>' . esc_html($name) . '</strong> (别名: ' . esc_html($slug) . ') - 已存在，跳过</p></div>';
+                $stats['skip']++;
+                continue;
+            }
+            
+            // 创建分类
+            $result = wp_insert_term(
+                $name,
+                'product_category',
+                array(
+                    'slug' => $slug,
+                )
+            );
+            
+            if (is_wp_error($result)) {
+                echo '<div class="notice notice-error inline"><p>❌ <strong>' . esc_html($name) . '</strong> - 创建失败: ' . $result->get_error_message() . '</p></div>';
+                $stats['error']++;
+            } else {
+                echo '<div class="notice notice-success inline"><p>✅ <strong>' . esc_html($name) . '</strong> (别名: ' . esc_html($slug) . ') - 创建成功! (ID: ' . $result['term_id'] . ')</p></div>';
+                $stats['success']++;
+            }
+        }
+    }
+    
+    // 显示统计信息
+    echo '<div class="card" style="max-width: 800px; padding: 20px; margin: 20px 0; background: #f6f7f7;">';
+    echo '<h3>📊 创建统计</h3>';
+    echo '<p><strong>✅ 成功创建:</strong> ' . $stats['success'] . ' 个</p>';
+    echo '<p><strong>⚠️ 已存在跳过:</strong> ' . $stats['skip'] . ' 个</p>';
+    echo '<p><strong>❌ 创建失败:</strong> ' . $stats['error'] . ' 个</p>';
+    echo '<p><strong>📝 总计:</strong> ' . ($stats['success'] + $stats['skip'] + $stats['error']) . ' 个</p>';
+    echo '</div>';
+    
+    // 显示后续操作建议
+    echo '<div class="card" style="max-width: 800px; padding: 20px; background: #d7f1e3; border-left: 4px solid #00a32a;">';
+    echo '<h3>✅ 下一步操作：</h3>';
+    echo '<ol>';
+    echo '<li>在WordPress后台检查产品分类：<a href="' . admin_url('edit-tags.php?taxonomy=product_category&post_type=product') . '" target="_blank">查看产品分类</a></li>';
+    echo '<li>在Polylang中关联不同语言的分类（相同概念的分类需要关联）</li>';
+    echo '<li>刷新固定链接：<a href="' . admin_url('options-permalink.php') . '" target="_blank">固定链接设置</a></li>';
+    echo '</ol>';
     echo '</div>';
 }
 

@@ -23,7 +23,7 @@
                         <p class="footer-description">
                             <?php
                             $description = get_bloginfo('description');
-                            echo $description ? esc_html($description) : esc_html__('Your trusted partner for quality products and reliable service in construction, agriculture, and industrial equipment.', 'angola-b2b');
+                            echo $description ? esc_html($description) : esc_html(__t('footer_description'));
                             ?>
                         </p>
                         
@@ -46,18 +46,18 @@
                     
                     <!-- Quick Links -->
                     <div class="footer-column footer-links">
-                        <h4 class="footer-heading"><?php esc_html_e('Company', 'angola-b2b'); ?></h4>
+                        <h4 class="footer-heading"><?php _et('company'); ?></h4>
                         <ul class="footer-menu">
-                            <li><a href="<?php echo esc_url(home_url('/about')); ?>"><?php esc_html_e('About Us', 'angola-b2b'); ?></a></li>
-                            <li><a href="<?php echo esc_url(home_url('/services')); ?>"><?php esc_html_e('Our Services', 'angola-b2b'); ?></a></li>
-                            <li><a href="<?php echo esc_url(home_url('/careers')); ?>"><?php esc_html_e('Careers', 'angola-b2b'); ?></a></li>
-                            <li><a href="<?php echo esc_url(home_url('/contact')); ?>"><?php esc_html_e('Contact', 'angola-b2b'); ?></a></li>
+                            <li><a href="<?php echo esc_url(home_url('/about')); ?>"><?php _et('about_us'); ?></a></li>
+                            <li><a href="<?php echo esc_url(home_url('/services')); ?>"><?php _et('our_services'); ?></a></li>
+                            <li><a href="<?php echo esc_url(home_url('/careers')); ?>"><?php _et('careers'); ?></a></li>
+                            <li><a href="<?php echo esc_url(home_url('/contact')); ?>"><?php _et('contact'); ?></a></li>
                         </ul>
                     </div>
                     
                     <!-- Product Categories -->
                     <div class="footer-column footer-products">
-                        <h4 class="footer-heading"><?php esc_html_e('Products', 'angola-b2b'); ?></h4>
+                        <h4 class="footer-heading"><?php _et('products'); ?></h4>
                         <ul class="footer-menu">
                             <?php
                             $categories = get_terms(array(
@@ -79,14 +79,14 @@
                     
                     <!-- Contact Info -->
                     <div class="footer-column footer-contact">
-                        <h4 class="footer-heading"><?php esc_html_e('Contact Us', 'angola-b2b'); ?></h4>
+                        <h4 class="footer-heading"><?php _et('contact_us'); ?></h4>
                         <div class="contact-info">
                             <div class="contact-item">
                                 <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <div>
-                                    <span class="contact-label"><?php esc_html_e('Email', 'angola-b2b'); ?></span>
+                                    <span class="contact-label"><?php _et('email'); ?></span>
                                     <a href="mailto:info@example.com">info@example.com</a>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                     <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <div>
-                                    <span class="contact-label"><?php esc_html_e('Phone', 'angola-b2b'); ?></span>
+                                    <span class="contact-label"><?php _et('phone'); ?></span>
                                     <a href="tel:+12345678900">+1 234 567 8900</a>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                     <circle cx="12" cy="10" r="3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 <div>
-                                    <span class="contact-label"><?php esc_html_e('Address', 'angola-b2b'); ?></span>
+                                    <span class="contact-label"><?php _et('address'); ?></span>
                                     <span>Luanda, Angola</span>
                                 </div>
                             </div>
@@ -120,23 +120,23 @@
             <div class="container">
                 <div class="footer-bottom-content">
                     <p class="footer-copyright">
-                        &copy; <?php echo esc_html(date_i18n('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php esc_html_e('All rights reserved.', 'angola-b2b'); ?>
+                        &copy; <?php echo esc_html(date_i18n('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php _et('all_rights_reserved'); ?>
                     </p>
                     <div class="footer-legal">
-                        <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>"><?php esc_html_e('Privacy Policy', 'angola-b2b'); ?></a>
+                        <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>"><?php _et('privacy_policy'); ?></a>
                         <span class="separator">|</span>
-                        <a href="<?php echo esc_url(home_url('/terms')); ?>"><?php esc_html_e('Terms & Conditions', 'angola-b2b'); ?></a>
+                        <a href="<?php echo esc_url(home_url('/terms')); ?>"><?php _et('terms_conditions'); ?></a>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Back to Top Button -->
-        <button class="back-to-top" aria-label="<?php esc_attr_e('Back to top', 'angola-b2b'); ?>" style="display: none;">
+        <button class="back-to-top" aria-label="<?php echo esc_attr(__t('back_to_top')); ?>" style="display: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <polyline points="18 15 12 9 6 15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="screen-reader-text"><?php esc_html_e('Back to top', 'angola-b2b'); ?></span>
+            <span class="screen-reader-text"><?php _et('back_to_top'); ?></span>
         </button>
     </footer>
 

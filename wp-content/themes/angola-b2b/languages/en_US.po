@@ -1,0 +1,186 @@
+# Translation file for Angola B2B Theme - English
+msgid ""
+msgstr ""
+"Project-Id-Version: Angola B2B Theme\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Header
+msgid "Skip to content"
+msgstr "Skip to content"
+
+msgid "Request Quote"
+msgstr "Request Quote"
+
+msgid "Select Language"
+msgstr "Select Language"
+
+msgid "Toggle navigation menu"
+msgstr "Toggle navigation menu"
+
+msgid "Menu"
+msgstr "Menu"
+
+# Footer
+msgid "Your trusted partner for quality products and reliable service in construction, agriculture, and industrial equipment."
+msgstr "Your trusted partner for quality products and reliable service in construction, agriculture, and industrial equipment."
+
+msgid "Company"
+msgstr "Company"
+
+msgid "About Us"
+msgstr "About Us"
+
+msgid "Our Services"
+msgstr "Our Services"
+
+msgid "Careers"
+msgstr "Careers"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "Contact Us"
+msgstr "Contact Us"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+msgid "Terms & Conditions"
+msgstr "Terms & Conditions"
+
+msgid "Back to top"
+msgstr "Back to top"
+
+# Product Card
+msgid "No Image"
+msgstr "No Image"
+
+msgid "推荐"
+msgstr "Featured"
+
+msgid "查看详情"
+msgstr "View Details"
+
+msgid "立即询价"
+msgstr "Inquire Now"
+
+msgid "现货"
+msgstr "In Stock"
+
+msgid "查看更多"
+msgstr "View More"
+
+# Homepage
+msgid "现货供应 - 即刻发货"
+msgstr "In Stock - Ship Immediately"
+
+msgid "本地库存，即刻发货"
+msgstr "Local Stock, Immediate Shipping"
+
+msgid "Featured Products"
+msgstr "Featured Products"
+
+msgid "View All Products"
+msgstr "View All Products"
+
+msgid "No featured products at the moment."
+msgstr "No featured products at the moment."
+
+msgid "Why Choose Us"
+msgstr "Why Choose Us"
+
+msgid "Contact Us Now"
+msgstr "Contact Us Now"
+
+# Categories
+msgid "物流清关"
+msgstr "Logistics & Customs"
+
+msgid "建筑材料"
+msgstr "Building Materials"
+
+msgid "农机农具"
+msgstr "Agricultural Machinery"
+
+msgid "工业设备"
+msgstr "Industrial Equipment"
+
+msgid "建筑工程"
+msgstr "Construction Engineering"
+
+# Product Archive
+msgid "No products found in this category."
+msgstr "No products found in this category."
+
+msgid "No products found."
+msgstr "No products found."
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+# Product Single
+msgid "Description"
+msgstr "Description"
+
+msgid "Specifications"
+msgstr "Specifications"
+
+msgid "Inquiry"
+msgstr "Inquiry"
+
+msgid "Specification"
+msgstr "Specification"
+
+msgid "Value"
+msgstr "Value"
+
+msgid "No specifications available for this product."
+msgstr "No specifications available for this product."
+
+msgid "Related Products"
+msgstr "Related Products"
+
+msgid "Add to Inquiry"
+msgstr "Add to Inquiry"
+
+# Breadcrumbs
+msgid "Home"
+msgstr "Home"
+
+# Search & 404
+msgid "Search Results"
+msgstr "Search Results"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Page Not Found"
+msgstr "Page Not Found"
+
+msgid "Sorry, the page you are looking for could not be found."
+msgstr "Sorry, the page you are looking for could not be found."
+
+msgid "Go Back Home"
+msgstr "Go Back Home"
+

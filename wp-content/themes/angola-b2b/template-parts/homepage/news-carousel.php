@@ -15,55 +15,55 @@ if (!defined('ABSPATH')) {
 $news_items = array(
     array(
         'id' => 'news-1',
-        'category' => __('EVENTS', 'angola-b2b'),
+        'category' => __t('news_events'),
         'date' => '05/11/2025',
-        'title' => __('Angola B2B Participates in International Trade Fair 2025', 'angola-b2b'),
-        'excerpt' => __('Angola B2B showcases its comprehensive range of construction and industrial equipment at the 2025 International Trade Fair in Luanda.', 'angola-b2b'),
+        'title' => __t('news_title_1'),
+        'excerpt' => __t('news_excerpt_1'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/news/msc-news-default.jpg?w=800',
         'link' => '#',
     ),
     array(
         'id' => 'news-2',
-        'category' => __('EVENTS', 'angola-b2b'),
+        'category' => __t('news_events'),
         'date' => '27/10/2025',
-        'title' => __('New Agricultural Equipment Showcase at Farming Expo', 'angola-b2b'),
-        'excerpt' => __('Visit our booth to discover the latest agricultural machinery and equipment designed to improve farm productivity.', 'angola-b2b'),
+        'title' => __t('news_title_2'),
+        'excerpt' => __t('news_excerpt_2'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
         'id' => 'news-3',
-        'category' => __('COMPANY NEWS', 'angola-b2b'),
+        'category' => __t('news_company'),
         'date' => '20/10/2025',
-        'title' => __('Angola B2B Expands Warehouse Facilities', 'angola-b2b'),
-        'excerpt' => __('New 10,000 sq ft warehouse in Luanda strengthens our commitment to serving customers with faster delivery times.', 'angola-b2b'),
+        'title' => __t('news_title_3'),
+        'excerpt' => __t('news_excerpt_3'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/inland-services/msc-inland-services-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
         'id' => 'news-4',
-        'category' => __('SUSTAINABILITY', 'angola-b2b'),
+        'category' => __t('news_sustainability'),
         'date' => '15/10/2025',
-        'title' => __('Green Equipment Initiative: Eco-Friendly Solutions', 'angola-b2b'),
-        'excerpt' => __('Angola B2B introduces new line of environmentally friendly equipment with reduced emissions and improved efficiency.', 'angola-b2b'),
+        'title' => __t('news_title_4'),
+        'excerpt' => __t('news_excerpt_4'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/hero-ship-at-sunset.jpg?w=800',
         'link' => '#',
     ),
     array(
         'id' => 'news-5',
-        'category' => __('NEW SERVICE', 'angola-b2b'),
+        'category' => __t('news_service'),
         'date' => '10/10/2025',
-        'title' => __('Introducing 24/7 Technical Support Service', 'angola-b2b'),
-        'excerpt' => __('Our new round-the-clock technical support ensures your operations never stop, with expert assistance available anytime.', 'angola-b2b'),
+        'title' => __t('news_title_5'),
+        'excerpt' => __t('news_excerpt_5'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/digital/msc-digital-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
     array(
         'id' => 'news-6',
-        'category' => __('PARTNERSHIP', 'angola-b2b'),
+        'category' => __t('news_partnership'),
         'date' => '05/10/2025',
-        'title' => __('Strategic Partnership with Leading Manufacturer', 'angola-b2b'),
-        'excerpt' => __('Angola B2B forms exclusive partnership to bring world-class industrial equipment to the Angolan market.', 'angola-b2b'),
+        'title' => __t('news_title_6'),
+        'excerpt' => __t('news_excerpt_6'),
         'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=800',
         'link' => '#',
     ),
@@ -79,7 +79,7 @@ if (empty($news_items)) {
 <section class="news-carousel-section section-padding bg-light" data-animate="fade-up">
     <div class="container">
         <div class="section-header text-center">
-            <h2 class="section-title"><?php esc_html_e('Discover the Latest News About MSC', 'angola-b2b'); ?></h2>
+            <h2 class="section-title"><?php _et('discover_latest_news'); ?></h2>
         </div>
         
         <div class="news-carousel-wrapper">
@@ -109,7 +109,7 @@ if (empty($news_items)) {
                                         <h3 class="news-title"><?php echo esc_html($news['title']); ?></h3>
                                         <p class="news-excerpt"><?php echo esc_html($news['excerpt']); ?></p>
                                         <span class="news-read-more">
-                                            <?php esc_html_e('Read More', 'angola-b2b'); ?>
+                                            <?php _et('read_more'); ?>
                                             <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                 <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
@@ -140,7 +140,7 @@ if (empty($news_items)) {
             <!-- View All Link -->
             <div class="news-view-all">
                 <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="btn btn-outline-primary btn-lg">
-                    <?php esc_html_e('See All News', 'angola-b2b'); ?>
+                    <?php _et('see_all_news'); ?>
                     <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

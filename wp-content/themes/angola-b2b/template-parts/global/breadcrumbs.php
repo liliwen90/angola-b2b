@@ -20,14 +20,14 @@ $breadcrumbs = array();
 
 // Always start with home
 $breadcrumbs[] = array(
-    'title' => pll__('首页', 'angola-b2b') ?: __('首页', 'angola-b2b'),
+    'title' => __t('home'),
     'url'   => home_url('/'),
 );
 
 // Product single page
 if (is_singular('product')) {
     $breadcrumbs[] = array(
-        'title' => pll__('产品', 'angola-b2b') ?: __('产品', 'angola-b2b'),
+        'title' => __t('products'),
         'url'   => get_post_type_archive_link('product'),
     );
     
@@ -79,7 +79,7 @@ if (is_singular('product')) {
 // Product archive page
 elseif (is_post_type_archive('product')) {
     $breadcrumbs[] = array(
-        'title' => pll__('产品', 'angola-b2b') ?: __('产品', 'angola-b2b'),
+        'title' => __t('products'),
         'url'   => '',
     );
 } 
@@ -88,7 +88,7 @@ elseif (is_tax('product_category')) {
     $term = get_queried_object();
     
     $breadcrumbs[] = array(
-        'title' => pll__('产品', 'angola-b2b') ?: __('产品', 'angola-b2b'),
+        'title' => __t('products'),
         'url'   => get_post_type_archive_link('product'),
     );
     
@@ -171,7 +171,7 @@ if (count($breadcrumbs) <= 1) {
 }
 ?>
 
-<nav class="breadcrumbs" aria-label="<?php esc_attr_e('Breadcrumb', 'angola-b2b'); ?>">
+<nav class="breadcrumbs" aria-label="<?php echo esc_attr(__t('breadcrumb')); ?>">
     <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
         <?php foreach ($breadcrumbs as $index => $crumb) : ?>
             <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">

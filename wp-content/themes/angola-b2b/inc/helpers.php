@@ -342,7 +342,7 @@ function angola_b2b_social_share_buttons($post_id = 0) {
     ob_start();
     ?>
     <div class="social-share-buttons">
-        <span class="share-label"><?php esc_html_e('分享:', 'angola-b2b'); ?></span>
+        <span class="share-label"><?php _et('share'); ?>:</span>
         <?php foreach ($links as $network => $link) : ?>
             <a href="<?php echo esc_url($link); ?>" 
                class="share-button share-<?php echo esc_attr($network); ?>"

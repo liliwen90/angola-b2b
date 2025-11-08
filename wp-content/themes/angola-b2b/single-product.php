@@ -50,10 +50,10 @@ while (have_posts()) :
             <!-- Product Description Tabs -->
             <div class="product-tabs">
                 <div class="tabs-nav">
-                    <button class="tab-button active" data-tab="description"><?php esc_html_e('Description', 'angola-b2b'); ?></button>
-                    <button class="tab-button" data-tab="specifications"><?php esc_html_e('Specifications', 'angola-b2b'); ?></button>
-                    <button class="tab-button" data-tab="certifications"><?php esc_html_e('Certifications', 'angola-b2b'); ?></button>
-                    <button class="tab-button" data-tab="cases"><?php esc_html_e('Customer Cases', 'angola-b2b'); ?></button>
+                    <button class="tab-button active" data-tab="description"><?php _et('description'); ?></button>
+                    <button class="tab-button" data-tab="specifications"><?php _et('specifications'); ?></button>
+                    <button class="tab-button" data-tab="certifications"><?php _et('certifications'); ?></button>
+                    <button class="tab-button" data-tab="cases"><?php _et('customer_cases'); ?></button>
                 </div>
 
                 <div class="tabs-content">
@@ -75,8 +75,8 @@ while (have_posts()) :
                             <table class="specifications-table">
                                 <thead>
                                     <tr>
-                                        <th><?php esc_html_e('Specification', 'angola-b2b'); ?></th>
-                                        <th><?php esc_html_e('Value', 'angola-b2b'); ?></th>
+                                        <th><?php _et('specification'); ?></th>
+                                        <th><?php _et('value'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +91,7 @@ while (have_posts()) :
                             <?php
                         else :
                             ?>
-                            <p><?php esc_html_e('No specifications available for this product.', 'angola-b2b'); ?></p>
+                            <p><?php _et('no_specifications'); ?></p>
                             <?php
                         endif;
                         ?>
@@ -100,13 +100,13 @@ while (have_posts()) :
                         <?php
                         if (have_rows('product_advantages')) :
                             ?>
-                            <h3><?php esc_html_e('Why Choose This Product', 'angola-b2b'); ?></h3>
+                            <h3><?php _et('why_choose_this_product'); ?></h3>
                             <table class="advantages-comparison-table">
                                 <thead>
                                     <tr>
-                                        <th><?php esc_html_e('Feature', 'angola-b2b'); ?></th>
-                                        <th><?php esc_html_e('Our Product', 'angola-b2b'); ?></th>
-                                        <th><?php esc_html_e('Regular Product', 'angola-b2b'); ?></th>
+                                        <th><?php _et('feature'); ?></th>
+                                        <th><?php _et('our_product'); ?></th>
+                                        <th><?php _et('regular_product'); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -153,10 +153,10 @@ while (have_posts()) :
                         if ($technical_docs) :
                             ?>
                             <div class="technical-documents">
-                                <h3><?php esc_html_e('Technical Documents', 'angola-b2b'); ?></h3>
+                                <h3><?php _et('technical_documents'); ?></h3>
                                 <a href="<?php echo esc_url($technical_docs['url']); ?>" class="btn-download" download>
                                     <span class="dashicons dashicons-download"></span>
-                                    <?php esc_html_e('Download Technical Specifications', 'angola-b2b'); ?>
+                                    <?php _et('download_technical_specs'); ?>
                                 </a>
                             </div>
                             <?php
@@ -203,7 +203,7 @@ while (have_posts()) :
                                                 <div class="case-video">
                                                     <a href="<?php echo esc_url($case_video); ?>" class="video-play-button">
                                                         <span class="dashicons dashicons-controls-play"></span>
-                                                        <?php esc_html_e('Watch Video', 'angola-b2b'); ?>
+                                                        <?php _et('watch_video'); ?>
                                                     </a>
                                                 </div>
                                             <?php endif; ?>
@@ -222,7 +222,7 @@ while (have_posts()) :
 
             <!-- Related Products -->
             <div class="related-products-section">
-                <h2><?php esc_html_e('Related Products', 'angola-b2b'); ?></h2>
+                <h2><?php _et('related_products'); ?></h2>
                 <div class="related-products-slider">
                     <?php
                     // Get related products from same category
