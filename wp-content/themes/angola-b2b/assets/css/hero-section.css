@@ -540,10 +540,34 @@
     font-size: var(--font-size-base);
 }
 
+/* Contact Item Link Styles */
+a.contact-item.contact-link {
+    text-decoration: none;
+    color: var(--color-gray-700);
+    transition: all 0.3s ease;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 8px;
+}
+
+a.contact-item.contact-link:hover {
+    color: var(--color-primary);
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: translateX(4px);
+}
+
+a.contact-item.contact-link:active {
+    transform: translateX(2px);
+}
+
 .contact-item .icon {
     width: 24px;
     height: 24px;
     color: var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+a.contact-item.contact-link:hover .icon {
+    transform: scale(1.1);
 }
 
 .contact-quick-info .btn {
