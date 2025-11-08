@@ -147,6 +147,34 @@
 
 </div><!-- #page -->
 
+<!-- Search Overlay (MSC Style) -->
+<div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-content">
+        <button class="search-close" id="search-close" aria-label="<?php esc_attr_e('Close Search', 'angola-b2b'); ?>">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="search-form-container">
+            <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
+                <input type="search" 
+                       class="search-input" 
+                       placeholder="<?php esc_attr_e('Search products...', 'angola-b2b'); ?>" 
+                       value="<?php echo get_search_query(); ?>" 
+                       name="s"
+                       autocomplete="off">
+                <button type="submit" class="search-submit">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php wp_footer(); ?>
 
 </body>

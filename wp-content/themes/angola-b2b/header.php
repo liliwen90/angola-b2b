@@ -48,35 +48,56 @@ wp_body_open();
                 </a>
             </div>
             
-            <!-- Language Switcher -->
-            <?php
-            // Custom language switcher - Site-wide language switch (always go to homepage)
-            // Using Cookie-based system, no plugin dependencies
-            angola_b2b_language_switcher(array(
-                'show_flag' => true,
-                'show_name' => true,
-                'class' => 'language-switcher',
-            ));
-            ?>
-            
-            <!-- CTA Button -->
-            <div class="header-cta">
-                <?php
-                // Get contact page URL from ACF option or fallback to /contact/
-                $contact_url = get_field('contact_page_url', 'option');
-                if (empty($contact_url)) {
-                    // Try to find contact page by slug (WordPress 5.9+ compatible)
-                    $contact_page = get_posts(array(
-                        'post_type'   => 'page',
-                        'name'        => 'contact',
-                        'numberposts' => 1,
-                    ));
-                    $contact_url = !empty($contact_page) ? get_permalink($contact_page[0]->ID) : home_url('/contact/');
-                }
-                ?>
-                <a href="<?php echo esc_url($contact_url); ?>" class="cta-button">
-                    <?php _et('request_quote'); ?>
+            <!-- MSC-Style Header Icons -->
+            <div class="header-icons">
+                <!-- Search Icon -->
+                <button class="header-icon-btn" id="search-toggle" aria-label="<?php esc_attr_e('Search', 'angola-b2b'); ?>">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <span class="header-icon-label"><?php _et('search'); ?></span>
+                </button>
+                
+                <!-- Contact Icon (替代MSC的Tracking) -->
+                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="header-icon-btn" aria-label="<?php esc_attr_e('Contact', 'angola-b2b'); ?>">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="header-icon-label"><?php _et('contact'); ?></span>
                 </a>
+                
+                <!-- Language Switcher (simplified) -->
+                <div class="header-language">
+                    <?php
+                    $current_lang = angola_b2b_get_current_language();
+                    $lang_labels = array(
+                        'en' => 'EN',
+                        'pt' => 'PT',
+                        'zh' => '中文',
+                        'zh_tw' => '繁中'
+                    );
+                    $current_label = isset($lang_labels[$current_lang]) ? $lang_labels[$current_lang] : 'EN';
+                    ?>
+                    <button class="header-icon-btn language-toggle" aria-label="<?php esc_attr_e('Language', 'angola-b2b'); ?>">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span class="header-icon-label"><?php echo esc_html($current_label); ?></span>
+                    </button>
+                    <div class="language-dropdown">
+                        <?php
+                        // Custom language switcher
+                        angola_b2b_language_switcher(array(
+                            'show_flag' => false,
+                            'show_name' => true,
+                            'class' => 'language-dropdown-menu',
+                        ));
+                        ?>
+                    </div>
+                </div>
             </div>
 
             <!-- Mobile Menu Toggle -->

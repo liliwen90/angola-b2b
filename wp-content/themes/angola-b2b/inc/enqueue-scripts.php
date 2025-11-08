@@ -401,6 +401,15 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION,
         true
     );
+    
+    // Header search overlay (MSC-style)
+    wp_enqueue_script(
+        'angola-b2b-header-search',
+        ANGOLA_B2B_THEME_URI . '/assets/js/header-search.js',
+        array(),
+        ANGOLA_B2B_VERSION,
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'angola_b2b_enqueue_scripts');
 
