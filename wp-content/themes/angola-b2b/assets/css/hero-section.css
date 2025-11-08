@@ -536,14 +536,15 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    color: var(--color-gray-700);
+    color: var(--color-gray-900);
     font-size: var(--font-size-base);
+    font-weight: 500;
 }
 
 /* Contact Item Link Styles */
 a.contact-item.contact-link {
     text-decoration: none;
-    color: var(--color-gray-700);
+    color: var(--color-gray-900);
     transition: all 0.3s ease;
     padding: var(--space-2) var(--space-3);
     border-radius: 8px;
@@ -551,7 +552,7 @@ a.contact-item.contact-link {
 
 a.contact-item.contact-link:hover {
     color: var(--color-primary);
-    background-color: rgba(59, 130, 246, 0.05);
+    background-color: rgba(59, 130, 246, 0.1);
     transform: translateX(4px);
 }
 
@@ -564,10 +565,12 @@ a.contact-item.contact-link:active {
     height: 24px;
     color: var(--color-primary);
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
 
 a.contact-item.contact-link:hover .icon {
     transform: scale(1.1);
+    color: var(--color-primary-dark);
 }
 
 .contact-quick-info .btn {
