@@ -88,6 +88,14 @@ function angola_b2b_enqueue_scripts() {
         ANGOLA_B2B_VERSION
     );
 
+    // Content Page styles (About, Services, Careers)
+    wp_enqueue_style(
+        'angola-b2b-content-page',
+        ANGOLA_B2B_THEME_URI . '/assets/css/content-page.css',
+        array('angola-b2b-components'),
+        ANGOLA_B2B_VERSION
+    );
+
     // Breadcrumbs styles
     wp_enqueue_style(
         'angola-b2b-breadcrumbs',

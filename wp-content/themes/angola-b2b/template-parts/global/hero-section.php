@@ -55,24 +55,6 @@ if (empty($args['title'])) {
                 }
             }
             
-            // Get CTA buttons
-            $cta_primary_text = get_field('hero_cta_primary_text', 45) ?: get_field('hero_cta_primary_text') ?: '';
-            $cta_primary_url = get_field('hero_cta_primary_url', 45) ?: get_field('hero_cta_primary_url') ?: '';
-            if ($cta_primary_text && $cta_primary_url) {
-                $args['cta_primary'] = array(
-                    'text' => $cta_primary_text,
-                    'url'  => $cta_primary_url,
-                );
-            }
-            
-            $cta_secondary_text = get_field('hero_cta_secondary_text', 45) ?: get_field('hero_cta_secondary_text') ?: '';
-            $cta_secondary_url = get_field('hero_cta_secondary_url', 45) ?: get_field('hero_cta_secondary_url') ?: '';
-            if ($cta_secondary_text && $cta_secondary_url) {
-                $args['cta_secondary'] = array(
-                    'text' => $cta_secondary_text,
-                    'url'  => $cta_secondary_url,
-                );
-            }
         }
         
         // Fallback: use default content if ACF fields are empty
@@ -149,8 +131,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
         <div class="hero-container">
             <?php if ($args['title']) : ?>
                 <h1 class="hero-title">
-                    <span class="hero-title-line1">Leader in Sino-Ao B2B</span>
-                    <span class="hero-title-line2"><?php echo esc_html($args['title']); ?></span>
+                    <?php echo esc_html($args['title']); ?>
                 </h1>
             <?php endif; ?>
             
@@ -159,25 +140,6 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                     <?php echo wp_kses_post(wpautop($args['subtitle'])); ?>
                 </div>
             <?php endif; ?>
-            
-            <?php if (!is_front_page() && ((!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) || 
-                          (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url'])))) : ?>
-                    <div class="hero-actions">
-                        <?php if (!empty($args['cta_primary']['text']) && !empty($args['cta_primary']['url'])) : ?>
-                            <a href="<?php echo esc_url($args['cta_primary']['url']); ?>" 
-                               class="btn btn-primary btn-lg hero-cta-primary">
-                                <?php echo esc_html($args['cta_primary']['text']); ?>
-                            </a>
-                        <?php endif; ?>
-                        
-                        <?php if (!empty($args['cta_secondary']['text']) && !empty($args['cta_secondary']['url'])) : ?>
-                            <a href="<?php echo esc_url($args['cta_secondary']['url']); ?>" 
-                               class="btn btn-secondary btn-lg hero-cta-secondary">
-                                <?php echo esc_html($args['cta_secondary']['text']); ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
         </div>
     </div>
 </section>

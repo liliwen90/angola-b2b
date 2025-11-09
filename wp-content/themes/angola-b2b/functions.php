@@ -36,6 +36,7 @@ $includes = array(
 	'/inc/inquiry-system.php',
 	'/inc/helpers.php',
 	'/inc/query-modifications.php',
+	'/inc/create-default-pages.php',     // 创建默认页面
 );
 
 foreach ($includes as $file) {
