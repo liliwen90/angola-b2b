@@ -119,42 +119,45 @@ function angola_b2b_set_language($lang) {
 }
 
 /**
- * 获取语言切换器HTML
+ * 获取语言切换器HTML - MSC Style
  * 
  * @param array $args 配置参数
  * @return string 语言切换器HTML
  */
 function angola_b2b_get_language_switcher($args = array()) {
     $defaults = array(
-        'show_flag' => true,
+        'show_flag' => false,
         'show_name' => true,
-        'class' => 'language-switcher',
+        'class' => 'language-list',
     );
     
     $args = wp_parse_args($args, $defaults);
     $current_lang = angola_b2b_get_current_language();
-    $current_url = add_query_arg(array());
+    
+    // MSC风格的语言显示名称（全大写英文）
+    $lang_display_names = array(
+        'en' => 'ENGLISH',
+        'pt' => 'PORTUGUÊS',
+        'es' => 'ESPAÑOL',
+        'fr' => 'FRANÇAIS',
+        'zh' => '中文',
+        'zh_tw' => '繁體中文',
+    );
     
     ob_start();
     ?>
     <div class="<?php echo esc_attr($args['class']); ?>">
-        <select name="language" class="language-select-dropdown" onchange="window.location.href=this.value;">
-            <?php foreach (ANGOLA_B2B_SUPPORTED_LANGS as $code => $lang_data) : 
-                $switch_url = add_query_arg('lang', $code, home_url('/'));
-                $selected = ($code === $current_lang) ? 'selected' : '';
-            ?>
-                <option value="<?php echo esc_url($switch_url); ?>" <?php echo $selected; ?>>
-                    <?php 
-                    if ($args['show_flag']) {
-                        echo $lang_data['flag'] . ' ';
-                    }
-                    if ($args['show_name']) {
-                        echo esc_html($lang_data['native_name']);
-                    }
-                    ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <?php foreach (ANGOLA_B2B_SUPPORTED_LANGS as $code => $lang_data) : 
+            $switch_url = add_query_arg('lang', $code, home_url('/'));
+            $is_current = ($code === $current_lang);
+            $display_name = isset($lang_display_names[$code]) ? $lang_display_names[$code] : strtoupper($lang_data['native_name']);
+        ?>
+            <a href="<?php echo esc_url($switch_url); ?>" 
+               class="language-item <?php echo $is_current ? 'current' : ''; ?>"
+               data-lang="<?php echo esc_attr($code); ?>">
+                <?php echo esc_html($display_name); ?>
+            </a>
+        <?php endforeach; ?>
     </div>
     <?php
     return ob_get_clean();

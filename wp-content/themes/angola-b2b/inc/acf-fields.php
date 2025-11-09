@@ -77,13 +77,7 @@ function angola_b2b_register_homepage_settings_fields() {
         'title' => '首页设置',
         'fields' => array(
             
-            // Tab: Hero区域
-            array(
-                'key' => 'field_tab_hero_section',
-                'label' => 'Hero区域',
-                'type' => 'tab',
-                'placement' => 'left',
-            ),
+            // Hero区域设置
             array(
                 'key' => 'field_hero_background_image',
                 'label' => 'Hero背景图片',
@@ -157,12 +151,14 @@ function angola_b2b_register_homepage_settings_fields() {
                     ),
                 ),
             ),
+            
+            // 联系信息
             array(
                 'key' => 'field_contact_email',
                 'label' => '联系邮箱',
                 'name' => 'contact_email',
                 'type' => 'email',
-                'instructions' => '网站联系邮箱（显示在首页和页脚）',
+                'instructions' => '网站联系邮箱（显示在页脚）',
                 'default_value' => 'info@example.com',
                 'placeholder' => 'info@example.com',
             ),
@@ -171,99 +167,47 @@ function angola_b2b_register_homepage_settings_fields() {
                 'label' => '联系电话',
                 'name' => 'contact_phone',
                 'type' => 'text',
-                'instructions' => '网站联系电话（显示在首页和页脚）',
+                'instructions' => '网站联系电话（显示在页脚）',
                 'default_value' => '+1 234 567 8900',
                 'placeholder' => '+1 234 567 8900',
             ),
             
-            // Tab: Banner轮播
+            // 社交媒体链接
             array(
-                'key' => 'field_tab_banner_slider',
-                'label' => 'Banner轮播',
-                'type' => 'tab',
-                'placement' => 'left',
+                'key' => 'field_social_facebook',
+                'label' => 'Facebook链接',
+                'name' => 'social_facebook',
+                'type' => 'url',
+                'instructions' => 'Facebook主页链接（显示在页脚）',
+                'default_value' => '',
+                'placeholder' => 'https://facebook.com/your-page',
             ),
             array(
-                'key' => 'field_enable_banner_slider',
-                'label' => '显示Banner轮播',
-                'name' => 'enable_banner_slider',
-                'type' => 'true_false',
-                'default_value' => 1,
-                'ui' => 1,
-                'instructions' => '关闭后，首页将不显示Banner轮播',
+                'key' => 'field_social_twitter',
+                'label' => 'Twitter链接',
+                'name' => 'social_twitter',
+                'type' => 'url',
+                'instructions' => 'Twitter主页链接（显示在页脚）',
+                'default_value' => '',
+                'placeholder' => 'https://twitter.com/your-account',
             ),
             array(
-                'key' => 'field_banner_products',
-                'label' => '选择展示的产品',
-                'name' => 'banner_products',
-                'type' => 'relationship',
-                'instructions' => '选择要在Banner中展示的产品（将显示产品的特色图片）。注意：这里只能选择具体产品，不能选择分类。',
-                'post_type' => array('product'),
-                'filters' => array('search', 'taxonomy'),
-                'taxonomy' => 'product_category',
-                'return_format' => 'id',
-                'min' => 1,
-                'max' => 10,
-                'elements' => array('featured_image'),
-                'post_status' => array('publish'), // 只显示已发布的产品
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_enable_banner_slider',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
-            ),
-            
-            // Tab: 库存产品模块
-            array(
-                'key' => 'field_tab_stock_products',
-                'label' => '库存产品模块',
-                'type' => 'tab',
-                'placement' => 'left',
+                'key' => 'field_social_linkedin',
+                'label' => 'LinkedIn链接',
+                'name' => 'social_linkedin',
+                'type' => 'url',
+                'instructions' => 'LinkedIn公司主页链接（显示在页脚）',
+                'default_value' => '',
+                'placeholder' => 'https://linkedin.com/company/your-company',
             ),
             array(
-                'key' => 'field_enable_stock_products_section',
-                'label' => '显示热门库存产品区域',
-                'name' => 'enable_stock_products_section',
-                'type' => 'true_false',
-                'default_value' => 1,
-                'ui' => 1,
-                'instructions' => '关闭后，首页将不显示库存产品区域',
-            ),
-            array(
-                'key' => 'field_stock_products_title',
-                'label' => '库存产品区域标题',
-                'name' => 'stock_products_title',
+                'key' => 'field_social_whatsapp',
+                'label' => 'WhatsApp号码',
+                'name' => 'social_whatsapp',
                 'type' => 'text',
-                'default_value' => '现货供应 - 即刻发货',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_enable_stock_products_section',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'key' => 'field_stock_products_subtitle',
-                'label' => '库存产品区域副标题',
-                'name' => 'stock_products_subtitle',
-                'type' => 'text',
-                'default_value' => '本地库存，即刻发货',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_enable_stock_products_section',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
+                'instructions' => 'WhatsApp联系号码（国际格式，如：+8615319996326）',
+                'default_value' => '',
+                'placeholder' => '+8615319996326',
             ),
         ),
         'location' => array(

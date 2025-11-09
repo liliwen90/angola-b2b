@@ -178,7 +178,6 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
-            <?php endif; ?>
         </div>
     </div>
 </section>

@@ -17,6 +17,7 @@
         }
 
         init() {
+            this.initHeaderScroll();
             this.initBackToTop();
             this.initSocialShare();
             this.initPrintButton();
@@ -24,6 +25,52 @@
             this.initAccordions();
             this.initTooltips();
             this.initImageLightbox();
+        }
+
+        /**
+         * MSC-style header scroll effect
+         * - 默认状态：完全透明背景，白色文字和图标
+         * - 滚动后：白色背景出现，黑色文字和图标
+         */
+        initHeaderScroll() {
+            const header = document.querySelector('.site-header');
+            if (!header) return;
+
+            let ticking = false;
+            const scrollThreshold = 50; // 滚动阈值降低，更快响应
+
+            const updateHeader = () => {
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (currentScroll > scrollThreshold) {
+                    // 滚动后：添加scrolled类，白色背景出现
+                    header.classList.add('scrolled');
+                } else {
+                    // 页面顶部：移除scrolled类，保持透明
+                    header.classList.remove('scrolled');
+                }
+
+                ticking = false;
+            };
+
+            // Throttle scroll events for better performance
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateHeader);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Initialize on load
+            updateHeader();
+            
+            // Update on resize (header height might change)
+            window.addEventListener('resize', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateHeader);
+                    ticking = true;
+                }
+            }, { passive: true });
         }
 
         /**
