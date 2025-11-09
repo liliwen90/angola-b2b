@@ -279,16 +279,6 @@ function angola_b2b_reorganize_tools_menu() {
         'dashicons-admin-home',              // 图标
         25                                   // 位置（在产品管理后面）
     );
-    
-    // === 添加"首页图片"子菜单 ===
-    add_submenu_page(
-        'post.php?post=45&action=edit',      // 父菜单slug
-        '首页图片管理',                       // 页面标题
-        '🖼️ 首页图片',                       // 菜单标题
-        'edit_posts',                        // 权限
-        'angola-homepage-images',            // 菜单slug
-        'angola_b2b_homepage_images_page'    // 回调函数
-    );
 }
 add_action('admin_menu', 'angola_b2b_reorganize_tools_menu', 9998);
 
@@ -414,15 +404,15 @@ function angola_b2b_welcome_widget_content() {
                style="text-decoration: none;">
                 <?php echo angola_b2b_admin_translate('add_news_btn'); ?>
             </a>
-            <a href="<?php echo admin_url('admin.php?page=angola-homepage-images'); ?>" 
-               class="button" 
-               style="text-decoration: none;">
-                <?php echo angola_b2b_admin_translate('homepage_images_btn'); ?>
-            </a>
             <a href="<?php echo admin_url('upload.php'); ?>" 
                class="button" 
                style="text-decoration: none;">
                 <?php echo angola_b2b_admin_translate('media_library_btn'); ?>
+            </a>
+            <a href="<?php echo admin_url('post.php?post=45&action=edit'); ?>" 
+               class="button" 
+               style="text-decoration: none;">
+                <?php echo angola_b2b_admin_translate('homepage_settings'); ?>
             </a>
         </div>
         

@@ -37,6 +37,7 @@ $includes = array(
 	'/inc/helpers.php',
 	'/inc/query-modifications.php',
 	'/inc/create-default-pages.php',     // 创建默认页面
+	'/inc/custom-admin-layout.php',      // 自定义管理后台布局
 );
 
 foreach ($includes as $file) {

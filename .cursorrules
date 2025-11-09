@@ -151,9 +151,37 @@ F:\011 Projects\UnibroWeb\Unirbro\
 
 #### 社交媒体链接
 - `social_facebook` (URL) - Facebook链接
+- `social_facebook_show` (真/假) - 是否显示Facebook
 - `social_twitter` (URL) - Twitter链接
+- `social_twitter_show` (真/假) - 是否显示Twitter
 - `social_linkedin` (URL) - LinkedIn链接
+- `social_linkedin_show` (真/假) - 是否显示LinkedIn
 - `social_whatsapp` (文本) - WhatsApp号码（国际格式）
+- `social_whatsapp_show` (真/假) - 是否显示WhatsApp
+
+#### 内容页面（多语言）
+**关于我们**:
+- `footer_about_us_content` (WYSIWYG) - 英文内容
+- `footer_about_us_content_pt` (WYSIWYG) - 葡萄牙语内容
+- `footer_about_us_content_zh` (WYSIWYG) - 简体中文内容
+- `footer_about_us_content_zh_tw` (WYSIWYG) - 繁体中文内容
+
+**我们的服务**:
+- `footer_services_content` (WYSIWYG) - 英文内容
+- `footer_services_content_pt` (WYSIWYG) - 葡萄牙语内容
+- `footer_services_content_zh` (WYSIWYG) - 简体中文内容
+- `footer_services_content_zh_tw` (WYSIWYG) - 繁体中文内容
+
+**招聘**:
+- `footer_careers_content` (WYSIWYG) - 英文内容
+- `footer_careers_content_pt` (WYSIWYG) - 葡萄牙语内容
+- `footer_careers_content_zh` (WYSIWYG) - 简体中文内容
+- `footer_careers_content_zh_tw` (WYSIWYG) - 繁体中文内容
+
+**页面模板**:
+- `page-about.php` - 关于我们页面模板
+- `page-services.php` - 我们的服务页面模板
+- `page-careers.php` - 招聘页面模板
 
 ### 产品字段（Product CPT）
 **基本信息**:
@@ -312,6 +340,64 @@ ACF字段自动创建4个语言版本：
 
 ## 🔧 常用操作
 
+### 创建WordPress页面（推荐方法）⭐
+**问题**: 需要创建新的WordPress页面时，不要使用命令行或临时脚本
+
+**最佳实践**: 使用WordPress后台管理界面创建页面
+1. 创建PHP文件定义页面创建函数（放在 `inc/` 目录）
+2. 添加后台管理菜单和界面
+3. 在 `functions.php` 中引入该文件
+4. 管理员在后台点击按钮即可创建
+
+**示例代码结构**:
+```php
+// inc/create-default-pages.php
+function theme_create_pages() {
+    $pages = array(
+        array(
+            'post_title' => 'Page Title',
+            'post_name' => 'page-slug',
+            'post_status' => 'publish',
+            'post_type' => 'page',
+            'page_template' => 'page-template.php'
+        ),
+    );
+    
+    foreach ($pages as $page) {
+        $existing = get_page_by_path($page['post_name']);
+        if (!$existing) {
+            $page_id = wp_insert_post($page);
+            update_post_meta($page_id, '_wp_page_template', $page['page_template']);
+        }
+    }
+}
+
+// 添加后台管理菜单
+add_action('admin_menu', function() {
+    add_submenu_page('themes.php', '创建页面', '创建页面', 'manage_options', 'create-pages', 'render_page');
+});
+
+// 渲染管理界面
+function render_page() {
+    if (isset($_POST['create']) && check_admin_referer('create_pages')) {
+        theme_create_pages();
+        echo '<div class="notice notice-success"><p>创建成功！</p></div>';
+    }
+    // 显示表单和页面状态...
+}
+```
+
+**优点**:
+- ✅ 可视化界面，易于操作
+- ✅ 显示页面状态（已创建/未创建）
+- ✅ 可重复执行，自动跳过已存在的页面
+- ✅ 无需命令行，避免PowerShell路径问题
+- ✅ 符合WordPress最佳实践
+
+**已实现**: `inc/create-default-pages.php` - About/Services/Careers页面创建
+
+---
+
 ### Git工作流
 ```bash
 # 切换到主题目录
@@ -327,7 +413,7 @@ git add .
 git commit -m "Descriptive commit message"
 
 # 查看历史
-git log --oneline -5
+git log --online -5
 ```
 
 ### 常用ACF函数
@@ -436,6 +522,11 @@ $categories = get_terms(array(
 7. ✅ 自定义多语言系统
 8. ✅ 后台管理简化（无Tab分类，单页设置）
 9. ✅ 社交媒体链接设置（Facebook、Twitter、LinkedIn、WhatsApp）
+10. ✅ 内容页面系统（About、Services、Careers）
+    - 多语言WYSIWYG编辑器（4种语言）
+    - 自动语言切换和内容回退
+    - 后台管理界面创建页面
+    - 响应式内容页面样式
 
 ### 待优化功能 🔄
 1. 🔄 图片灯箱功能（PhotoSwipeLightbox）
