@@ -63,7 +63,7 @@ function angola_b2b_register_product_post_type() {
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
-        'show_in_rest'        => true,
+        'show_in_rest'        => false, // 禁用Gutenberg编辑器，使用经典编辑器（更适合B2B产品）
         'rewrite'             => array(
             'slug'       => 'products',
             'with_front' => false,

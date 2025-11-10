@@ -38,6 +38,7 @@ $includes = array(
 	'/inc/query-modifications.php',
 	'/inc/create-default-pages.php',     // 创建默认页面
 	'/inc/custom-admin-layout.php',      // 自定义管理后台布局
+	'/inc/product-editor-improvements.php', // 产品编辑器优化
 );
 
 foreach ($includes as $file) {
