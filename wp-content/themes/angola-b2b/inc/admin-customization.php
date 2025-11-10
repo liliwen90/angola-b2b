@@ -39,7 +39,8 @@ function angola_b2b_product_admin_columns($columns) {
         // Add category column after title
         if ($key === 'title') {
             $new_columns['product_category'] = __('分类', 'angola-b2b');
-            $new_columns['product_featured'] = __('推荐', 'angola-b2b');
+            // 移除"推荐"列 - 首页已不再使用推荐产品功能
+            // $new_columns['product_featured'] = __('推荐', 'angola-b2b');
         }
     }
     
@@ -70,14 +71,15 @@ function angola_b2b_product_admin_column_content($column, $post_id) {
             }
             break;
             
-        case 'product_featured':
-            $is_featured = get_post_meta($post_id, 'product_featured', true);
-            if ($is_featured === '1' || $is_featured === 1) {
-                echo '<span class="dashicons dashicons-star-filled featured-icon" style="color:#f0b429" aria-label="' . esc_attr__('推荐产品', 'angola-b2b') . '"></span>';
-            } else {
-                echo '<span aria-hidden="true">—</span>';
-            }
-            break;
+        // 移除"推荐"列显示逻辑 - 首页已不再使用推荐产品功能
+        // case 'product_featured':
+        //     $is_featured = get_post_meta($post_id, 'product_featured', true);
+        //     if ($is_featured === '1' || $is_featured === 1) {
+        //         echo '<span class="dashicons dashicons-star-filled featured-icon" style="color:#f0b429" aria-label="' . esc_attr__('推荐产品', 'angola-b2b') . '"></span>';
+        //     } else {
+        //         echo '<span aria-hidden="true">—</span>';
+        //     }
+        //     break;
     }
 }
 add_action('manage_product_posts_custom_column', 'angola_b2b_product_admin_column_content', 10, 2);
@@ -87,7 +89,8 @@ add_action('manage_product_posts_custom_column', 'angola_b2b_product_admin_colum
  */
 function angola_b2b_product_sortable_columns($columns) {
     $columns['product_category'] = 'product_category';
-    $columns['product_featured'] = 'product_featured';
+    // 移除"推荐"列排序 - 首页已不再使用推荐产品功能
+    // $columns['product_featured'] = 'product_featured';
     return $columns;
 }
 add_filter('manage_edit-product_sortable_columns', 'angola_b2b_product_sortable_columns');
