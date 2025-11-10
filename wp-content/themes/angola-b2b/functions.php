@@ -39,6 +39,7 @@ $includes = array(
 	'/inc/create-default-pages.php',     // 创建默认页面
 	'/inc/custom-admin-layout.php',      // 自定义管理后台布局
 	'/inc/product-editor-improvements.php', // 产品编辑器优化
+	'/inc/product-multilingual-tabs.php',   // 产品多语言Tab切换编辑器
 );
 
 foreach ($includes as $file) {
