@@ -47,6 +47,11 @@ function angola_b2b_add_language_tabs() {
     }
     
     $default_lang = angola_b2b_get_user_default_language();
+    $current_user = wp_get_current_user();
+    $user_roles = $current_user->roles;
+    
+    // 确定推荐的语言Tab（安哥拉员工推荐葡语）
+    $recommended_lang = in_array('ao_product_editor', $user_roles) ? 'pt' : '';
     
     ?>
     <style>
@@ -96,6 +101,24 @@ function angola_b2b_add_language_tabs() {
             transform: translateY(2px);
             border-color: #667eea;
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* 推荐标记 */
+        .angola-lang-tab .recommended-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f0b849;
+            color: #1d2327;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .angola-lang-tab.active .recommended-badge {
+            background: #ffd700;
         }
         
         /* Tab标签 */
@@ -162,6 +185,11 @@ function angola_b2b_add_language_tabs() {
             display: block;
         }
         
+        /* 隐藏ACF多语言字段组的标题 */
+        .acf-field-group[data-key="group_product_multilingual"] > .acf-label {
+            display: none !important;
+        }
+        
         /* 响应式 */
         @media (max-width: 782px) {
             .angola-lang-tabs {
@@ -186,6 +214,7 @@ function angola_b2b_add_language_tabs() {
         };
         
         var defaultLang = '<?php echo $default_lang; ?>';
+        var recommendedLang = '<?php echo $recommended_lang; ?>';
         var currentLang = defaultLang;
         
         // 创建Tab切换器
@@ -201,6 +230,12 @@ function angola_b2b_add_language_tabs() {
                 var activeClass = (lang === currentLang) ? 'active' : '';
                 
                 tabsHtml += '<button type="button" class="angola-lang-tab ' + activeClass + '" data-lang="' + lang + '">';
+                
+                // 添加推荐标记（如果是推荐语言）
+                if (recommendedLang && lang === recommendedLang) {
+                    tabsHtml += '<span class="recommended-badge">推荐</span>';
+                }
+                
                 tabsHtml += '<span class="lang-label">' + langInfo.label + '</span>';
                 tabsHtml += '<span class="lang-code">' + langInfo.code + '</span>';
                 tabsHtml += '</button>';
@@ -210,7 +245,12 @@ function angola_b2b_add_language_tabs() {
             
             // 添加提示信息
             tabsHtml += '<div class="angola-lang-tabs-info">';
-            tabsHtml += '<strong>💡 提示：</strong> 点击上方的语言Tab切换编辑不同语言版本的产品信息。系统会自动保存您上次选择的语言。';
+            tabsHtml += '<strong>💡 提示：</strong> 点击上方的语言Tab切换编辑不同语言版本的产品信息。';
+            if (recommendedLang) {
+                var recommendedLangLabel = languages[recommendedLang].label;
+                tabsHtml += ' 建议优先填写<strong>' + recommendedLangLabel + '</strong>版本的内容。';
+            }
+            tabsHtml += ' 系统会自动保存您上次选择的语言。';
             tabsHtml += '</div>';
             
             tabsHtml += '</div>';
