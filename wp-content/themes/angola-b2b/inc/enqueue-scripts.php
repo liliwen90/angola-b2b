@@ -167,6 +167,14 @@ function angola_b2b_enqueue_scripts() {
         array('angola-b2b-layout'),
         ANGOLA_B2B_VERSION
     );
+
+    // News list styles (home.php)
+    wp_enqueue_style(
+        'angola-b2b-news-list',
+        ANGOLA_B2B_THEME_URI . '/assets/css/news-list.css',
+        array('angola-b2b-layout'),
+        ANGOLA_B2B_VERSION
+    );
     
     // Customer advisories styles
     wp_enqueue_style(

@@ -764,3 +764,116 @@
     max-width: var(--container-xl);
 }
 
+/* ============================================
+   Product Description Media (rich editor content)
+   Ensure consistent, responsive media sizes
+   ============================================ */
+.product-description { margin-top: var(--space-4); }
+
+/* Images fill content width while preserving ratio */
+.product-description img,
+.product-description figure img {
+	display: block;
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+	margin: var(--space-6) 0;
+}
+
+.product-description figure { margin: var(--space-6) 0; }
+.product-description figure figcaption {
+	font-size: 13px;
+	color: var(--color-text-secondary);
+	text-align: center;
+	margin-top: 6px;
+}
+
+/* Videos and embeds: default 16:9 responsive */
+.product-description iframe,
+.product-description video,
+.product-description embed,
+.product-description .wp-video,
+.product-description .wp-block-embed__wrapper iframe {
+	width: 100% !important;
+	max-width: 100%;
+	aspect-ratio: 16 / 9;
+	height: auto !important;
+	display: block;
+	border: 0;
+	border-radius: 8px;
+	background: #000;
+	margin: var(--space-4) 0 !important;
+}
+
+/* Ensure vertical rhythm between all rich elements */
+.product-description p,
+.product-description ul,
+.product-description ol,
+.product-description table,
+.product-description blockquote,
+.product-description hr,
+.product-description figure,
+.product-description .wp-video,
+.product-description iframe,
+.product-description video,
+.product-description embed {
+	margin-bottom: var(--space-6) !important;
+}
+.product-description p:last-child { margin-bottom: 0; }
+
+/* Breakpoints fine-tune */
+@media (max-width: 991px) {
+	.product-description img { margin: var(--space-2) 0; }
+}
+@media (max-width: 599px) {
+	/* Keep embeds readable on small screens */
+	.product-description iframe,
+	.product-description video,
+	.product-description embed,
+	.product-description .wp-video {
+		aspect-ratio: 16 / 9;
+	}
+}
+
+/* ============================================
+   Product Gallery - unify featured image display
+   ============================================ */
+.product-gallery .product-gallery-viewer {
+	position: relative;
+}
+.product-gallery .product-gallery-viewer .gallery-image {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	background: #000;
+	border-radius: 8px;
+	overflow: hidden;
+	display: none;
+}
+.product-gallery .product-gallery-viewer .gallery-image.active {
+	display: block;
+}
+.product-gallery .product-gallery-viewer .gallery-image > a,
+.product-gallery .product-gallery-viewer .gallery-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.product-gallery .product-gallery-viewer .gallery-image img {
+	object-fit: contain; /* 不裁剪主图，完整展示 */
+}
+
+/* ============================================
+   Hide elements not needed on product page
+   ============================================ */
+.product-info .product-meta,
+.product-info .product-cta-buttons,
+.product-info .quick-actions,
+.product-info .share-popup {
+	display: none !important;
+}
+
+/* Spacing between gallery and description content */
+.product-tabs {
+	margin-top: var(--space-6);
+}

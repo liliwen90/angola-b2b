@@ -106,39 +106,39 @@ add_action('acf/include_fields', function() {
                 'required' => 0,
                 'placeholder' => '',
             ),
-            // 葡萄牙语简短描述
-            array(
-                'key' => 'field_product_short_description_pt',
-                'label' => 'Portuguese Short Description',
-                'name' => 'short_description_pt',
-                'type' => 'textarea',
-                'instructions' => 'Enter a short product description in Portuguese',
-                'required' => 0,
-                'rows' => 3,
-                'placeholder' => '',
-            ),
-            // 简体中文简短描述
-            array(
-                'key' => 'field_product_short_description_zh',
-                'label' => 'Simplified Chinese Short Description',
-                'name' => 'short_description_zh',
-                'type' => 'textarea',
-                'instructions' => 'Enter a short product description in Simplified Chinese',
-                'required' => 0,
-                'rows' => 3,
-                'placeholder' => '',
-            ),
-            // 繁体中文简短描述
-            array(
-                'key' => 'field_product_short_description_zh_tw',
-                'label' => 'Traditional Chinese Short Description',
-                'name' => 'short_description_zh_tw',
-                'type' => 'textarea',
-                'instructions' => 'Enter a short product description in Traditional Chinese',
-                'required' => 0,
-                'rows' => 3,
-                'placeholder' => '',
-            ),
+            // 葡萄牙语简短描述 - 已禁用，改为在富文本编辑器中编写
+            // array(
+            //     'key' => 'field_product_short_description_pt',
+            //     'label' => 'Portuguese Short Description',
+            //     'name' => 'short_description_pt',
+            //     'type' => 'textarea',
+            //     'instructions' => 'Enter a short product description in Portuguese',
+            //     'required' => 0,
+            //     'rows' => 3,
+            //     'placeholder' => '',
+            // ),
+            // // 简体中文简短描述
+            // array(
+            //     'key' => 'field_product_short_description_zh',
+            //     'label' => 'Simplified Chinese Short Description',
+            //     'name' => 'short_description_zh',
+            //     'type' => 'textarea',
+            //     'instructions' => 'Enter a short product description in Simplified Chinese',
+            //     'required' => 0,
+            //     'rows' => 3,
+            //     'placeholder' => '',
+            // ),
+            // // 繁体中文简短描述
+            // array(
+            //     'key' => 'field_product_short_description_zh_tw',
+            //     'label' => 'Traditional Chinese Short Description',
+            //     'name' => 'short_description_zh_tw',
+            //     'type' => 'textarea',
+            //     'instructions' => 'Enter a short product description in Traditional Chinese',
+            //     'required' => 0,
+            //     'rows' => 3,
+            //     'placeholder' => '',
+            // ),
         ),
         'location' => array(
             array(

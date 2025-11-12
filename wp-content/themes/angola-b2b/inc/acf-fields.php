@@ -448,78 +448,97 @@ function angola_b2b_register_homepage_settings_fields() {
 add_action('acf/init', 'angola_b2b_register_homepage_settings_fields');
 
 /**
- * Register Product Stock Fields
- * 注册产品库存字段（追加到产品基本信息字段组）
+ * Register Product Multilingual Fields
+ * 已禁用 - 使用 product-fields-simple.php 中的新版本
  */
-function angola_b2b_register_product_stock_fields() {
-    if (!function_exists('acf_add_local_field_group')) {
-        return;
-    }
+// function angola_b2b_register_product_multilingual_fields() {
+//     // 已迁移到 inc/product-fields-simple.php
+// }
+// add_action('acf/init', 'angola_b2b_register_product_multilingual_fields');
 
-    acf_add_local_field_group(array(
-        'key' => 'group_product_stock_info',
-        'title' => '产品库存信息',
-        'fields' => array(
-            array(
-                'key' => 'field_product_in_stock',
-                'label' => '是否为库存商品',
-                'name' => 'product_in_stock',
-                'type' => 'true_false',
-                'instructions' => '勾选后将在首页"热门库存"区域显示',
-                'ui' => 1,
-                'default_value' => 0,
-            ),
-            array(
-                'key' => 'field_product_stock_quantity',
-                'label' => '库存数量',
-                'name' => 'product_stock_quantity',
-                'type' => 'number',
-                'instructions' => '留空则不显示库存数',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_product_in_stock',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
-                'min' => 0,
-                'step' => 1,
-            ),
-            array(
-                'key' => 'field_product_stock_badge_text',
-                'label' => '库存徽章文字',
-                'name' => 'product_stock_badge_text',
-                'type' => 'text',
-                'instructions' => '显示在产品卡片上的徽章文字',
-                'default_value' => '现货',
-                'conditional_logic' => array(
-                    array(
-                        array(
-                            'field' => 'field_product_in_stock',
-                            'operator' => '==',
-                            'value' => '1',
-                        ),
-                    ),
-                ),
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'product',
-                ),
-            ),
-        ),
-        'menu_order' => 5,
-        'position' => 'normal',
-        'style' => 'default',
-    ));
-}
-add_action('acf/init', 'angola_b2b_register_product_stock_fields');
+/**
+ * Register Product Stock and SKU Fields
+ * 注册产品库存和SKU字段
+ * 已禁用 - 改为在富文本编辑器中编写所有产品信息
+ */
+// function angola_b2b_register_product_stock_fields() {
+//     if (!function_exists('acf_add_local_field_group')) {
+//         return;
+//     }
+//
+//     acf_add_local_field_group(array(
+//         'key' => 'group_product_stock_info',
+//         'title' => '产品库存和SKU信息',
+//         'fields' => array(
+//             array(
+//                 'key' => 'field_product_sku',
+//                 'label' => 'SKU编号',
+//                 'name' => 'product_sku',
+//                 'type' => 'text',
+//                 'instructions' => '产品SKU编号（库存单位）',
+//                 'required' => 0,
+//                 'placeholder' => 'SKU-0001',
+//             ),
+//             array(
+//                 'key' => 'field_product_in_stock',
+//                 'label' => '是否为库存商品',
+//                 'name' => 'product_in_stock',
+//                 'type' => 'true_false',
+//                 'instructions' => '勾选后将在首页"热门库存"区域显示',
+//                 'ui' => 1,
+//                 'default_value' => 0,
+//             ),
+//             array(
+//                 'key' => 'field_product_stock_quantity',
+//                 'label' => '库存数量',
+//                 'name' => 'product_stock_quantity',
+//                 'type' => 'number',
+//                 'instructions' => '留空则不显示库存数',
+//                 'conditional_logic' => array(
+//                     array(
+//                         array(
+//                             'field' => 'field_product_in_stock',
+//                             'operator' => '==',
+//                             'value' => '1',
+//                         ),
+//                     ),
+//                 ),
+//                 'min' => 0,
+//                 'step' => 1,
+//             ),
+//             array(
+//                 'key' => 'field_product_stock_badge_text',
+//                 'label' => '库存徽章文字',
+//                 'name' => 'product_stock_badge_text',
+//                 'type' => 'text',
+//                 'instructions' => '显示在产品卡片上的徽章文字',
+//                 'default_value' => '现货',
+//                 'conditional_logic' => array(
+//                     array(
+//                         array(
+//                             'field' => 'field_product_in_stock',
+//                             'operator' => '==',
+//                             'value' => '1',
+//                         ),
+//                     ),
+//                 ),
+//             ),
+//         ),
+//         'location' => array(
+//             array(
+//                 array(
+//                     'param' => 'post_type',
+//                     'operator' => '==',
+//                     'value' => 'product',
+//                 ),
+//             ),
+//         ),
+//         'menu_order' => 5,
+//         'position' => 'side',
+//         'style' => 'default',
+//     ));
+// }
+// add_action('acf/init', 'angola_b2b_register_product_stock_fields');
 
 /**
  * Register Product Category Hero Fields
@@ -574,42 +593,43 @@ add_action('acf/init', 'angola_b2b_register_category_hero_fields');
 /**
  * Register Product Hero Fields
  * 为产品添加Hero区域字段
+ * 已禁用 - 改为在富文本编辑器中编写所有产品信息
  */
-function angola_b2b_register_product_hero_fields() {
-    if (!function_exists('acf_add_local_field_group')) {
-        return;
-    }
-
-    acf_add_local_field_group(array(
-        'key' => 'group_product_hero',
-        'title' => '产品Hero设置',
-        'fields' => array(
-            array(
-                'key' => 'field_product_hero_image',
-                'label' => 'Hero背景图片',
-                'name' => 'product_hero_image',
-                'type' => 'image',
-                'instructions' => '产品详情页Hero区域的背景图片（建议尺寸：1920x800px）。如果未设置，将使用产品特色图片。',
-                'return_format' => 'array',
-                'preview_size' => 'medium',
-                'library' => 'all',
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'product',
-                ),
-            ),
-        ),
-        'menu_order' => 15,
-        'position' => 'normal',
-        'style' => 'default',
-    ));
-}
-add_action('acf/init', 'angola_b2b_register_product_hero_fields');
+// function angola_b2b_register_product_hero_fields() {
+//     if (!function_exists('acf_add_local_field_group')) {
+//         return;
+//     }
+//
+//     acf_add_local_field_group(array(
+//         'key' => 'group_product_hero',
+//         'title' => '产品Hero设置',
+//         'fields' => array(
+//             array(
+//                 'key' => 'field_product_hero_image',
+//                 'label' => 'Hero背景图片',
+//                 'name' => 'product_hero_image',
+//                 'type' => 'image',
+//                 'instructions' => '产品详情页Hero区域的背景图片（建议尺寸：1920x800px）。如果未设置，将使用产品特色图片。',
+//                 'return_format' => 'array',
+//                 'preview_size' => 'medium',
+//                 'library' => 'all',
+//             ),
+//         ),
+//         'location' => array(
+//             array(
+//                 array(
+//                     'param' => 'post_type',
+//                     'operator' => '==',
+//                     'value' => 'product',
+//                 ),
+//             ),
+//         ),
+//         'menu_order' => 15,
+//         'position' => 'normal',
+//         'style' => 'default',
+//     ));
+// }
+// add_action('acf/init', 'angola_b2b_register_product_hero_fields');
 
 /**
  * Register Service (解决方案) ACF Fields

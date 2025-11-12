@@ -29,7 +29,12 @@ function angola_b2b_product_admin_columns($columns) {
     $new_columns = array();
     
     foreach ($columns as $key => $value) {
-        $new_columns[$key] = $value;
+        // 替换title列为产品标题列
+        if ($key === 'title') {
+            $new_columns['product_title'] = __('产品标题', 'angola-b2b');
+        } else {
+            $new_columns[$key] = $value;
+        }
         
         // Add thumbnail column after checkbox
         if ($key === 'cb') {
@@ -37,10 +42,8 @@ function angola_b2b_product_admin_columns($columns) {
         }
         
         // Add category column after title
-        if ($key === 'title') {
+        if ($key === 'product_title') {
             $new_columns['product_category'] = __('分类', 'angola-b2b');
-            // 移除"推荐"列 - 首页已不再使用推荐产品功能
-            // $new_columns['product_featured'] = __('推荐', 'angola-b2b');
         }
     }
     
@@ -53,6 +56,64 @@ add_filter('manage_product_posts_columns', 'angola_b2b_product_admin_columns');
  */
 function angola_b2b_product_admin_column_content($column, $post_id) {
     switch ($column) {
+        case 'product_title':
+            // 获取当前管理员的默认语言
+            $default_lang = 'zh'; // 默认显示简体中文
+            if (function_exists('angola_b2b_get_user_default_language')) {
+                $default_lang = angola_b2b_get_user_default_language();
+            }
+            
+            // 尝试获取ACF字段的标题
+            $product_title = '';
+            if (function_exists('get_field')) {
+                $product_title = get_field('title_' . $default_lang, $post_id);
+            }
+            
+            // 如果没有ACF标题，使用WordPress原生标题
+            if (empty($product_title)) {
+                $product_title = get_the_title($post_id);
+            }
+            
+            // 如果还是空，显示占位符
+            if (empty($product_title)) {
+                $product_title = '(无标题)';
+            }
+            
+            // 构造编辑链接
+            $edit_link = get_edit_post_link($post_id);
+            $view_link = get_permalink($post_id);
+            
+            // 显示标题（可点击编辑）
+            echo '<strong>';
+            echo '<a class="row-title" href="' . esc_url($edit_link) . '">' . esc_html($product_title) . '</a>';
+            echo '</strong>';
+            
+            // 显示行操作按钮（编辑、查看、删除等）
+            $actions = array();
+            
+            // 编辑
+            $actions['edit'] = '<a href="' . esc_url($edit_link) . '">编辑</a>';
+            
+            // 查看
+            if (get_post_status($post_id) === 'publish') {
+                $actions['view'] = '<a href="' . esc_url($view_link) . '" target="_blank">查看</a>';
+            }
+            
+            // 删除
+            $actions['trash'] = '<a href="' . get_delete_post_link($post_id) . '" class="submitdelete">移至回收站</a>';
+            
+            echo '<div class="row-actions">';
+            $action_count = 0;
+            foreach ($actions as $action => $link) {
+                if ($action_count > 0) {
+                    echo ' | ';
+                }
+                echo $link;
+                $action_count++;
+            }
+            echo '</div>';
+            break;
+            
         case 'product_thumbnail':
             $thumbnail = get_the_post_thumbnail($post_id, 'thumbnail');
             echo $thumbnail ? $thumbnail : '—';
@@ -70,16 +131,6 @@ function angola_b2b_product_admin_column_content($column, $post_id) {
                 echo '—';
             }
             break;
-            
-        // 移除"推荐"列显示逻辑 - 首页已不再使用推荐产品功能
-        // case 'product_featured':
-        //     $is_featured = get_post_meta($post_id, 'product_featured', true);
-        //     if ($is_featured === '1' || $is_featured === 1) {
-        //         echo '<span class="dashicons dashicons-star-filled featured-icon" style="color:#f0b429" aria-label="' . esc_attr__('推荐产品', 'angola-b2b') . '"></span>';
-        //     } else {
-        //         echo '<span aria-hidden="true">—</span>';
-        //     }
-        //     break;
     }
 }
 add_action('manage_product_posts_custom_column', 'angola_b2b_product_admin_column_content', 10, 2);
@@ -371,18 +422,7 @@ function angola_b2b_product_admin_styles() {
                 opacity: 0.7;
             }
             
-            /* 添加醒目的提示文字 - 经典编辑器 */
-            #titlediv::before {
-                content: "👇 请在下方输入产品名称";
-                display: block;
-                background: #0073aa;
-                color: white;
-                padding: 8px 12px;
-                margin: -15px -15px 15px -15px;
-                border-radius: 3px 3px 0 0;
-                font-weight: 700;
-                font-size: 14px;
-            }
+            /* 提示已移除：现在使用ACF多语言字段 */
             
             /* ===== Gutenberg编辑器样式 ===== */
             .editor-post-title,
@@ -413,18 +453,7 @@ function angola_b2b_product_admin_styles() {
                 font-weight: 500;
             }
             
-            /* 添加醒目的提示文字 - Gutenberg */
-            .editor-post-title::before {
-                content: "👇 请在下方输入产品名称";
-                display: block;
-                background: #0073aa;
-                color: white;
-                padding: 8px 12px;
-                margin: -15px -15px 15px -15px;
-                border-radius: 3px 3px 0 0;
-                font-weight: 700;
-                font-size: 14px;
-            }
+            /* 提示已移除：现在使用ACF多语言字段 */
         </style>
         <?php
     }

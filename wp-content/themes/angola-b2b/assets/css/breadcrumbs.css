@@ -119,3 +119,24 @@
     border-radius: var(--radius-sm);
 }
 
+/* ============================================
+   Product Title (below breadcrumbs)
+   ============================================ */
+
+.product-title-main {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+    .product-title-main {
+        margin-top: var(--space-4);
+        margin-bottom: var(--space-4);
+        font-size: var(--font-size-xl);
+    }
+}
+

@@ -181,39 +181,6 @@ if (!empty($gallery_images) && is_array($gallery_images)) {
     <!-- Thumbnails & View Switcher -->
     <div class="product-gallery-nav">
         
-        <!-- View Type Switcher -->
-        <div class="view-type-switcher">
-            <button class="view-type-btn active" data-view="gallery" 
-                    aria-label="<?php esc_attr_e('Gallery view', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-images-alt2"></span>
-                <?php esc_html_e('图片', 'angola-b2b'); ?>
-            </button>
-            
-            <?php if (!empty($images_360)) : ?>
-                <button class="view-type-btn" data-view="360" 
-                        aria-label="<?php esc_attr_e('360° view', 'angola-b2b'); ?>">
-                    <span class="dashicons dashicons-update"></span>
-                    <?php esc_html_e('360°', 'angola-b2b'); ?>
-                </button>
-            <?php endif; ?>
-            
-            <?php if ($product_video) : ?>
-                <button class="view-type-btn" data-view="video" 
-                        aria-label="<?php esc_attr_e('Video view', 'angola-b2b'); ?>">
-                    <span class="dashicons dashicons-video-alt3"></span>
-                    <?php esc_html_e('视频', 'angola-b2b'); ?>
-                </button>
-            <?php endif; ?>
-            
-            <?php if ($comparison_slider) : ?>
-                <button class="view-type-btn" data-view="comparison" 
-                        aria-label="<?php esc_attr_e('Comparison view', 'angola-b2b'); ?>">
-                    <span class="dashicons dashicons-leftright"></span>
-                    <?php esc_html_e('对比', 'angola-b2b'); ?>
-                </button>
-            <?php endif; ?>
-        </div>
-        
         <!-- Thumbnail Slider -->
         <?php if (!empty($all_images) && count($all_images) > 1) : ?>
             <div class="gallery-thumbnails swiper">

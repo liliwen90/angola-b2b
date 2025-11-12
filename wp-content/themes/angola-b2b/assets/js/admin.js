@@ -20,7 +20,7 @@
             this.initProductFeaturedToggle();
             this.initMediaUploadHelper();
             this.initACFEnhancements();
-            this.initQuickEditWarning();
+            // Quick edit warning removed - user prefers no distinction
         }
 
         /**
@@ -101,34 +101,8 @@
         }
 
         /**
-         * Quick edit warning
+         * Quick edit functionality removed - user prefers no distinction
          */
-        initQuickEditWarning() {
-            const quickEditLinks = document.querySelectorAll('.editinline');
-            
-            quickEditLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    setTimeout(() => {
-                        const quickEdit = document.querySelector('.inline-edit-row');
-                        if (quickEdit) {
-                            const warning = document.createElement('div');
-                            warning.className = 'notice notice-warning inline';
-                            warning.style.cssText = 'margin:10px 0;padding:10px;';
-                            
-                            const warningText = document.createElement('p');
-                            warningText.textContent = 'Note: Quick Edit does not update ACF custom fields. Use the full edit screen for complete control.';
-                            
-                            warning.appendChild(warningText);
-                            
-                            const fieldset = quickEdit.querySelector('fieldset');
-                            if (fieldset) {
-                                fieldset.insertBefore(warning, fieldset.firstChild);
-                            }
-                        }
-                    }, 100);
-                });
-            });
-        }
     }
 
     /**

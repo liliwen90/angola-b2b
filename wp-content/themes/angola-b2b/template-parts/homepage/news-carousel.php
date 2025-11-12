@@ -11,68 +11,98 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define news items (can be pulled from posts later)
-$news_items = array(
+// Try pulling latest posts; fallback to demo items if none
+$fallback_items = array(
     array(
-        'id' => 'news-1',
         'category' => __t('news_events'),
-        'date' => '05/11/2025',
+        'date' => date('d/m/Y'),
         'title' => __t('news_title_1'),
         'excerpt' => __t('news_excerpt_1'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/news/msc-news-default.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-1.jpg',
         'link' => '#',
     ),
     array(
-        'id' => 'news-2',
         'category' => __t('news_events'),
-        'date' => '27/10/2025',
+        'date' => date('d/m/Y', strtotime('-3 day')),
         'title' => __t('news_title_2'),
         'excerpt' => __t('news_excerpt_2'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/industries/agriculture/msc-agriculture-shipping-solutions-hero.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-2.jpg',
         'link' => '#',
     ),
     array(
-        'id' => 'news-3',
         'category' => __t('news_company'),
-        'date' => '20/10/2025',
+        'date' => date('d/m/Y', strtotime('-7 day')),
         'title' => __t('news_title_3'),
         'excerpt' => __t('news_excerpt_3'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/inland-services/msc-inland-services-solutions-hero.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-3.jpg',
         'link' => '#',
     ),
     array(
-        'id' => 'news-4',
         'category' => __t('news_sustainability'),
-        'date' => '15/10/2025',
+        'date' => date('d/m/Y', strtotime('-12 day')),
         'title' => __t('news_title_4'),
         'excerpt' => __t('news_excerpt_4'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/msc-home/hero-ship-at-sunset.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-4.jpg',
         'link' => '#',
     ),
     array(
-        'id' => 'news-5',
         'category' => __t('news_service'),
-        'date' => '10/10/2025',
+        'date' => date('d/m/Y', strtotime('-16 day')),
         'title' => __t('news_title_5'),
         'excerpt' => __t('news_excerpt_5'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/digital/msc-digital-solutions-hero.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-5.jpg',
         'link' => '#',
     ),
     array(
-        'id' => 'news-6',
         'category' => __t('news_partnership'),
-        'date' => '05/10/2025',
+        'date' => date('d/m/Y', strtotime('-20 day')),
         'title' => __t('news_title_6'),
         'excerpt' => __t('news_excerpt_6'),
-        'image' => 'https://assets.msc.com/msc-p-001/msc-p-001/media/details/solutions/project-cargo/msc-project-cargo-shipping-solutions-hero.jpg?w=800',
+        'image' => ANGOLA_B2B_THEME_URI . '/assets/images/news/news-6.jpg',
         'link' => '#',
     ),
 );
 
-$news_items = apply_filters('angola_b2b_news_carousel', $news_items);
+$news_items = array();
 
-if (empty($news_items)) {
-    return;
+$query = new WP_Query(array(
+    'post_type' => 'post',
+    'posts_per_page' => 6,
+    'post_status' => 'publish',
+    'ignore_sticky_posts' => true,
+    'meta_query' => array(
+        array(
+            'key' => 'post_lang',
+            'value' => function_exists('angola_b2b_get_current_language') ? angola_b2b_get_current_language() : 'en',
+        ),
+    ),
+));
+
+if ($query->have_posts()) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        $image = get_the_post_thumbnail_url(get_the_ID(), 'large');
+        if (!$image) {
+            $image = ANGOLA_B2B_THEME_URI . '/assets/images/news/news-default.jpg';
+        }
+        $category = '';
+        $cats = get_the_category();
+        if (!empty($cats)) {
+            $category = $cats[0]->name;
+        }
+        $news_items[] = array(
+            'category' => $category ?: __t('news_company'),
+            'date' => get_the_date('d/m/Y'),
+            'title' => get_the_title(),
+            'excerpt' => wp_trim_words(strip_tags(get_the_excerpt() ?: get_the_content()), 26, '...'),
+            'image' => $image,
+            'link' => get_permalink(),
+        );
+    }
+    wp_reset_postdata();
+} else {
+    // Fallback to demo items if no posts yet
+    $news_items = $fallback_items;
 }
 ?>
 

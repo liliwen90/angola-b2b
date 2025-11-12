@@ -24,8 +24,8 @@ $includes = array(
 	'/inc/enqueue-scripts.php',
 	'/inc/custom-post-types.php',
 	'/inc/custom-taxonomies.php',
-	'/inc/acf-fields.php',
-	'/inc/acf-multilingual-fields.php',  // ACF多语言字段组定义
+	'/inc/acf-fields.php',  // 非产品字段定义（首页、分类等）
+	'/inc/product-fields-simple-v2.php', // 产品字段定义（4语言标题+富文本）⭐
 	'/inc/acf-filters.php',
 	'/inc/acf-field-translations.php',   // ACF字段标签动态翻译
 	'/inc/admin-customization.php',
@@ -38,8 +38,12 @@ $includes = array(
 	'/inc/query-modifications.php',
 	'/inc/create-default-pages.php',     // 创建默认页面
 	'/inc/custom-admin-layout.php',      // 自定义管理后台布局
-	'/inc/product-editor-improvements.php', // 产品编辑器优化
-	'/inc/product-multilingual-tabs.php',   // 产品多语言Tab切换编辑器
+	'/inc/product-editor-simple.php',    // 新版简洁产品编辑器
+	'/inc/acf-sync-fields.php',          // ACF字段同步管理页面
+	'/inc/news-integration.php',         // 新闻系统接入与种子数据
+	'/inc/news-editor.php',              // 新闻编辑器（经典编辑器+插入媒体）
+	'/inc/news-language.php',            // 新闻语言分离（post_lang/lang_group）
+	'/one-click-fix-product-fields.php'  // 一键修复产品字段 ⭐
 );
 
 foreach ($includes as $file) {

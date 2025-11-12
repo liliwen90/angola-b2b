@@ -16,10 +16,8 @@ $key_features = get_field('key_features', $product_id);
 
 <div class="product-info">
     
-    <!-- Product Title & Breadcrumbs -->
+    <!-- Product Title -->
     <div class="product-header">
-        <?php angola_b2b_display_breadcrumbs(); ?>
-        
         <h1 class="product-title"><?php the_title(); ?></h1>
         
         <?php if (angola_b2b_is_featured_product()) : ?>
@@ -30,52 +28,7 @@ $key_features = get_field('key_features', $product_id);
         <?php endif; ?>
     </div>
     
-    <!-- Product Meta -->
-    <div class="product-meta">
-        <?php if ($product_model) : ?>
-            <div class="meta-item">
-                <span class="meta-label"><?php esc_html_e('型号:', 'angola-b2b'); ?></span>
-                <span class="meta-value"><?php echo esc_html($product_model); ?></span>
-            </div>
-        <?php endif; ?>
-        
-        <?php if ($product_sku) : ?>
-            <div class="meta-item">
-                <span class="meta-label"><?php esc_html_e('SKU:', 'angola-b2b'); ?></span>
-                <span class="meta-value"><?php echo esc_html($product_sku); ?></span>
-            </div>
-        <?php endif; ?>
-        
-        <?php
-        $categories = get_the_terms($product_id, 'product_category');
-        if ($categories && !is_wp_error($categories)) :
-        ?>
-            <div class="meta-item">
-                <span class="meta-label"><?php esc_html_e('分类:', 'angola-b2b'); ?></span>
-                <span class="meta-value">
-                    <?php
-                    $cat_links = array();
-                    foreach ($categories as $category) {
-                        $cat_link = get_term_link($category);
-                        if (!is_wp_error($cat_link)) {
-                            $cat_links[] = sprintf(
-                                '<a href="%s">%s</a>',
-                                esc_url($cat_link),
-                                esc_html($category->name)
-                            );
-                        }
-                    }
-                    echo implode(', ', $cat_links);
-                    ?>
-                </span>
-            </div>
-        <?php endif; ?>
-    </div>
-    
-    <!-- Short Description -->
-    <div class="product-short-description">
-        <?php the_excerpt(); ?>
-    </div>
+    <!-- Product Meta: intentionally removed per design simplification -->
     
     <!-- Key Features with Icons -->
     <?php if ($key_features && is_array($key_features)) : ?>
@@ -176,54 +129,6 @@ $key_features = get_field('key_features', $product_id);
         </div>
     <?php endif; ?>
     
-    <!-- CTA Buttons -->
-    <div class="product-cta-buttons">
-        <div class="cta-buttons-row">
-            <?php
-            // Inquiry form button
-            echo angola_b2b_inquiry_form($product_id);
-            
-            // WhatsApp button
-            $whatsapp_btn = angola_b2b_whatsapp_button($product_id);
-            if ($whatsapp_btn) {
-                echo $whatsapp_btn;
-            }
-            ?>
-        </div>
-        
-        <!-- Additional Quick Actions -->
-        <div class="quick-actions">
-            <button class="quick-action-btn share-product" 
-                    aria-label="<?php esc_attr_e('Share product', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-share"></span>
-                <?php esc_html_e('分享', 'angola-b2b'); ?>
-            </button>
-            
-            <button class="quick-action-btn print-product" 
-                    onclick="window.print()" 
-                    aria-label="<?php esc_attr_e('Print product', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-printer"></span>
-                <?php esc_html_e('打印', 'angola-b2b'); ?>
-            </button>
-            
-            <button class="quick-action-btn download-spec" 
-                    data-product-id="<?php echo esc_attr($product_id); ?>"
-                    aria-label="<?php esc_attr_e('Download specification', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-download"></span>
-                <?php esc_html_e('下载规格', 'angola-b2b'); ?>
-            </button>
-        </div>
-    </div>
-    
-    <!-- Social Share Popup (Hidden by default) -->
-    <div class="share-popup" style="display: none;">
-        <div class="share-popup-content">
-            <h4><?php esc_html_e('分享产品', 'angola-b2b'); ?></h4>
-            <?php echo angola_b2b_social_share_buttons($product_id); ?>
-            <button class="close-share-popup" aria-label="<?php esc_attr_e('Close', 'angola-b2b'); ?>">
-                <span class="dashicons dashicons-no-alt"></span>
-            </button>
-        </div>
-    </div>
+    <!-- CTA Buttons and quick actions removed per design simplification -->
     
 </div>

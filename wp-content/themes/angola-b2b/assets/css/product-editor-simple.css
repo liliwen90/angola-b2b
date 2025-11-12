@@ -1,0 +1,394 @@
+/**
+ * 产品编辑器样式 - 简洁版
+ * Version: 2.0.0
+ */
+
+/* ==================== 全局布局修正 ==================== */
+
+/* 确保ACF字段组容器是全宽的 */
+#acf-group_product_simple_multilingual {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#acf-group_product_simple_multilingual .inside {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#acf-group_product_simple_multilingual .acf-fields {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ==================== ACF Tab样式 ==================== */
+
+/* 强制Tab横向布局 - 覆盖ACF的左侧布局 */
+.acf-tab-wrap.-left {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.acf-tab-wrap.-left::before,
+.acf-tab-wrap.-left::after {
+    display: none !important;
+}
+
+.acf-tab-wrap.-left > .acf-tab-group {
+    float: none !important;
+    width: 100% !important;
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 2px solid #dcdcde;
+    background: #f0f0f1;
+    padding: 10px 20px 0;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px;
+    position: relative !important;
+    left: 0 !important;
+}
+
+.acf-tab-wrap.-left > .acf-fields {
+    float: none !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    position: relative !important;
+    left: 0 !important;
+}
+
+/* 清除浮动 */
+.acf-tab-wrap.-left > .acf-fields::before,
+.acf-tab-wrap.-left > .acf-fields::after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+/* ACF Tab按钮样式增强 */
+.acf-tab-wrap .acf-tab-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px 6px 0 0;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    background: transparent;
+    color: #50575e;
+    border: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.acf-tab-wrap .acf-tab-button:hover {
+    background: rgba(0, 115, 170, 0.05);
+    color: #0073aa;
+}
+
+.acf-tab-wrap .acf-tab-button.active {
+    background: #fff;
+    color: #0073aa;
+    font-weight: 600;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+/* 语言tab特定颜色 */
+.angola-tab-btn-en.active {
+    border-top: 3px solid #0073aa;
+}
+
+.angola-tab-btn-pt.active {
+    border-top: 3px solid #00a32a;
+}
+
+.angola-tab-btn-zh.active {
+    border-top: 3px solid #d63638;
+}
+
+.angola-tab-btn-zh-tw.active {
+    border-top: 3px solid #d63638;
+}
+
+/* ==================== 字段样式 ==================== */
+
+/* 清理ACF字段间距 */
+.acf-field {
+    margin: 0;
+    padding: 24px 24px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.acf-field:first-of-type {
+    padding-top: 24px;
+}
+
+.acf-field:last-child {
+    border-bottom: none;
+    padding-bottom: 24px;
+}
+
+/* 隐藏Tab类型字段本身 */
+.acf-field[data-type="tab"] {
+    display: none;
+}
+
+/* 消息类型字段样式 */
+.acf-field[data-type="message"] {
+    padding: 15px 20px;
+    background: transparent;
+}
+
+.acf-field[data-type="message"] .acf-label {
+    display: none;
+}
+
+.acf-field[data-type="message"] .acf-input {
+    margin: 0;
+}
+
+/* 标题字段样式 */
+.acf-field[data-type="text"] .acf-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d2327;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.acf-field[data-type="text"] .acf-label label {
+    margin: 0;
+}
+
+.acf-field[data-type="text"] .description {
+    font-size: 13px;
+    color: #646970;
+    margin-top: 6px;
+}
+
+.acf-field[data-type="text"] input[type="text"] {
+    font-size: 15px;
+    padding: 10px 14px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    width: 100%;
+    transition: border-color 0.2s ease;
+    box-shadow: 0 0 0 transparent;
+}
+
+.acf-field[data-type="text"] input[type="text"]:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* WYSIWYG字段样式 */
+.acf-field[data-type="wysiwyg"] .acf-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d2327;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.acf-field[data-type="wysiwyg"] .acf-label label {
+    margin: 0;
+}
+
+.acf-field[data-type="wysiwyg"] .description {
+    font-size: 13px;
+    color: #646970;
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+
+.acf-field[data-type="wysiwyg"] .acf-input {
+    margin-top: 0;
+}
+
+.acf-field[data-type="wysiwyg"] .wp-editor-wrap {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.acf-field[data-type="wysiwyg"] .wp-editor-container {
+    border: none;
+}
+
+/* ==================== Tab内容区域 ==================== */
+
+/* 确保产品多语言信息字段组完全展开 */
+.acf-field.acf-field-group {
+    padding: 0 !important;
+    border: none !important;
+}
+
+.acf-field.acf-field-group > .acf-label {
+    display: none !important;
+}
+
+.acf-field.acf-field-group > .acf-input {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.acf-field.acf-field-group > .acf-input > .acf-fields {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Tab内容区域 */
+.acf-tab-wrap.-left .acf-fields {
+    background: #fff;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.acf-tab-wrap.-left .acf-fields > .acf-tab-wrap {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+/* 强制移除所有可能的左侧间距 */
+.acf-tab-wrap.-left .acf-fields.-left {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* 确保Tab容器不会有额外的wrapper */
+.acf-fields > .acf-field-group > .acf-input > .acf-fields {
+    padding: 0 !important;
+}
+
+/* 移除ACF字段的左侧padding */
+.acf-tab-wrap.-left .acf-fields > .acf-field {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+
+/* ==================== WordPress原生编辑器 - 完全隐藏 ==================== */
+
+/* 强制隐藏WordPress原生标题和编辑器 */
+body.post-type-product #titlewrap,
+body.post-type-product #postdivrich,
+body.post-type-product #titlediv,
+body.post-type-product #postdiv,
+body.post-type-product .editor-post-title,
+body.post-type-product .editor-post-title__block {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* 确保在任何情况下都隐藏 */
+#titlewrap,
+#titlediv {
+    display: none !important;
+}
+
+/* ==================== 响应式适配 ==================== */
+
+@media screen and (max-width: 782px) {
+    .acf-tab-wrap .acf-tab-button {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .acf-field {
+        padding: 15px;
+    }
+    
+    #titlewrap,
+    #postdivrich {
+        padding: 15px;
+    }
+}
+
+/* ==================== 加载动画 ==================== */
+
+.angola-loading {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.angola-loaded {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==================== 提示信息样式 ==================== */
+
+.angola-editor-hint {
+    background: #e7f3ff;
+    padding: 15px;
+    border-left: 4px solid #0073aa;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.angola-editor-hint p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1d2327;
+}
+
+.angola-editor-hint strong {
+    color: #0073aa;
+}
+
+/* ==================== 语言标识 ==================== */
+
+/* 为不同语言的字段添加微妙的视觉标识 */
+.angola-field-en {
+    /* English - 蓝色 */
+}
+
+.angola-field-pt {
+    /* Portuguese - 绿色 */
+}
+
+.angola-field-zh {
+    /* Simplified Chinese - 红色 */
+}
+
+.angola-field-zh-tw {
+    /* Traditional Chinese - 红色 */
+}
+
+/* ==================== 清理不需要的元素 ==================== */
+
+/* 隐藏不需要的ACF元素 */
+.acf-field .acf-field-setting {
+    display: none;
+}
+
+/* 优化ACF字段说明文字 */
+.acf-field .description,
+.acf-field .acf-instructions {
+    font-size: 13px;
+    color: #646970;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+

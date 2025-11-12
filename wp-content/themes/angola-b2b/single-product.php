@@ -16,11 +16,48 @@ get_header();
 while (have_posts()) :
     the_post();
     $product_id = get_the_ID();
+
+    // Language gating: only show page if current language content exists for this product
+    if (!function_exists('angola_b2b_get_current_language')) {
+        function angola_b2b_get_current_language() {
+            return 'en';
+        }
+    }
+    $current_lang = angola_b2b_get_current_language();
+    $lang_title_field = 'title_' . $current_lang;
+    $lang_content_field = 'content_' . $current_lang;
+    $lang_title_value = function_exists('get_field') ? get_field($lang_title_field, $product_id) : '';
+    $lang_content_value = function_exists('get_field') ? get_field($lang_content_field, $product_id) : '';
+
+    // If both title and content for the current language are empty, respond with 404
+    if (empty($lang_title_value) && empty($lang_content_value)) {
+        status_header(404);
+        nocache_headers();
+        include get_query_template('404');
+        exit;
+    }
     ?>
 
     <main id="primary" class="site-main product-single">
         <div class="container">
             <?php angola_b2b_display_breadcrumbs(); ?>
+            
+            <!-- Product Title -->
+            <h1 class="product-title-main">
+                <?php 
+                // Display title from ACF field based on current language
+                $title_field = 'title_' . $current_lang;
+                $product_title = function_exists('get_field') ? get_field($title_field, $product_id) : '';
+                
+                // Fallback to WordPress post title if ACF field is empty
+                if (empty($product_title)) {
+                    $product_title = get_the_title();
+                }
+                
+                echo esc_html($product_title);
+                ?>
+            </h1>
+            
             <div class="product-layout">
                 
                 <!-- Product Gallery Section -->
@@ -49,18 +86,22 @@ while (have_posts()) :
 
             <!-- Product Description Tabs -->
             <div class="product-tabs">
-                <div class="tabs-nav">
-                    <button class="tab-button active" data-tab="description"><?php _et('description'); ?></button>
-                    <button class="tab-button" data-tab="specifications"><?php _et('specifications'); ?></button>
-                    <button class="tab-button" data-tab="certifications"><?php _et('certifications'); ?></button>
-                    <button class="tab-button" data-tab="cases"><?php _et('customer_cases'); ?></button>
-                </div>
-
                 <div class="tabs-content">
                     <!-- Description Tab -->
                     <div class="tab-pane active" id="tab-description">
                         <div class="product-description">
-                            <?php the_content(); ?>
+                            <?php 
+                            // Get current language content only (no cross-language fallback)
+                            $content_field = 'content_' . $current_lang;
+                            $product_content = function_exists('get_field') ? get_field($content_field, $product_id) : '';
+
+                            // Render using the_content filters for embeds/shortcodes
+                            if (!empty($product_content)) {
+                                echo apply_filters('the_content', $product_content);
+                            } else {
+                                // When empty, show nothing; language gating above should already 404.
+                            }
+                            ?>
                         </div>
                     </div>
 
@@ -218,6 +259,11 @@ while (have_posts()) :
                         ?>
                     </div>
                 </div>
+            </div>
+
+            <!-- Inquiry Section at Bottom -->
+            <div id="product-inquiry" class="product-inquiry-section" style="margin-top: 48px;">
+                <?php echo angola_b2b_inquiry_form($product_id); ?>
             </div>
 
             <!-- Related Products -->

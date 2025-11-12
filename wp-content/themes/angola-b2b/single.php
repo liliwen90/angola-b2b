@@ -16,9 +16,21 @@ get_header();
 
 <main id="primary" class="site-main">
     <div class="container">
+        <?php if (function_exists('angola_b2b_display_breadcrumbs')) { angola_b2b_display_breadcrumbs(); } ?>
         <?php
         while (have_posts()) :
             the_post();
+            // Strict language separation for posts
+            if (get_post_type() === 'post' && function_exists('angola_b2b_get_current_language')) {
+                $current_lang = angola_b2b_get_current_language();
+                $post_lang = get_post_meta(get_the_ID(), 'post_lang', true);
+                if (empty($post_lang) || $post_lang !== $current_lang) {
+                    status_header(404);
+                    nocache_headers();
+                    include get_query_template('404');
+                    exit;
+                }
+            }
             ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <header class="entry-header">

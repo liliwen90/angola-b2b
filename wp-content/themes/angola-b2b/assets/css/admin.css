@@ -222,6 +222,11 @@
     border-radius: 4px;
 }
 
+/* Hide row actions in media library list view */
+.wp-list-table.media .row-actions {
+    display: none !important;
+}
+
 /* ============================================
    Theme Options Page
    ============================================ */
@@ -363,6 +368,86 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+/* ============================================
+   Sidebar Menu Enhancements
+   ============================================ */
+
+/* 增强收起/展开按钮的可见性 */
+#collapse-button {
+    position: relative;
+}
+
+/* 收起菜单后，展开按钮更明显 */
+.folded #collapse-button {
+    background-color: #2271b1 !important;
+    color: #fff !important;
+}
+
+.folded #collapse-button:hover {
+    background-color: #135e96 !important;
+    box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.3);
+}
+
+/* 添加提示文字 */
+.folded #collapse-button::after {
+    content: '展开';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #2271b1;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-left: 8px;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 99999;
+}
+
+.folded #collapse-button:hover::after {
+    opacity: 1;
+}
+
+/* 添加箭头指示 */
+.folded #collapse-button::before {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 2px;
+    border: 6px solid transparent;
+    border-left-color: #2271b1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 99999;
+}
+
+.folded #collapse-button:hover::before {
+    opacity: 1;
+}
+
+/* 收起状态下按钮脉冲动画提示 */
+@keyframes pulse-expand-hint {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(34, 113, 177, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(34, 113, 177, 0);
+    }
+}
+
+.folded #collapse-button {
+    animation: pulse-expand-hint 2s ease-in-out 3;
+    animation-delay: 1s;
 }
 
 /* ============================================

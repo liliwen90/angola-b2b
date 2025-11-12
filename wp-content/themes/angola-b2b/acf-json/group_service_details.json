@@ -1,0 +1,26 @@
+{
+    "key": "group_service_details",
+    "title": "解决方案详细信息",
+    "fields": [],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "display_title": "",
+    "modified": 1762881586,
+    "local_file": "F:\u000011 ProjectsUnibroWebUnirbrolocal-siteangola-b2bapppublic\/wp-content\/themes\/angola-b2b\/acf-json\/group_service_details.json"
+}

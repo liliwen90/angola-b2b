@@ -19,33 +19,35 @@ if (is_front_page()) {
 /**
  * Helper function to get translated category name
  */
-function angola_b2b_get_translated_term_name($term) {
-    if (!$term) {
-        return '';
+if (!function_exists('angola_b2b_get_translated_term_name')) {
+    function angola_b2b_get_translated_term_name($term) {
+        if (!$term) {
+            return '';
+        }
+        
+        $current_lang = angola_b2b_get_current_language();
+        $translated_name = $term->name; // Default to English name
+        
+        // Try to get translated name from ACF fields
+        if ($current_lang === 'pt' && function_exists('get_field')) {
+            $pt_name = get_field('name_pt', $term);
+            if (!empty($pt_name)) {
+                $translated_name = $pt_name;
+            }
+        } elseif ($current_lang === 'zh' && function_exists('get_field')) {
+            $zh_name = get_field('name_zh', $term);
+            if (!empty($zh_name)) {
+                $translated_name = $zh_name;
+            }
+        } elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
+            $zh_tw_name = get_field('name_zh_tw', $term);
+            if (!empty($zh_tw_name)) {
+                $translated_name = $zh_tw_name;
+            }
+        }
+        
+        return $translated_name;
     }
-    
-    $current_lang = angola_b2b_get_current_language();
-    $translated_name = $term->name; // Default to English name
-    
-    // Try to get translated name from ACF fields
-    if ($current_lang === 'pt' && function_exists('get_field')) {
-        $pt_name = get_field('name_pt', $term);
-        if (!empty($pt_name)) {
-            $translated_name = $pt_name;
-        }
-    } elseif ($current_lang === 'zh' && function_exists('get_field')) {
-        $zh_name = get_field('name_zh', $term);
-        if (!empty($zh_name)) {
-            $translated_name = $zh_name;
-        }
-    } elseif ($current_lang === 'zh_tw' && function_exists('get_field')) {
-        $zh_tw_name = get_field('name_zh_tw', $term);
-        if (!empty($zh_tw_name)) {
-            $translated_name = $zh_tw_name;
-        }
-    }
-    
-    return $translated_name;
 }
 
 $breadcrumbs = array();
@@ -81,7 +83,7 @@ if (is_singular('product')) {
             }
         }
         
-        // Add parent categories
+        // Add parent categories (all categories now have links)
         foreach ($term_chain as $parent_term) {
             $term_link = get_term_link($parent_term);
             if (!is_wp_error($term_link)) {
@@ -92,7 +94,7 @@ if (is_singular('product')) {
             }
         }
         
-        // Add current category
+        // Add current category (all categories now have links)
         $term_link = get_term_link($term);
         if (!is_wp_error($term_link)) {
             $breadcrumbs[] = array(
@@ -138,7 +140,7 @@ elseif (is_tax('product_category')) {
             }
         }
         
-        // Add parent categories
+        // Add parent categories (all categories now have links)
         foreach ($term_chain as $parent_term) {
             $term_link = get_term_link($parent_term);
             if (!is_wp_error($term_link)) {
