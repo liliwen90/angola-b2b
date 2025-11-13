@@ -22,8 +22,24 @@ node_modules/
 
 # Backups
 *.sql
+*.sql.gz
 *.tar.gz
 *.zip
+
+# Migration scripts (temporary)
+migrate-to-server.bat
+migrate-to-server.ps1
+migration-package/
+数据库导出指南.txt
+服务器Git部署方案.md
+服务器Git部署-快速指南.txt
+migration-guide.md
+
+# Temporary diagnostic files
+check-homepage-data.php
+diagnose-theme.php
+test-front-page.php
+fix-permissions-guide.txt
 
 # OS files
 Thumbs.db

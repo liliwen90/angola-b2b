@@ -49,7 +49,8 @@ $includes = array(
 foreach ($includes as $file) {
     $filepath = ANGOLA_B2B_THEME_DIR . $file;
     if (file_exists($filepath)) {
-        require_once $filepath;
+        // 使用 @ 抑制错误，避免单个文件错误阻止主题加载
+        @require_once $filepath;
     }
 }
 

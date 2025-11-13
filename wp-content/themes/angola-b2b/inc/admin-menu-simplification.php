@@ -20,7 +20,12 @@ function angola_b2b_simplify_admin_menu() {
     // === 隐藏不需要的核心WordPress菜单 ===
     remove_menu_page('edit-comments.php');           // 评论（B2B站点不需要）
     remove_menu_page('themes.php');                   // 外观（员工不需要修改主题）
-    remove_menu_page('plugins.php');                  // 插件（员工不需要管理插件）
+    
+    // 插件菜单：只对管理员显示，普通员工隐藏
+    if (!current_user_can('manage_options')) {
+        remove_menu_page('plugins.php');              // 插件（员工不需要管理插件）
+    }
+    
     remove_menu_page('tools.php');                    // 工具（技术性功能）
     remove_menu_page('options-general.php');          // 设置（员工不需要修改网站设置）
     
