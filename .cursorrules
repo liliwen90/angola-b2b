@@ -640,3 +640,64 @@ git log --oneline -5
 首页设置: http://angola-b2b.local/wp-admin/post.php?post=45&action=edit
 产品管理: http://angola-b2b.local/wp-admin/edit.php?post_type=product
 ```
+
+---
+
+## 🖥️ 阿里云ECS生产服务器信息
+
+### 服务器基本信息
+- **服务商**: 阿里云 (Alibaba Cloud)
+- **区域**: 英国(伦敦) / UK (London) - Zone A
+- **实例名称**: launch-advisor-20251112
+- **实例ID**: i-d706xzejjv8ayrtpcm8h
+- **公网IP**: 8.208.30.159 ⭐ (用于SSH连接和网站访问)
+- **私网IP**: 172.18.51.211
+- **操作系统**: Alibaba Cloud Linux 3.2104 LTS 64位
+- **实例规格**: ecs.e-c1m2.large (2核 vCPU / 4 GiB 内存)
+- **系统盘**: ESSD Entry 云盘 60 GiB (d-d706xzejjv8ayrttdttf)
+- **付费类型**: 包年包月 (到期时间: 2026年11月12日 23:59:59)
+- **公网带宽**: 5 Mbps (峰值) - 按使用流量计费
+- **VPC ID**: vpc-aronqmmk/qryприvoimm (部分可见)
+
+### 安全组配置
+- **安全组类型**: 普通安全组
+- **创建时间**: 2025年11月12日 21:50:44
+- **已开放端口**:
+  - ✅ SSH (22) - 允许所有IP (0.0.0.0/0)
+  - ✅ HTTP (80) - 允许所有IP (0.0.0.0/0)
+  - ✅ HTTPS (443) - 允许所有IP (0.0.0.0/0)
+  - ✅ ICMP-IPv4 - 允许所有IP (0.0.0.0/0)
+
+### SSH连接命令
+```bash
+# Windows PowerShell (管理员权限)
+ssh root@8.208.30.159
+
+# 首次连接会提示确认，输入 yes
+# 然后输入root密码（创建ECS时设置的密码）
+```
+
+### 服务器管理
+- **阿里云控制台**: https://ecs.console.aliyun.com/
+- **登录账号**: liliwen90 (主账号)
+- **实例管理页面**: 云服务器 ECS → 实例 → launch-advisor-20251112
+- **安全组管理**: 云服务器 ECS → 安全组
+
+### 部署状态
+- **当前状态**: 服务器已创建，安全组已配置
+- **下一步**: 通过SSH连接服务器，安装LEMP环境 (Linux + Nginx + MySQL + PHP-FPM)
+- **WordPress部署**: 待完成环境配置后部署
+
+### 重要提醒
+⚠️ **安全建议**:
+- SSH密码请妥善保管，建议后续配置SSH密钥认证
+- 生产环境建议限制SSH端口(22)的访问来源，不要开放给所有IP
+- 定期更新系统和软件包
+- 配置防火墙规则（iptables/firewalld）
+
+⚠️ **备份建议**:
+- 定期创建系统盘快照
+- WordPress数据库定期备份
+- 网站文件定期备份
+
+**最后更新**: 2025-11-12
