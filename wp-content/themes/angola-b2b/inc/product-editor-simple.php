@@ -26,7 +26,7 @@ function angola_b2b_load_simple_product_editor_assets($hook) {
         'angola-product-editor-simple',
         get_template_directory_uri() . '/assets/css/product-editor-simple.css',
         array(),
-        '2.0.0'
+        '2.0.1'
     );
 
     // 加载JavaScript

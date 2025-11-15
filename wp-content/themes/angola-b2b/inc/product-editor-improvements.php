@@ -95,6 +95,11 @@ function angola_b2b_product_category_reminder() {
             flex-shrink: 0;
         }
         
+        /* 隐藏摘要字段 */
+        #postexcerpt {
+            display: none !important;
+        }
+        
         /* 让产品分类框更醒目 */
         #product_categorydiv {
             border: 3px solid #667eea !important;
@@ -295,4 +300,12 @@ function angola_b2b_product_editor_help() {
 }
 add_action('load-post.php', 'angola_b2b_product_editor_help');
 add_action('load-post-new.php', 'angola_b2b_product_editor_help');
+
+/**
+ * 移除产品编辑页面的 Excerpt（摘要）功能
+ */
+function angola_b2b_remove_product_excerpt() {
+    remove_post_type_support('product', 'excerpt');
+}
+add_action('init', 'angola_b2b_remove_product_excerpt');
 

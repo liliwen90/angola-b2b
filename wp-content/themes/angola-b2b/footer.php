@@ -30,15 +30,16 @@
                         <!-- Social Media - 从ACF读取链接和显示开关 -->
                         <div class="footer-social">
                             <?php
-                            // 获取社交媒体链接和显示开关（从页面ID 45读取）
-                            $social_facebook = get_field('social_facebook', 45);
-                            $social_facebook_show = get_field('social_facebook_show', 45);
-                            $social_twitter = get_field('social_twitter', 45);
-                            $social_twitter_show = get_field('social_twitter_show', 45);
-                            $social_linkedin = get_field('social_linkedin', 45);
-                            $social_linkedin_show = get_field('social_linkedin_show', 45);
-                            $social_whatsapp = get_field('social_whatsapp', 45);
-                            $social_whatsapp_show = get_field('social_whatsapp_show', 45);
+                            // 获取社交媒体链接和显示开关
+                            $homepage_id = get_option('page_on_front') ?: 45;
+                            $social_facebook = get_field('social_facebook', $homepage_id);
+                            $social_facebook_show = get_field('social_facebook_show', $homepage_id);
+                            $social_twitter = get_field('social_twitter', $homepage_id);
+                            $social_twitter_show = get_field('social_twitter_show', $homepage_id);
+                            $social_linkedin = get_field('social_linkedin', $homepage_id);
+                            $social_linkedin_show = get_field('social_linkedin_show', $homepage_id);
+                            $social_whatsapp = get_field('social_whatsapp', $homepage_id);
+                            $social_whatsapp_show = get_field('social_whatsapp_show', $homepage_id);
                             
                             // Facebook - 只在勾选显示且有链接时显示
                             if ($social_facebook && $social_facebook_show) :
@@ -118,9 +119,10 @@
                         <h4 class="footer-heading"><?php _et('contact_us'); ?></h4>
                         <div class="contact-info">
                             <?php
-                            // Get contact info from ACF settings (page ID 45)
-                            $contact_email = get_field('contact_email', 45) ?: 'info@example.com';
-                            $contact_phone = get_field('contact_phone', 45) ?: '+1 234 567 8900';
+                            // Get contact info from ACF settings
+                            $homepage_id = get_option('page_on_front') ?: 45;
+                            $contact_email = get_field('contact_email', $homepage_id) ?: 'info@example.com';
+                            $contact_phone = get_field('contact_phone', $homepage_id) ?: '+1 234 567 8900';
                             ?>
                             <div class="contact-item">
                                 <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -161,7 +163,7 @@
             <div class="container">
                 <div class="footer-bottom-content">
                     <p class="footer-copyright">
-                        &copy; <?php echo esc_html(date_i18n('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>. <?php _et('all_rights_reserved'); ?>
+                        &copy; <?php echo esc_html(date_i18n('Y')); ?> Unibro. <?php _et('all_rights_reserved'); ?>
                     </p>
                     <div class="footer-legal">
                         <a href="<?php echo esc_url(home_url('/privacy-policy')); ?>"><?php _et('privacy_policy'); ?></a>

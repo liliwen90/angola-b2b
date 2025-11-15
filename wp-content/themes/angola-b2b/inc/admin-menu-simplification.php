@@ -15,17 +15,21 @@ if (!defined('ABSPATH')) {
 
 /**
  * 简化管理菜单 - 移除不必要的菜单项
+ * 管理员（manage_options）显示完整菜单，普通员工显示简化版
  */
 function angola_b2b_simplify_admin_menu() {
-    // === 隐藏不需要的核心WordPress菜单 ===
-    remove_menu_page('edit-comments.php');           // 评论（B2B站点不需要）
-    remove_menu_page('themes.php');                   // 外观（员工不需要修改主题）
-    
-    // 插件菜单：只对管理员显示，普通员工隐藏
-    if (!current_user_can('manage_options')) {
-        remove_menu_page('plugins.php');              // 插件（员工不需要管理插件）
+    // 管理员显示完整菜单，不进行简化
+    if (current_user_can('manage_options')) {
+        // 管理员可以看到所有菜单，但可以隐藏一些不常用的
+        // 只隐藏评论（B2B站点不需要）
+        remove_menu_page('edit-comments.php');
+        return; // 管理员直接返回，不执行后续简化
     }
     
+    // === 普通员工：隐藏不需要的核心WordPress菜单 ===
+    remove_menu_page('edit-comments.php');           // 评论（B2B站点不需要）
+    remove_menu_page('themes.php');                   // 外观（员工不需要修改主题）
+    remove_menu_page('plugins.php');                 // 插件（员工不需要管理插件）
     remove_menu_page('tools.php');                    // 工具（技术性功能）
     remove_menu_page('options-general.php');          // 设置（员工不需要修改网站设置）
     
@@ -72,11 +76,15 @@ function angola_b2b_admin_translate($key) {
             'product_categories' => '📂 产品分类',
             'product_tags' => '🏷️ 产品标签',
             'media_library' => '🖼️ 媒体库',
+            'add_media' => '添加媒体',
             'homepage_settings' => '🏠 首页设置',
             'staff_management' => '👥 员工管理',
             'all_news' => '所有新闻',
             'add_news' => '添加新闻',
             'news_categories' => '新闻分类',
+            'news_tags' => '新闻标签',
+            'profile' => '👤 个人资料',
+            'collapse_menu' => '收起菜单',
             // Dashboard小部件翻译
             'theme_info_widget' => 'Angola B2B 主题信息',
             'welcome_widget' => '👋 欢迎使用Unibro管理系统',
@@ -110,11 +118,15 @@ function angola_b2b_admin_translate($key) {
             'product_categories' => '📂 Categorias',
             'product_tags' => '🏷️ Tags',
             'media_library' => '🖼️ Biblioteca',
+            'add_media' => 'Adicionar Mídia',
             'homepage_settings' => '🏠 Página Inicial',
             'staff_management' => '👥 Gestão de Pessoal',
             'all_news' => 'Todas as Notícias',
             'add_news' => 'Adicionar Notícia',
             'news_categories' => 'Categorias de Notícias',
+            'news_tags' => 'Tags de Notícias',
+            'profile' => '👤 Perfil',
+            'collapse_menu' => 'Recolher Menu',
             // Dashboard小部件翻译
             'theme_info_widget' => 'Informações do Tema Angola B2B',
             'welcome_widget' => '👋 Bem-vindo ao Sistema Unibro',
@@ -162,8 +174,8 @@ function angola_b2b_rename_admin_menu_items() {
     
     // === 重命名主菜单 ===
     foreach ($menu as $key => $item) {
-        // 将"文章"重命名为"新闻管理"
-        if ($item[0] === 'Artigos') {
+        // 将"文章"或"Posts"重命名为"新闻管理"
+        if ($item[0] === 'Artigos' || $item[0] === 'Posts' || $item[0] === '文章') {
             $menu[$key][0] = angola_b2b_admin_translate('news_management');
         }
         
@@ -180,6 +192,30 @@ function angola_b2b_rename_admin_menu_items() {
         // 将"用户"重命名为"员工管理"
         if ($item[2] === 'users.php') {
             $menu[$key][0] = angola_b2b_admin_translate('staff_management');
+        }
+        
+        // 将"个人资料"汉化
+        if ($item[2] === 'profile.php') {
+            $menu[$key][0] = angola_b2b_admin_translate('profile');
+        }
+        
+        // 将"收起菜单"汉化
+        if ($item[2] === 'collapse-menu' || strpos($item[0], 'Collapse') !== false || $item[0] === 'Collapse Menu' || $item[0] === 'Collapse menu') {
+            $menu[$key][0] = angola_b2b_admin_translate('collapse_menu');
+        }
+    }
+    
+    // === 重命名媒体库子菜单 ===
+    if (isset($submenu['upload.php'])) {
+        foreach ($submenu['upload.php'] as $key => $item) {
+            // "Library" -> "媒体库"
+            if ($item[0] === 'Library' || $item[0] === 'Biblioteca' || $item[0] === '媒体库') {
+                $submenu['upload.php'][$key][0] = angola_b2b_admin_translate('media_library');
+            }
+            // "Add New" 或 "Add Media File" -> "添加媒体"
+            if ($item[0] === 'Add New' || $item[0] === 'Adicionar novo' || $item[0] === '添加媒体' || $item[0] === 'Add Media File') {
+                $submenu['upload.php'][$key][0] = angola_b2b_admin_translate('add_media');
+            }
         }
     }
     
@@ -208,22 +244,48 @@ function angola_b2b_rename_admin_menu_items() {
     // === 重命名新闻子菜单 ===
     if (isset($submenu['edit.php'])) {
         foreach ($submenu['edit.php'] as $key => $item) {
-            // "所有文章" 或 "Todos os artigos"
-            if ($item[0] === 'Todos os artigos' || $item[0] === '所有文章') {
+            // "所有文章" 或 "Todos os artigos" 或 "All Posts"
+            if ($item[0] === 'Todos os artigos' || $item[0] === '所有文章' || $item[0] === 'All Posts') {
                 $submenu['edit.php'][$key][0] = angola_b2b_admin_translate('all_news');
             }
-            // "添加文章" 或 "Adicionar artigo"
-            if ($item[0] === 'Adicionar artigo' || $item[0] === '添加文章') {
+            // "添加文章" 或 "Adicionar artigo" 或 "Add New" 或 "Add Post"
+            if ($item[0] === 'Adicionar artigo' || $item[0] === '添加文章' || $item[0] === 'Add New' || $item[0] === 'Add New Post' || $item[0] === 'Add Post') {
                 $submenu['edit.php'][$key][0] = angola_b2b_admin_translate('add_news');
             }
-            // "分类目录" 或 "Categorias"
-            if ($item[0] === 'Categorias' || $item[0] === '分类目录') {
+            // "分类目录" 或 "Categorias" 或 "Categories"
+            if ($item[0] === 'Categorias' || $item[0] === '分类目录' || $item[0] === 'Categories') {
                 $submenu['edit.php'][$key][0] = angola_b2b_admin_translate('news_categories');
+            }
+            // "标签" 或 "Tags"
+            if ($item[0] === 'Tags' || $item[0] === '标签') {
+                $submenu['edit.php'][$key][0] = angola_b2b_admin_translate('news_tags');
             }
         }
     }
 }
 add_action('admin_menu', 'angola_b2b_rename_admin_menu_items', 9999);
+
+/**
+ * 汉化"收起菜单"按钮
+ */
+function angola_b2b_translate_collapse_menu_button() {
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // 汉化"Collapse menu"按钮
+        $('#collapse-button').find('.collapse-button-label').text('收起菜单');
+        
+        // 监听按钮状态变化
+        $(document).on('wp-collapse-menu', function(event, data) {
+            if (data && data.start) {
+                $('#collapse-button').find('.collapse-button-label').text('收起菜单');
+            }
+        });
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer', 'angola_b2b_translate_collapse_menu_button');
 
 /**
  * 为安哥拉员工隐藏没有权限的菜单项
@@ -523,11 +585,17 @@ add_action('admin_notices', 'angola_b2b_add_simplification_toggle');
 /**
  * 使用CSS和JavaScript隐藏顽固的菜单项
  * 使用admin_footer钩子确保在所有插件加载后执行
+ * 只对普通员工生效，管理员可以看到完整菜单
  */
 function angola_b2b_hide_menu_items_css_js() {
+    // 管理员显示完整菜单，不隐藏任何项
+    if (current_user_can('manage_options')) {
+        return;
+    }
+    
     ?>
     <style>
-        /* 隐藏不需要的菜单项 - 使用多种选择器确保覆盖所有情况 */
+        /* 普通员工：隐藏不需要的菜单项 - 使用多种选择器确保覆盖所有情况 */
         #toplevel_page_edit-post_type-solution,    /* 解决方案 */
         #menu-posts-solution,                      /* 解决方案（备用）*/
         #toplevel_page_edit-post_type-industry,    /* 行业 */
@@ -568,7 +636,7 @@ function angola_b2b_hide_menu_items_css_js() {
     
     <script type="text/javascript">
     jQuery(document).ready(function($) {
-        // 删除不需要的菜单项
+        // 删除不需要的菜单项（只对普通员工）
         function hideStubbornMenuItems() {
             // 遍历所有菜单项，删除不需要的
             $('li.menu-top').each(function() {

@@ -50,8 +50,9 @@ wp_body_open();
                     <a href="<?php echo esc_url(home_url('/')); ?>" rel="home" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
                         <?php
                         // 优先使用ACF字段中的Logo
-                        $site_logo = get_field('site_logo', 45);
-                        $site_title = get_field('site_title', 45) ?: get_bloginfo('name');
+                        $homepage_id = get_option('page_on_front') ?: 45;
+                        $site_logo = get_field('site_logo', $homepage_id);
+                        $site_title = get_field('site_title', $homepage_id) ?: get_bloginfo('name');
                         
                         if ($site_logo) {
                             // 使用ACF上传的Logo
@@ -103,18 +104,19 @@ wp_body_open();
                         <div class="header-dropdown contact-dropdown">
                             <?php
                             // 获取联系信息
-                            $contact_email = get_field('contact_email', 45) ?: 'info@example.com';
-                            $contact_phone = get_field('contact_phone', 45) ?: '+86 15319996326';
+                            $homepage_id = get_option('page_on_front') ?: 45;
+                            $contact_email = get_field('contact_email', $homepage_id) ?: 'info@example.com';
+                            $contact_phone = get_field('contact_phone', $homepage_id) ?: '+86 15319996326';
                             
                             // 获取社交媒体信息
-                            $social_facebook = get_field('social_facebook', 45);
-                            $social_facebook_show = get_field('social_facebook_show', 45);
-                            $social_twitter = get_field('social_twitter', 45);
-                            $social_twitter_show = get_field('social_twitter_show', 45);
-                            $social_linkedin = get_field('social_linkedin', 45);
-                            $social_linkedin_show = get_field('social_linkedin_show', 45);
-                            $social_whatsapp = get_field('social_whatsapp', 45);
-                            $social_whatsapp_show = get_field('social_whatsapp_show', 45);
+                            $social_facebook = get_field('social_facebook', $homepage_id);
+                            $social_facebook_show = get_field('social_facebook_show', $homepage_id);
+                            $social_twitter = get_field('social_twitter', $homepage_id);
+                            $social_twitter_show = get_field('social_twitter_show', $homepage_id);
+                            $social_linkedin = get_field('social_linkedin', $homepage_id);
+                            $social_linkedin_show = get_field('social_linkedin_show', $homepage_id);
+                            $social_whatsapp = get_field('social_whatsapp', $homepage_id);
+                            $social_whatsapp_show = get_field('social_whatsapp_show', $homepage_id);
                             ?>
                             
                             <!-- 邮箱 -->

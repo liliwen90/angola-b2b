@@ -837,16 +837,17 @@ body:not(.home) .site-main {
     margin: 0;
 }
 
-.footer-menu li {
-    margin-bottom: var(--space-3);
+.footer-column .footer-menu li {
+    margin-bottom: 6px !important; /* 减少间距：从12px改为6px */
 }
 
-.footer-menu a {
+.footer-column .footer-menu a {
     color: rgba(255, 255, 255, 0.7);
     font-size: var(--font-size-base);
     transition: all 0.3s ease;
     display: inline-block;
     position: relative;
+    white-space: nowrap !important; /* 防止文字换行 */
 }
 
 .footer-menu a::before {
@@ -907,13 +908,30 @@ body:not(.home) .site-main {
 
 .contact-item a,
 .contact-item span {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-white) !important;
     font-size: var(--font-size-base);
     transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
     color: var(--color-white);
+}
+
+/* Footer联系信息 - 确保所有文字都是白色 */
+.footer-contact .contact-item a,
+.footer-contact .contact-item span:not(.contact-label) {
+    color: #ffffff !important;
+}
+
+.footer-contact .contact-item div > a,
+.footer-contact .contact-item div > span:not(.contact-label) {
+    color: #ffffff !important;
+}
+
+/* 确保所有语言的联系信息文字都是白色 */
+.site-footer .contact-item a,
+.site-footer .contact-item span:not(.contact-label) {
+    color: #ffffff !important;
 }
 
 /* Footer Bottom */

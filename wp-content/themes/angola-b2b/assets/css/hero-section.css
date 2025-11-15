@@ -76,7 +76,7 @@
 .hero-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill; /* 允许图片拉伸变形以填充整个区域 */
     object-position: center bottom; /* 显示图片中下部，而非顶部 */
     display: block;
 }

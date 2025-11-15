@@ -1,0 +1,75 @@
+========================================
+简单迁移步骤（手动操作）
+========================================
+
+由于批处理脚本有编码问题，我们手动操作：
+
+步骤1：导出数据库
+------------------
+方法1：使用 WordPress CLI（最简单）
+1. 打开 Local by Flywheel
+2. 找到 angola-b2b 站点
+3. 点击站点 → "Open Site Shell"
+4. 在终端中运行：
+   wp db export ../../migration-package/database.sql
+
+方法2：使用 Local 的数据库工具
+1. 打开 Local by Flywheel
+2. 找到 angola-b2b 站点
+3. 点击站点 → Database
+4. 查看是否有 "Open Database" 或 "Export" 选项
+5. 导出为 SQL 格式
+
+方法3：使用 phpMyAdmin
+1. 在浏览器访问：http://angola-b2b.local/phpmyadmin
+2. 选择数据库
+3. 点击"导出"标签
+4. 选择"快速"导出方式
+5. 格式选择"SQL"
+6. 点击"执行"
+7. 保存文件为：database.sql
+
+步骤2：替换URL
+------------------
+1. 用文本编辑器（Notepad++、VS Code）打开 database.sql
+2. 按 Ctrl+H 打开查找替换
+3. 查找：http://angola-b2b.local
+4. 替换为：https://www.unibroint.com
+5. 点击"全部替换"
+6. 保存文件
+
+步骤3：打包媒体文件
+------------------
+1. 进入本地网站目录：
+   F:\011 Projects\UnibroWeb\Unirbro\wp-content\uploads\
+2. 压缩整个 uploads 文件夹为 ZIP：
+   - 右键点击 uploads 文件夹
+   - 选择"发送到" → "压缩(zipped)文件夹"
+   - 或使用压缩软件（WinRAR、7-Zip等）
+3. 重命名为：uploads.zip
+
+步骤4：上传到服务器
+------------------
+1. 登录宝塔面板
+2. 上传 database.sql 到：/www/wwwroot/www.unibroint.com/
+3. 上传 uploads.zip 到：/www/wwwroot/www.unibroint.com/wp-content/
+4. 解压 uploads.zip
+
+步骤5：导入数据库
+------------------
+1. 宝塔面板 → 数据库
+2. 找到 www_unibroint_com 数据库
+3. 点击"管理"或"phpMyAdmin"
+4. 选择数据库
+5. 点击"导入"标签
+6. 选择 database.sql 文件
+7. 点击"执行"
+
+步骤6：更新固定链接
+------------------
+1. 登录 WordPress 后台
+2. 设置 → 固定链接
+3. 点击"保存更改"
+
+========================================
+

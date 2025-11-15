@@ -1,0 +1,316 @@
+/**
+ * 首页设置页面 ACF 字段组样式
+ * 模仿 product-editor-simple.css 的方式，只修改 ACF 字段组内部布局
+ * Version: 2.3.0 - 强制修复布局
+ */
+
+/* ==================== 全局布局修正 ==================== */
+
+/* 
+ * 关键修复：把content装进固定宽度的框子里，然后右对齐
+ */
+
+/* 创建一个固定宽度的容器框 */
+#wpbody-content {
+    max-width: 1100px !important;  /* 固定最大宽度 */
+    margin-left: auto !important;  /* 自动左边距 */
+    margin-right: 0 !important;    /* 右边距为0，靠右对齐 */
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* 或者使用固定宽度 */
+#poststuff {
+    max-width: 1100px !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* 确保wpcontent有左边距 */
+#wpcontent {
+    margin-left: 160px !important;  /* 为左侧栏留出空间 */
+}
+
+/* 当侧边栏折叠时调整 */
+.folded #wpcontent {
+    margin-left: 36px !important;  /* 折叠后的侧边栏宽度 */
+}
+
+/* 确保wpbody正确 */
+#wpbody {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* 确保整个页面结构正确 */
+#wpwrap {
+    position: relative !important;
+}
+
+/* 确保ACF字段组容器使用相对定位，不脱离文档流 */
+#acf-group_homepage_settings {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;  /* 使用static定位，保持在正常文档流中 */
+}
+
+#acf-group_homepage_settings .inside {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+}
+
+#acf-group_homepage_settings .acf-fields {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+}
+
+/* ==================== 彻底移除 ACF 侧边栏布局（-sidebar）==================== */
+
+/* 彻底移除 div.inside.acf-fields.-top.-sidebar 的所有视觉样式 */
+#acf-group_homepage_settings .inside.acf-fields.-top.-sidebar,
+#acf-group_homepage_settings .acf-fields.-top.-sidebar,
+#acf-group_homepage_settings .acf-fields.-sidebar {
+    /* 移除所有背景 */
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    /* 移除边框和阴影 */
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    /* 移除所有 padding 和 margin */
+    padding: 0 !important;
+    margin: 0 !important;
+    /* 移除所有布局限制 */
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    /* 移除侧边栏布局的 grid/float */
+    display: block !important;
+    float: none !important;
+    position: relative !important;
+    left: 0 !important;
+    grid-template-columns: 1fr !important;
+    -ms-grid-columns: 1fr !important;
+    grid-template-areas: none !important;
+    grid-column: 1 / -1 !important;
+    -ms-grid-column: 1 !important;
+    -ms-grid-column-span: 1 !important;
+    /* 移除所有可能的灰色样式 */
+    opacity: 1 !important;
+    filter: none !important;
+    box-sizing: border-box !important;
+}
+
+/* ==================== ACF Tab样式 ==================== */
+
+/* 强制Tab横向布局 - 覆盖ACF的左侧布局 */
+#acf-group_homepage_settings .acf-tab-wrap.-left {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;  /* 关键修复：移除padding，避免子元素溢出 */
+    background: transparent;  /* 移除背景，让内容区域控制 */
+    border-radius: 0;  /* 移除圆角 */
+    box-shadow: none;  /* 移除阴影 */
+    box-sizing: border-box !important;
+    position: relative !important;  /* 确保相对定位 */
+    left: auto !important;  /* 移除任何left偏移 */
+    right: auto !important;  /* 移除任何right偏移 */
+    margin-left: 0 !important;  /* 强制移除左边距 */
+}
+
+#acf-group_homepage_settings .acf-tab-wrap.-left::before,
+#acf-group_homepage_settings .acf-tab-wrap.-left::after {
+    display: none !important;
+}
+
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-tab-group {
+    float: none !important;
+    width: 100% !important;
+    min-height: auto !important;
+    border-right: none !important;
+    border-bottom: 2px solid #dcdcde;
+    background: #f0f0f1;  /* 添加灰色背景，与product-editor一致 */
+    padding: 10px 20px 0;  /* 调整padding */
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px;  /* 减小gap */
+    position: relative !important;
+    left: 0 !important;
+    /* 移除 justify-content: center，使用默认左对齐 */
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-fields {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    background: #fff;  /* 添加白色背景 */
+    border: 1px solid #dcdcde;  /* 添加边框 */
+    border-top: none;
+    border-radius: 0 0 4px 4px;  /* 底部圆角 */
+    position: relative !important;
+    left: auto !important;  /* 重置left定位 */
+    right: auto !important;  /* 重置right定位 */
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    min-width: 0 !important;  /* 防止内容撑大容器 */
+}
+
+/* 清除浮动 */
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-fields::before,
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-fields::after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+/* ACF Tab按钮样式 */
+#acf-group_homepage_settings .acf-tab-wrap .acf-tab-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #1f2937 !important;
+    font-weight: 600;
+    border: 1px solid transparent;
+    opacity: 1 !important;
+    text-align: center;
+    min-height: 40px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: visible;
+    flex: 0 0 auto;
+    margin: 0 !important;
+}
+
+#acf-group_homepage_settings .acf-tab-wrap .acf-tab-button:hover {
+    background: #eef2ff;
+    color: #111827 !important;
+}
+
+#acf-group_homepage_settings .acf-tab-wrap .acf-tab-button.active {
+    background: #fff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb;
+    color: #111827 !important;
+}
+
+#acf-group_homepage_settings .acf-tab-wrap .acf-tab-button span {
+    display: inline;
+}
+
+/* 隐藏Tab类型字段本身 */
+#acf-group_homepage_settings .acf-field[data-type="tab"] {
+    display: none !important;  /* 完全隐藏Tab字段，避免显示重复的标签 */
+}
+
+/* ==================== 字段样式 ==================== */
+
+/* 清理ACF字段间距 */
+#acf-group_homepage_settings .acf-field {
+    margin: 0;
+    padding: 24px 24px;
+    border-bottom: 1px solid #e8e8e8;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+}
+
+#acf-group_homepage_settings .acf-field:first-of-type {
+    padding-top: 24px;
+}
+
+#acf-group_homepage_settings .acf-field:last-child {
+    border-bottom: none;
+    padding-bottom: 24px;
+}
+
+/* ==================== Tab内容区域字段padding控制 ==================== */
+
+/* 关键：确保Tab内容区域内的字段有明确的左右padding，防止编辑器溢出 */
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-fields > .acf-field {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    position: relative !important;
+    left: auto !important;  /* 重置定位 */
+    margin-left: 0 !important;  /* 移除左边距 */
+}
+
+/* 确保编辑器容器不会溢出 */
+#acf-group_homepage_settings .acf-field .acf-editor-wrap,
+#acf-group_homepage_settings .acf-field .wp-editor-container,
+#acf-group_homepage_settings .acf-field iframe.wp-editor-area {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* 强制重置WordPress编辑器容器的定位 */
+#acf-group_homepage_settings .acf-field .wp-editor-wrap {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+}
+
+/* 确保TinyMCE编辑器工具栏也不会溢出 */
+#acf-group_homepage_settings .acf-field .mce-toolbar-grp,
+#acf-group_homepage_settings .acf-field .mce-container {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 确保所有输入框不会溢出 */
+#acf-group_homepage_settings .acf-field input[type="text"],
+#acf-group_homepage_settings .acf-field input[type="url"],
+#acf-group_homepage_settings .acf-field input[type="email"],
+#acf-group_homepage_settings .acf-field textarea {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* 响应式 */
+@media (max-width: 960px) {
+    #acf-group_homepage_settings .acf-tab-wrap .acf-tab-button {
+        white-space: normal;
+        padding: 10px 14px;
+    }
+}
+
+/* ==================== 额外修复：防止内容溢出 ==================== */
+
+/* 确保所有子元素不超出容器宽度 */
+#acf-group_homepage_settings .acf-tab-wrap.-left > .acf-fields > .acf-field * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 确保WordPress编辑器的所有子元素都不会溢出 */
+#acf-group_homepage_settings .wp-editor-wrap,
+#acf-group_homepage_settings .wp-editor-wrap * {
+    box-sizing: border-box !important;
+}
+
+#acf-group_homepage_settings #wp-content-editor-container {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+}

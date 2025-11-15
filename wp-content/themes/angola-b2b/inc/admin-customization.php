@@ -169,6 +169,84 @@ function angola_b2b_admin_notices() {
 add_action('admin_notices', 'angola_b2b_admin_notices');
 
 /**
+ * Enqueue dedicated assets for Homepage Settings page (ID:45)
+ */
+function angola_b2b_enqueue_homepage_settings_assets($hook) {
+    if (!is_admin()) {
+        return;
+    }
+
+    if ($hook !== 'post.php' && $hook !== 'post-new.php') {
+        return;
+    }
+
+    $post_id = 0;
+    if (isset($_GET['post'])) {
+        $post_id = intval($_GET['post']);
+    } elseif (isset($_POST['post_ID'])) {
+        $post_id = intval($_POST['post_ID']);
+    }
+
+    if ($post_id !== 45) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'angola-admin-homepage-settings',
+        get_template_directory_uri() . '/assets/css/admin-homepage-settings.css',
+        array(),
+        ANGOLA_B2B_VERSION,
+        'all'
+    );
+    
+    // 添加内联样式确保布局正确，优先级最高
+    $inline_css = '
+        /* 强制修复首页设置页面的布局 */
+        html #wpcontent {
+            margin-left: 160px !important;
+        }
+        html body.folded #wpcontent {
+            margin-left: 36px !important;
+        }
+    ';
+    wp_add_inline_style('angola-admin-homepage-settings', $inline_css);
+
+    wp_enqueue_script(
+        'angola-admin-homepage-settings',
+        get_template_directory_uri() . '/assets/js/admin-homepage-settings.js',
+        array('jquery'),
+        ANGOLA_B2B_VERSION,
+        true
+    );
+    
+    // 直接输出内联JavaScript，立即修复布局
+    wp_add_inline_script('angola-admin-homepage-settings', '
+        (function() {
+            console.log("强制修复布局 - 开始执行");
+            var fixLayout = function() {
+                var wpcontent = document.getElementById("wpcontent");
+                if (wpcontent) {
+                    wpcontent.style.marginLeft = "160px";
+                    console.log("布局已修复:", wpcontent.style.marginLeft);
+                } else {
+                    console.log("找不到 #wpcontent");
+                }
+            };
+            
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", fixLayout);
+            } else {
+                fixLayout();
+            }
+            
+            // 确保在页面完全加载后再执行一次
+            window.addEventListener("load", fixLayout);
+        })();
+    ', 'before');
+}
+add_action('admin_enqueue_scripts', 'angola_b2b_enqueue_homepage_settings_assets');
+
+/**
  * Add custom dashboard widget (多语言支持)
  */
 function angola_b2b_dashboard_widget() {
@@ -478,4 +556,210 @@ function angola_b2b_admin_footer_text() {
          '</span>';
 }
 add_filter('admin_footer_text', 'angola_b2b_admin_footer_text');
+
+/**
+ * 确保首页设置页面（ID 45）的ACF字段能够正常保存
+ */
+function angola_b2b_ensure_homepage_settings_save($post_id) {
+    // 只处理首页设置页面
+    if ($post_id != 45) {
+        return;
+    }
+    
+    // 确保管理员有完全权限
+    if (!current_user_can('edit_page', $post_id)) {
+        return;
+    }
+    
+    // 记录保存日志（调试用）
+    error_log('首页设置保存: Post ID ' . $post_id . ' - ACF字段正在保存');
+}
+add_action('acf/save_post', 'angola_b2b_ensure_homepage_settings_save', 1);
+
+/**
+ * 修复ACF字段在首页设置页面的权限问题
+ */
+function angola_b2b_fix_homepage_settings_permissions($field) {
+    // 如果是首页设置页面的字段，确保有编辑权限
+    if (isset($_GET['post']) && intval($_GET['post']) === 45) {
+        return $field;
+    }
+    return $field;
+}
+add_filter('acf/prepare_field', 'angola_b2b_fix_homepage_settings_permissions');
+
+/**
+ * 汉化新闻分类管理页面 (Categories Taxonomy)
+ * 针对 edit-tags.php?taxonomy=category 页面的完整汉化
+ */
+function angola_b2b_translate_category_admin_texts($translation, $text, $domain) {
+    // 只在管理后台且是分类页面时翻译
+    if (!is_admin() || !isset($_GET['taxonomy']) || $_GET['taxonomy'] !== 'category') {
+        return $translation;
+    }
+    
+    // 分类管理页面的翻译映射表
+    $translations = array(
+        // 页面标题
+        'Categories' => '新闻分类',
+        
+        // 添加分类表单
+        'Add Category' => '添加新闻分类',
+        'Add New Category' => '添加新分类',
+        'Name' => '分类名称',
+        'The name is how it appears on your site.' => '此名称将显示在您的网站上。',
+        'Slug' => '别名',
+        'The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.' => '别名是URL友好的名称版本。通常为小写字母，只包含字母、数字和连字符。',
+        'Parent Category' => '父分类',
+        'None' => '无',
+        'Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.' => '分类可以有层级关系。例如，您可以创建一个"技术"分类，在其下创建"软件"和"硬件"子分类。这是可选的。',
+        'Description' => '描述',
+        'The description is not prominent by default; however, some themes may show it.' => '默认情况下描述不会显示，但某些主题可能会使用它。',
+        'Add New' => '添加新分类',
+        
+        // 删除分类警告信息
+        'Deleting a category does not delete the posts in that category. Instead, posts that were only assigned to the deleted category are set to the default category %s. The default category cannot be deleted.' => '删除分类不会删除该分类中的文章。分类被删除后，原本仅属于该分类的文章将被移至默认分类 %s。默认分类无法删除。',
+        'Deleting a category does not delete the posts in that category. Instead, posts that were only assigned to the deleted category are set to the default category Uncategorized. The default category cannot be deleted.' => '删除分类不会删除该分类中的文章。分类被删除后，原本仅属于该分类的文章将被移至默认分类"未分类"。默认分类无法删除。',
+        
+        // 列表表头
+        'Name' => '名称',
+        'Description' => '描述',
+        'Slug' => '别名',
+        'Count' => '数量',
+        
+        // 操作链接
+        'Edit' => '编辑',
+        'Quick Edit' => '快速编辑',
+        'Delete' => '删除',
+        'View' => '查看',
+        
+        // 批量操作
+        'Bulk actions' => '批量操作',
+        'Bulk Actions' => '批量操作',
+        'Apply' => '应用',
+        'Delete' => '删除',
+        
+        // 搜索
+        'Search' => '搜索',
+        'Search Categories' => '搜索分类',
+        
+        // 状态信息
+        'Category added.' => '分类已添加。',
+        'Category deleted.' => '分类已删除。',
+        'Category updated.' => '分类已更新。',
+        'Categories deleted.' => '分类已删除。',
+        
+        // 未分类
+        'Uncategorized' => '未分类',
+        
+        // 筛选器
+        'All' => '全部',
+        
+        // Pagination
+        '%s item' => '%s 项',
+        '%s items' => '%s 项',
+        
+        // 表格信息
+        'No categories found.' => '未找到分类。',
+        'Item added.' => '项目已添加。',
+        'Item deleted.' => '项目已删除。',
+        'Item updated.' => '项目已更新。',
+    );
+    
+    // 如果找到匹配的翻译，返回中文
+    if (isset($translations[$text])) {
+        return $translations[$text];
+    }
+    
+    return $translation;
+}
+add_filter('gettext', 'angola_b2b_translate_category_admin_texts', 20, 3);
+
+/**
+ * 汉化分类页面的标签云和计数文本
+ */
+function angola_b2b_translate_category_screen_texts() {
+    global $pagenow, $taxnow;
+    
+    // 只在分类管理页面
+    if ($pagenow !== 'edit-tags.php' || $taxnow !== 'category') {
+        return;
+    }
+    
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // 修改页面标题
+        $('h1.wp-heading-inline').text('新闻分类');
+        
+        // 修改添加按钮文本
+        $('a.page-title-action').text('添加新分类');
+        
+        // 修改表单字段标签
+        $('label[for="tag-name"]').html('分类名称 <span class="required">*</span>');
+        $('label[for="tag-slug"]').text('别名');
+        $('label[for="parent"]').text('父分类');
+        $('label[for="tag-description"]').text('描述');
+        
+        // 修改字段说明文字 - 使用多种选择器确保能找到
+        setTimeout(function() {
+            // 方法1: 通过包含文本查找
+            $('p:contains("The \\"slug\\" is the URL-friendly")').text('别名是URL友好的名称版本。通常为小写字母，只包含字母、数字和连字符。');
+            
+            // 方法2: 通过class查找
+            $('p.description').each(function() {
+                var text = $(this).text();
+                if (text.indexOf('slug') > -1 && text.indexOf('URL-friendly') > -1) {
+                    $(this).text('别名是URL友好的名称版本。通常为小写字母，只包含字母、数字和连字符。');
+                }
+                if (text.indexOf('description is not prominent') > -1) {
+                    $(this).text('默认情况下描述不会显示，但某些主题可能会使用它。');
+                }
+            });
+            
+            // 方法3: 直接查找别名字段后面的说明
+            $('#slug-description').text('别名是URL友好的名称版本。通常为小写字母，只包含字母、数字和连字符。');
+            $('label[for="tag-slug"]').next('p').text('别名是URL友好的名称版本。通常为小写字母，只包含字母、数字和连字符。');
+        }, 100);
+        
+        // 修改删除分类的警告信息
+        $('p').each(function() {
+            var text = $(this).text();
+            if (text.indexOf('Deleting a category does not delete') > -1) {
+                $(this).html('删除分类不会删除该分类中的文章。分类被删除后，原本仅属于该分类的文章将被移至默认分类"未分类"。默认分类无法删除。');
+            }
+        });
+        
+        // 修改提交按钮
+        $('#submit').val('添加新分类');
+        
+        // 修改搜索占位符
+        $('input[name="s"]').attr('placeholder', '搜索分类');
+        
+        // 修改批量操作文本
+        $('select[name="action"] option[value="-1"]').text('批量操作');
+        $('select[name="action2"] option[value="-1"]').text('批量操作');
+        $('select[name="action"] option[value="delete"]').text('删除');
+        $('select[name="action2"] option[value="delete"]').text('删除');
+        
+        // 修改应用按钮
+        $('#doaction, #doaction2').val('应用');
+        
+        // 修改表头
+        $('th.column-name a, th.column-name span').text('名称');
+        $('th.column-description').text('描述');
+        $('th.column-slug').text('别名');
+        $('th.column-posts a, th.column-posts span').text('数量');
+        
+        // 修改父分类下拉框中的"None"
+        $('select#parent option[value="-1"]').text('无');
+        
+        // 修改搜索按钮
+        $('input[type="submit"][id="search-submit"]').val('搜索分类');
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer', 'angola_b2b_translate_category_screen_texts');
+
 

@@ -45,11 +45,26 @@ echo $header_output;
         echo '</div>';
     } else {
         try {
-            // 1. Hero区域（MSC风格全宽Hero，背景图片+标题+Quick Actions）
+            // 1. Hero区域 - 从ACF字段读取数据
+            $homepage_id = get_option('page_on_front');
+            if (!$homepage_id) {
+                $homepage_id = 45; // 后备首页ID
+            }
+            
             angola_b2b_display_hero_section(array(
-                'height' => 'full',
-                'background_image' => 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&h=1080&fit=crop',
-                'overlay_opacity' => 0.5,
+                'height' => get_field('hero_height', $homepage_id) ?: 'full',
+                'background_image' => get_field('hero_image', $homepage_id) ?: '',
+                'title' => get_field('hero_title', $homepage_id) ?: '',
+                'subtitle' => get_field('hero_subtitle', $homepage_id) ?: '',
+                'cta_primary' => array(
+                    'text' => get_field('hero_cta_primary_text', $homepage_id) ?: '',
+                    'url' => get_field('hero_cta_primary_url', $homepage_id) ?: '',
+                ),
+                'cta_secondary' => array(
+                    'text' => get_field('hero_cta_secondary_text', $homepage_id) ?: '',
+                    'url' => get_field('hero_cta_secondary_url', $homepage_id) ?: '',
+                ),
+                'overlay_opacity' => get_field('hero_overlay_opacity', $homepage_id) ?: 0.2,
             ));
         } catch (Exception $e) {
             echo '<div style="padding: 20px; background: #ff0000; color: white; margin: 20px;">';

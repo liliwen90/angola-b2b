@@ -24,19 +24,19 @@
 /* ==================== ACF Tab样式 ==================== */
 
 /* 强制Tab横向布局 - 覆盖ACF的左侧布局 */
-.acf-tab-wrap.-left {
+body.post-type-product .acf-tab-wrap.-left {
     display: block !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
-.acf-tab-wrap.-left::before,
-.acf-tab-wrap.-left::after {
+body.post-type-product .acf-tab-wrap.-left::before,
+body.post-type-product .acf-tab-wrap.-left::after {
     display: none !important;
 }
 
-.acf-tab-wrap.-left > .acf-tab-group {
+body.post-type-product .acf-tab-wrap.-left > .acf-tab-group {
     float: none !important;
     width: 100% !important;
     min-height: auto !important;
@@ -52,7 +52,7 @@
     left: 0 !important;
 }
 
-.acf-tab-wrap.-left > .acf-fields {
+body.post-type-product .acf-tab-wrap.-left > .acf-fields {
     float: none !important;
     width: 100% !important;
     margin-left: 0 !important;
@@ -68,15 +68,15 @@
 }
 
 /* 清除浮动 */
-.acf-tab-wrap.-left > .acf-fields::before,
-.acf-tab-wrap.-left > .acf-fields::after {
+body.post-type-product .acf-tab-wrap.-left > .acf-fields::before,
+body.post-type-product .acf-tab-wrap.-left > .acf-fields::after {
     display: table;
     content: "";
     clear: both;
 }
 
 /* ACF Tab按钮样式增强 */
-.acf-tab-wrap .acf-tab-button {
+body.post-type-product .acf-tab-wrap .acf-tab-button {
     padding: 12px 24px;
     font-size: 14px;
     font-weight: 500;
@@ -91,12 +91,12 @@
     flex-shrink: 0;
 }
 
-.acf-tab-wrap .acf-tab-button:hover {
+body.post-type-product .acf-tab-wrap .acf-tab-button:hover {
     background: rgba(0, 115, 170, 0.05);
     color: #0073aa;
 }
 
-.acf-tab-wrap .acf-tab-button.active {
+body.post-type-product .acf-tab-wrap .acf-tab-button.active {
     background: #fff;
     color: #0073aa;
     font-weight: 600;
@@ -123,42 +123,42 @@
 /* ==================== 字段样式 ==================== */
 
 /* 清理ACF字段间距 */
-.acf-field {
+body.post-type-product .acf-field {
     margin: 0;
     padding: 24px 24px;
     border-bottom: 1px solid #e8e8e8;
 }
 
-.acf-field:first-of-type {
+body.post-type-product .acf-field:first-of-type {
     padding-top: 24px;
 }
 
-.acf-field:last-child {
+body.post-type-product .acf-field:last-child {
     border-bottom: none;
     padding-bottom: 24px;
 }
 
 /* 隐藏Tab类型字段本身 */
-.acf-field[data-type="tab"] {
+body.post-type-product .acf-field[data-type="tab"] {
     display: none;
 }
 
 /* 消息类型字段样式 */
-.acf-field[data-type="message"] {
+body.post-type-product .acf-field[data-type="message"] {
     padding: 15px 20px;
     background: transparent;
 }
 
-.acf-field[data-type="message"] .acf-label {
+body.post-type-product .acf-field[data-type="message"] .acf-label {
     display: none;
 }
 
-.acf-field[data-type="message"] .acf-input {
+body.post-type-product .acf-field[data-type="message"] .acf-input {
     margin: 0;
 }
 
 /* 标题字段样式 */
-.acf-field[data-type="text"] .acf-label {
+body.post-type-product .acf-field[data-type="text"] .acf-label {
     font-size: 15px;
     font-weight: 600;
     color: #1d2327;
@@ -166,17 +166,17 @@
     display: block;
 }
 
-.acf-field[data-type="text"] .acf-label label {
+body.post-type-product .acf-field[data-type="text"] .acf-label label {
     margin: 0;
 }
 
-.acf-field[data-type="text"] .description {
+body.post-type-product .acf-field[data-type="text"] .description {
     font-size: 13px;
     color: #646970;
     margin-top: 6px;
 }
 
-.acf-field[data-type="text"] input[type="text"] {
+body.post-type-product .acf-field[data-type="text"] input[type="text"] {
     font-size: 15px;
     padding: 10px 14px;
     border: 1px solid #dcdcde;
@@ -186,14 +186,14 @@
     box-shadow: 0 0 0 transparent;
 }
 
-.acf-field[data-type="text"] input[type="text"]:focus {
+body.post-type-product .acf-field[data-type="text"] input[type="text"]:focus {
     border-color: #2271b1;
     outline: none;
     box-shadow: 0 0 0 1px #2271b1;
 }
 
 /* WYSIWYG字段样式 */
-.acf-field[data-type="wysiwyg"] .acf-label {
+body.post-type-product .acf-field[data-type="wysiwyg"] .acf-label {
     font-size: 15px;
     font-weight: 600;
     color: #1d2327;
@@ -201,68 +201,68 @@
     display: block;
 }
 
-.acf-field[data-type="wysiwyg"] .acf-label label {
+body.post-type-product .acf-field[data-type="wysiwyg"] .acf-label label {
     margin: 0;
 }
 
-.acf-field[data-type="wysiwyg"] .description {
+body.post-type-product .acf-field[data-type="wysiwyg"] .description {
     font-size: 13px;
     color: #646970;
     margin-top: 6px;
     margin-bottom: 10px;
 }
 
-.acf-field[data-type="wysiwyg"] .acf-input {
+body.post-type-product .acf-field[data-type="wysiwyg"] .acf-input {
     margin-top: 0;
 }
 
-.acf-field[data-type="wysiwyg"] .wp-editor-wrap {
+body.post-type-product .acf-field[data-type="wysiwyg"] .wp-editor-wrap {
     border: 1px solid #dcdcde;
     border-radius: 4px;
     overflow: hidden;
 }
 
-.acf-field[data-type="wysiwyg"] .wp-editor-container {
+body.post-type-product .acf-field[data-type="wysiwyg"] .wp-editor-container {
     border: none;
 }
 
 /* ==================== Tab内容区域 ==================== */
 
 /* 确保产品多语言信息字段组完全展开 */
-.acf-field.acf-field-group {
+body.post-type-product .acf-field.acf-field-group {
     padding: 0 !important;
     border: none !important;
 }
 
-.acf-field.acf-field-group > .acf-label {
+body.post-type-product .acf-field.acf-field-group > .acf-label {
     display: none !important;
 }
 
-.acf-field.acf-field-group > .acf-input {
+body.post-type-product .acf-field.acf-field-group > .acf-input {
     margin: 0 !important;
     padding: 0 !important;
 }
 
-.acf-field.acf-field-group > .acf-input > .acf-fields {
+body.post-type-product .acf-field.acf-field-group > .acf-input > .acf-fields {
     padding: 0 !important;
     margin: 0 !important;
 }
 
 /* Tab内容区域 */
-.acf-tab-wrap.-left .acf-fields {
+body.post-type-product .acf-tab-wrap.-left .acf-fields {
     background: #fff;
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.acf-tab-wrap.-left .acf-fields > .acf-tab-wrap {
+body.post-type-product .acf-tab-wrap.-left .acf-fields > .acf-tab-wrap {
     background: transparent;
     margin: 0;
     padding: 0;
 }
 
 /* 强制移除所有可能的左侧间距 */
-.acf-tab-wrap.-left .acf-fields.-left {
+body.post-type-product .acf-tab-wrap.-left .acf-fields.-left {
     padding-left: 0 !important;
     margin-left: 0 !important;
 }
@@ -273,7 +273,7 @@
 }
 
 /* 移除ACF字段的左侧padding */
-.acf-tab-wrap.-left .acf-fields > .acf-field {
+body.post-type-product .acf-tab-wrap.-left .acf-fields > .acf-field {
     padding-left: 24px !important;
     padding-right: 24px !important;
 }

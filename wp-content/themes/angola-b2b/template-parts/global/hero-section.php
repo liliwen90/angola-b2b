@@ -28,7 +28,7 @@ $args = wp_parse_args($custom_args, array(
     'subtitle'           => '',
     'cta_primary'        => array('text' => '', 'url' => ''),
     'cta_secondary'      => array('text' => '', 'url' => ''),
-    'overlay_opacity'    => 0.4,
+    'overlay_opacity'    => 0.2,
     'height'             => 'large', // small: 40vh, medium: 50vh, large: 70vh, full: 100vh
     'parallax'           => false,
 ));
@@ -59,7 +59,7 @@ if (empty($args['title'])) {
         
         // Fallback: use default content if ACF fields are empty
         if (empty($args['title'])) {
-            $args['title'] = esc_html__('Welcome to Unibro', 'unibro');
+            $args['title'] = esc_html__('Unibro', 'unibro');
         }
         if (empty($args['subtitle'])) {
             $args['subtitle'] = esc_html__('Your trusted partner for quality products and reliable service', 'angola-b2b');

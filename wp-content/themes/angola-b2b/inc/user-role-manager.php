@@ -215,3 +215,57 @@ function angola_b2b_translate_role_names($translated_text, $text, $domain) {
 }
 add_filter('gettext', 'angola_b2b_translate_role_names', 20, 3);
 
+/**
+ * 降低密码强度要求
+ * 允许：字母、数字、符号 3种搭配即可
+ */
+function angola_b2b_lower_password_strength_requirement() {
+    ?>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        // 修改WordPress密码强度检查
+        if (typeof wp !== 'undefined' && typeof wp.passwordStrength !== 'undefined') {
+            // 保存原始函数
+            var originalPasswordStrength = wp.passwordStrength.meter;
+            
+            // 覆盖密码强度检测函数
+            wp.passwordStrength.meter = function(password, blacklist, minLength) {
+                // 如果密码为空，返回空
+                if (password.length === 0) {
+                    return -1;
+                }
+                
+                // 检查长度（至少8位）
+                if (password.length < 8) {
+                    return 2; // too short (弱)
+                }
+                
+                // 检查是否包含字母、数字、符号中的至少3种
+                var hasLetter = /[a-zA-Z]/.test(password);
+                var hasNumber = /[0-9]/.test(password);
+                var hasSymbol = /[^a-zA-Z0-9]/.test(password);
+                
+                var typeCount = (hasLetter ? 1 : 0) + (hasNumber ? 1 : 0) + (hasSymbol ? 1 : 0);
+                
+                if (typeCount >= 2) {
+                    return 4; // strong (强)
+                } else {
+                    return 3; // medium (中等)
+                }
+            };
+        }
+        
+        // 修改密码强度文本提示
+        $(document).on('DOMContentLoaded', function() {
+            setTimeout(function() {
+                $('#pass-strength-result').removeClass('short bad good strong');
+            }, 100);
+        });
+    });
+    </script>
+    <?php
+}
+add_action('admin_footer-user-new.php', 'angola_b2b_lower_password_strength_requirement');
+add_action('admin_footer-profile.php', 'angola_b2b_lower_password_strength_requirement');
+add_action('admin_footer-user-edit.php', 'angola_b2b_lower_password_strength_requirement');
+

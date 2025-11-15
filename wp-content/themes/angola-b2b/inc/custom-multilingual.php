@@ -101,21 +101,26 @@ function angola_b2b_set_language($lang) {
         return false;
     }
     
-    // 设置Cookie，有效期365天
-    $result = setcookie(
-        'angola_b2b_lang',
-        $lang,
-        time() + (365 * 24 * 60 * 60),
-        '/',
-        '',
-        is_ssl(),
-        true // httponly
-    );
-    
-    // 同时设置当前请求的语言
+    // 先设置当前请求的语言（立即生效）
     $_COOKIE['angola_b2b_lang'] = $lang;
     
-    return $result;
+    // 只有在headers未发送时才设置Cookie
+    if (!headers_sent()) {
+        // 设置Cookie，有效期365天
+        $result = setcookie(
+            'angola_b2b_lang',
+            $lang,
+            time() + (365 * 24 * 60 * 60),
+            '/',
+            '',
+            is_ssl(),
+            true // httponly
+        );
+        return $result;
+    }
+    
+    // 如果headers已发送，至少确保当前请求使用正确的语言
+    return true;
 }
 
 /**
@@ -241,12 +246,18 @@ function angola_b2b_language_switcher($args = array()) {
 }
 
 /**
- * 在init钩子上初始化语言系统
+ * 在plugins_loaded钩子上初始化语言系统（更早，确保在输出前设置Cookie）
  */
-add_action('init', 'angola_b2b_init_multilingual', 1);
+add_action('plugins_loaded', 'angola_b2b_init_multilingual', 1);
 function angola_b2b_init_multilingual() {
-    // 确保语言已经设置
-    angola_b2b_get_current_language();
+    // 如果URL中有lang参数，优先处理（用于语言切换）
+    if (isset($_GET['lang']) && array_key_exists($_GET['lang'], ANGOLA_B2B_SUPPORTED_LANGS)) {
+        $lang = sanitize_text_field($_GET['lang']);
+        angola_b2b_set_language($lang);
+    } else {
+        // 否则确保语言已经设置（从Cookie或浏览器语言）
+        angola_b2b_get_current_language();
+    }
 }
 
 /**
