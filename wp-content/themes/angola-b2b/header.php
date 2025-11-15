@@ -63,8 +63,8 @@ wp_body_open();
                             // 使用WordPress自定义Logo
                             the_custom_logo();
                         } else {
-                            // 显示文字Logo
-                            echo '<h1 class="site-title">' . esc_html($site_title) . '</h1>';
+                            // 不显示文字Logo，保持空白
+                            echo '<span class="site-title-hidden" style="display:none;">' . esc_html($site_title) . '</span>';
                         }
                         ?>
                     </a>
