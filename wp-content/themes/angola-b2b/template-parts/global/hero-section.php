@@ -28,7 +28,7 @@ $args = wp_parse_args($custom_args, array(
     'subtitle'           => '',
     'cta_primary'        => array('text' => '', 'url' => ''),
     'cta_secondary'      => array('text' => '', 'url' => ''),
-    'overlay_opacity'    => 0.2,
+    'overlay_opacity'    => 0,
     'height'             => 'large', // small: 40vh, medium: 50vh, large: 70vh, full: 100vh
     'parallax'           => false,
 ));
@@ -123,7 +123,7 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
                 </div>
             <?php endif; ?>
             
-            <div class="hero-overlay" style="opacity: <?php echo esc_attr($args['overlay_opacity']); ?>;"></div>
+            <?php // 遮罩层已移除，直接显示图片 ?>
         </div>
     <?php endif; ?>
     

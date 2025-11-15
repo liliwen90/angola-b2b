@@ -61,8 +61,9 @@
     right: var(--space-4);
     width: auto; /* 改为auto，由left和right决定宽度 */
     height: 100%;
-    z-index: 1; /* 低于header (z-index: 9999)，作为背景层 */
+    z-index: 1; /* 背景层 */
     overflow: hidden;
+    opacity: 1; /* 确保背景完全不透明 */
 }
 
 .hero-image-wrapper {
@@ -93,15 +94,7 @@
     object-fit: cover;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-black);
-    z-index: 2;
-}
+/* Hero overlay 已移除 - 直接显示背景图片 */
 
 /* ============================================
    Hero Content
@@ -109,7 +102,7 @@
 
 .hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 2; /* 降低z-index,但仍高于背景 */
     width: 100%;
     padding: var(--space-8) 0; /* 移除左右padding，因为外层已有 */
     text-align: center;
@@ -130,7 +123,7 @@
     font-weight: var(--font-weight-bold);
     line-height: 1.1;
     color: var(--color-white);
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     letter-spacing: -0.02em;
     display: flex;
     flex-direction: column;
@@ -172,7 +165,7 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
     color: var(--color-white);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
