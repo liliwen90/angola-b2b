@@ -53,7 +53,7 @@ echo $header_output;
             
             angola_b2b_display_hero_section(array(
                 'height' => get_field('hero_height', $homepage_id) ?: 'full',
-                'background_image' => get_field('hero_image', $homepage_id) ?: '',
+                'background_image' => get_field('hero_background_image', $homepage_id) ?: '',
                 'title' => get_field('hero_title', $homepage_id) ?: '',
                 'subtitle' => get_field('hero_subtitle', $homepage_id) ?: '',
                 'cta_primary' => array(

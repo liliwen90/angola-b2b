@@ -86,7 +86,7 @@ if (!empty($args['background_image'])) {
     if (is_numeric($args['background_image'])) {
         $background_image_url = wp_get_attachment_url($args['background_image']); // 使用完整URL而非缩略图
     } elseif (is_array($args['background_image']) && isset($args['background_image']['url'])) {
-        // ACF image field array
+        // ACF file/image field array
         $background_image_url = $args['background_image']['url'];
     } else {
         // Direct URL
@@ -97,6 +97,11 @@ if (!empty($args['background_image'])) {
     if ($background_image_url) {
         $extension = strtolower(pathinfo($background_image_url, PATHINFO_EXTENSION));
         $is_video = in_array($extension, array('mp4', 'webm', 'ogg', 'mov'));
+        
+        // 调试信息 (仅限管理员可见)
+        if (current_user_can('administrator')) {
+            error_log('Hero媒体调试: URL=' . $background_image_url . ', 扩展名=' . $extension . ', 是视频=' . ($is_video ? '是' : '否'));
+        }
     }
 }
 
