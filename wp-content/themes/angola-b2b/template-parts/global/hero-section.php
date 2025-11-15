@@ -78,18 +78,25 @@ if (empty($args['title'])) {
     }
 }
 
-// Process background image
+// Process background image/video
 $background_image_url = '';
+$is_video = false;
 if (!empty($args['background_image'])) {
     // If it's a numeric ID, get attachment URL
     if (is_numeric($args['background_image'])) {
-        $background_image_url = wp_get_attachment_image_url($args['background_image'], 'hero-banner');
+        $background_image_url = wp_get_attachment_url($args['background_image']); // 使用完整URL而非缩略图
     } elseif (is_array($args['background_image']) && isset($args['background_image']['url'])) {
         // ACF image field array
         $background_image_url = $args['background_image']['url'];
     } else {
         // Direct URL
         $background_image_url = $args['background_image'];
+    }
+    
+    // 检测是否为视频文件 (mp4, webm, ogg)
+    if ($background_image_url) {
+        $extension = strtolower(pathinfo($background_image_url, PATHINFO_EXTENSION));
+        $is_video = in_array($extension, array('mp4', 'webm', 'ogg', 'mov'));
     }
 }
 
@@ -109,21 +116,31 @@ if (empty($args['title']) && empty($args['subtitle']) && empty($background_image
     <?php if ($background_image_url || $args['background_video']) : ?>
         <div class="hero-background">
             <?php if ($args['background_video']) : ?>
+                <!-- 通过参数传入的视频URL -->
                 <video class="hero-video" autoplay muted loop playsinline>
                     <source src="<?php echo esc_url($args['background_video']); ?>" type="video/mp4">
                 </video>
             <?php endif; ?>
             
             <?php if ($background_image_url) : ?>
-                <div class="hero-image-wrapper">
-                    <img src="<?php echo esc_url($background_image_url); ?>" 
-                         alt="<?php echo esc_attr($args['title'] ?: ''); ?>"
-                         class="hero-image"
-                         loading="eager">
-                </div>
+                <?php if ($is_video) : ?>
+                    <!-- 通过背景图片字段上传的视频文件 (mp4/webm/ogg) -->
+                    <video class="hero-video" autoplay muted loop playsinline>
+                        <source src="<?php echo esc_url($background_image_url); ?>" type="video/<?php echo esc_attr($extension); ?>">
+                        您的浏览器不支持视频播放。
+                    </video>
+                <?php else : ?>
+                    <!-- 图片文件 (jpg/png/gif/webp等) -->
+                    <div class="hero-image-wrapper">
+                        <img src="<?php echo esc_url($background_image_url); ?>" 
+                             alt="<?php echo esc_attr($args['title'] ?: ''); ?>"
+                             class="hero-image"
+                             loading="eager">
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
             
-            <?php // 遮罩层已移除，直接显示图片 ?>
+            <?php // 遮罩层已移除，直接显示图片/视频 ?>
         </div>
     <?php endif; ?>
     

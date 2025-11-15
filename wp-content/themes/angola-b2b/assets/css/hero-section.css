@@ -84,14 +84,13 @@
 
 .hero-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* 与图片保持一致，允许拉伸以填充整个区域 */
+    object-position: center bottom; /* 与图片保持一致的显示位置 */
+    display: block;
 }
 
 /* Hero overlay 已移除 - 直接显示背景图片 */
