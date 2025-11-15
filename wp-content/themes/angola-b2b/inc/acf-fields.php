@@ -229,13 +229,13 @@ function angola_b2b_register_homepage_settings_fields() {
     );
     $fields[] = array(
                 'key' => 'field_hero_background_image',
-                'label' => 'Hero背景图片',
+                'label' => 'Hero背景图片/视频',
                 'name' => 'hero_background_image',
-                'type' => 'image',
-                'instructions' => '首页Hero区域的背景图片（建议尺寸：1920x800px）',
+                'type' => 'file',
+                'instructions' => '首页Hero区域的背景图片或视频（支持jpg/png/gif/webp/mp4/webm等格式，建议尺寸：1920x800px）',
                 'return_format' => 'array',
-                'preview_size' => 'medium',
                 'library' => 'all',
+                'mime_types' => 'jpg,jpeg,png,gif,webp,svg,mp4,webm,ogg,mov',
     );
     $fields[] = array(
                 'key' => 'field_hero_title',
